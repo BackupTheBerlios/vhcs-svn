@@ -45,8 +45,16 @@ engine/traffic/vhcs2-vrl-traff-SUSE must renamed into vhcs2-vrl-traff;
 
 	(o) vhcs2_common_code.pl fix by 'Reisswolf' - fix bug #0000191 in get_human_date();
 
+	(o) vhcs2-arpl-msgr fix by 'Reisswolf' - rewritten function arpl_msgr_engine;
+autoresponder work with domain/subdomain/alias domain, don't send "_no_" any longer, 
+improved mail header parser;
+
 	(o) vhcs2-mbox-mngr fix by 'Reisswolf' - fix bug #0000161 in mbox_check_sasl_user()
 added CMD_SASLDB_LISTUSERS2 to vhcs2.conf;
+
+	(o) vhcs2-mbox-mngr fix by 'Reisswolf' - fix bug #0000101 (fix postfix waring
+"/var/spool/postfix/etc/sasldb2 and /etc/sasldb2 differ" changed: MTA_SASLDB_FILE 
+and added: POSTFIX_CHROOT in vhcs2.conf
 
 	If you want to do the same with apache2 log files for every
 domain in your server then you must add corresponding entry in your
@@ -103,3 +111,9 @@ and should be defined in the variable $cfg['HOSTING_PLANS_LEVEL']
 5. phpMyAdmin update to phpMyAdmin-2.6.4-pl3 by 'Reisswolf'
 
 6. deleted some unused templates by 'Reisswolf'
+
+
+Extra Changes
+-------------------------------
+
+1. All language files are included into the build and in the database
