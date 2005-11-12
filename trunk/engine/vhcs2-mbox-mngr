@@ -2854,6 +2854,10 @@ sub mbox_del_sasl_data {
     my $mta_sasldb_file = $main::cfg{'MTA_SASLDB_FILE'};
     
     my $cmd_sasldb_passwd2 = $main::cfg{'CMD_SASLDB_PASSWD2'};
+
+	my $postfix_chroot = $main::cfg{'POSTFIX_CHROOT'};
+
+	my $cmd_cp = $main::cfg{'CMD_CP'};
     
     my $cmd_echo = $main::cfg{'CMD_ECHO'};
     
