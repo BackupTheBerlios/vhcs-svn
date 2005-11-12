@@ -212,11 +212,14 @@ function action_delete(url) {
                     <!-- BDP: mail_item -->
                     <tr>
                       <td nowrap class="{ITEM_CLASS}"><img src="{THEME_COLOR_PATH}/images/icons/mail_icon.gif" width="16" height="14" align="absmiddle"> <a href="{MAIL_EDIT_SCRIPT}" class="link">{MAIL_ACC}</a>
-                          <br><span class="style1">{TR_AUTORESPOND}: [&nbsp;&nbsp;
-						  <!-- BDP: mail_auto_respond -->
-                          <a href="{AUTO_RESPOND_ACTION_SCRIPT}" class="link">{AUTO_RESPOND_ACTION}</a>&nbsp;&nbsp;
-                          <!-- EDP: mail_auto_respond -->
-						  ]</span>
+                          <!-- BDP: auto_respond -->
+						  <br><span class="style1">
+						  {TR_AUTORESPOND}: [&nbsp;&nbsp;
+                          <a href="{AUTO_RESPOND_DISABLE_SCRIPT}" class="link">{AUTO_RESPOND_DISABLE}</a>&nbsp;&nbsp;
+						  <a href="{AUTO_RESPOND_EDIT_SCRIPT}" class="link">{AUTO_RESPOND_EDIT}</a>
+						  ]
+						  <!-- EDP: auto_respond -->
+						  </span>
                       </td>
                       <td nowrap class="{ITEM_CLASS}" width="150">{MAIL_TYPE}</td>
                       <td nowrap class="{ITEM_CLASS}" align="center" width="180">{MAIL_STATUS}</td>

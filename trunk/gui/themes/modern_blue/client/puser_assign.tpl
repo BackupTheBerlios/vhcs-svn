@@ -203,7 +203,7 @@
 				    </tr>
 				  <tr>
                       <td width="18">&nbsp;</td>
-                      <td width="200" class="content2"> {TR_ALLREADY}</td>
+                      <td width="200" class="content2"> {TR_MEMBER_OF_GROUP}</td>
                       <td class="content"><select name="groups_in">
 						<!-- BDP: already_in -->
 						<option value="{GRP_IN_ID}">{GRP_IN}</option>
@@ -217,7 +217,7 @@
 				  </tr>
                     <tr>
                       <td>&nbsp;</td>
-                      <td class="content2"> {TR_NOT_IN}</td>
+                      <td class="content2"> {TR_SELECT_GROUP}</td>
                       <td class="content">
 					  <select name="groups">
 					  

@@ -198,24 +198,24 @@ function MM_goToURL() { //v3.0
           </tr>
           <tr>
             <td>
-			  <table width="100%" cellpadding="5" cellspacing="5">
+			  <table width="100%" align="left" cellpadding="5" cellspacing="5">
                 <tr>
                 <!-- BDP: page_message -->
                 <tr>
-                  <td nowrap >&nbsp;</td>
+                  <td width="5" nowrap >&nbsp;</td>
                   <td colspan="4" nowrap class="title"><font color="#FF0000">{MESSAGE}</font></td>
                   </tr>
                 <!-- EDP: page_message -->
 				<!-- BDP: protected_areas -->
                 <tr>
-                  <td nowrap align="center">&nbsp;</td>
+                  <td width="5" align="center" nowrap>&nbsp;</td>
                   <td class="content3" nowrap><b>{TR_HTACCESS}</b></td>
                   <td width="80" align="center" nowrap class="content3"><strong>{TR_STATUS}</strong></td>
                   <td width="" colspan="2" align="center" nowrap class="content3"><b>{TR__ACTION}</b></td>
                 </tr>
                 <!-- BDP: dir_item -->
                 <tr>
-                  <td nowrap align="center">&nbsp;</td>
+                  <td width="5" align="center" nowrap>&nbsp;</td>
                   <td class="{CLASS}" nowrap>{AREA_NAME}<br>
                     <u>{AREA_PATH}</u></td>
                   <td width="80" class="{CLASS}" nowrap align="center">{STATUS}</td>
@@ -227,10 +227,9 @@ function MM_goToURL() { //v3.0
 				<!-- EDP: dir_item -->
 				<!-- EDP: protected_areas -->
                 <tr>
-                  <td nowrap align="center">&nbsp;</td>
+                  <td width="5" align="center" nowrap>&nbsp;</td>
                   <td colspan="4" nowrap><input name="Button" type="button" class="button" onClick="MM_goToURL('parent','protect_it.php');return document.MM_returnValue" value="{TR_ADD_AREA}">&nbsp;&nbsp;&nbsp;<input name="Button" type="button" class="button" onClick="MM_goToURL('parent','puser_manage.php');return document.MM_returnValue" value="{TR_MANAGE_USRES}"></td>
                   </tr>
-                
               </table>
 			</td>
             <td>&nbsp;</td>

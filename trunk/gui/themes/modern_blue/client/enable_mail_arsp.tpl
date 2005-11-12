@@ -192,7 +192,7 @@ function action_delete(url) {
             <td><table width="100%"  border="00" cellspacing="0" cellpadding="0">
                 <tr>
                   <td width="20">&nbsp;</td>
-                  <td valign="top"><form name="manage_users_common_frm" method="post" action="enable_mail_arsp.php">
+                  <td valign="top"><form name="manage_users_common_frm" method="post" action="">
             <table width="100%" cellpadding="5" cellspacing="5">
               <!-- BDP: page_message -->
               <tr> 
@@ -213,7 +213,8 @@ function action_delete(url) {
             </table>
             <input type="hidden" name="uaction" value="enable_arsp">
             <input type="hidden" name="id" value="{ID}">
-            <input name="Submit" type="submit" class="button" value="{TR_ENABLE}">			
+            <input name="Submit" type="submit" class="button" value="{TR_ENABLE}">&nbsp;	
+            <input type="button" name="Submit2" value="{TR_CANCEL}" class="button" onClick="location = 'email_accounts.php'">		
                   </form>  
                     </td>
                 </tr>
