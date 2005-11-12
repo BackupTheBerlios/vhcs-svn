@@ -1,0 +1,105 @@
+VHCS 2.4.7 Changelog
+~~~~~~~~~~~~~~~~~~~~~
+
+Perl engine fixes.(1z0)
+------------------------
+
+	(o) Postfix master.cf config file was synced with postfix 2.2.x
+mainstream;
+
+	(o) vhcs2_network script does not run -F INPUT/OUTPUT/FORWARD now.
+This makes a lots of troubles on servers with firewalls;
+
+	(o) DNS timestamp fix by 'Puuhis' (finally .db timestamps will look
+according to the specs);
+
+	(o) Since we made all of the perl engine scripts
+read/write/execute only by 'root' vhcs2-arpl-msgr stopped to
+work becouse it uses vmail:mail user:group pair. Not it has its own db
+decoding subs and works fine with other root permissions;
+
+	(o) htacces management fix - .htaccess files are now remove
+successfully upon delete;
+
+	(o) backup during suspend fix - domains in suspend mode are now
+excluded from automatic backup;
+
+	(o) vhcs2-vrl-traff fix - .perv files are removed if they are
+greater then PREV_TRAFF_LOG_MAX_SIZE bytes; Thus we reduce the chance
+for them to become big;
+
+	(o) vhcs2-vrl-traff fix by 'Reisswolf' - pop(-ssl)/imap(-ssl)/smtp/ftp 
+traffic for alias domains will be counted;
+
+	(o) vhcs2-vrl-traff fix by 'Reisswolf' - pop(-ssl)/imap(-ssl)/smtp/ftp 
+traffic for sub domains will be counted;
+
+	(o) vhcs2-vrl-traff fix by 'Reisswolf' - not counting pop(-ssl)/imap(-ssl) 
+traffic from localhost produced by webmail;
+
+	(o) vhcs2-vrl-traff fix by 'Reisswolf' - different traffic analyse method 
+if amavis is used or not. With the MAIL_LOG_INC_AMAVIS switches the method; 
+
+	(o) vhcs2-vrl-traff fix by 'Reisswolf' - added spezial version for SUSE
+engine/traffic/vhcs2-vrl-traff-SUSE must renamed into vhcs2-vrl-traff;
+
+	(o) vhcs2_common_code.pl fix by 'Reisswolf' - fix bug #0000191 in get_human_date();
+
+	(o) vhcs2-mbox-mngr fix by 'Reisswolf' - fix bug #0000161 in mbox_check_sasl_user()
+added CMD_SASLDB_LISTUSERS2 to vhcs2.conf;
+
+	If you want to do the same with apache2 log files for every
+domain in your server then you must add corresponding entry in your
+local logrotate configuration. For example in Debian this entry looks
+like the following:
+
+filename: 
+	
+	/etc/logrotate.d/vhcs2
+
+contents:
+
+	=== cut ===
+	/var/log/apache2/users/*.log {
+			weekly
+			missingok
+			rotate 52
+			compress
+			delaycompress
+			notifempty
+			create 640 root adm
+			sharedscripts
+			postrotate
+					if [ -f /var/run/apache2.pid ]; then
+							/etc/init.d/apache2 restart > /dev/null
+					fi
+			endscript
+	}
+	=== cut ===
+
+	To eliminate the chance for double traffic counting you must
+configure your logrotate to run right after VHCS's virtual traffic
+counting.
+
+
+
+
+GUI Changes (alex)
+-------------------------------
+
+1. Optional Hosting Plan Managemnt in admin or reseller level
+
+At a moment this can be definded in /gui/include/vhcs-lib.php
+and should be defined in the variable $cfg['HOSTING_PLANS_LEVEL']
+
+2. several gui bug fixes
+
+3. Every date in the GUI use now the DATE_FORMAT fix by 'Reisswolf'
+
+4. Every FTP Seperator comes now from FTP_USERNAME_SEPARATOR fix by 'Reisswolf' 
+	(this means only the new added FTP accounts, all other accounts must be 
+	changed manually by a SQL query.)
+
+5. phpMyAdmin update to phpMyAdmin-2.6.4-pl3 by 'Reisswolf'
+
+6. deleted some unused templates by 'Reisswolf'
