@@ -90,7 +90,6 @@ gen_page_message($tpl);
 
 if (isset($_POST['uaction']) && ('sub_data' === $_POST['uaction'])) {
 // Process data
-        //var_dump($_SESSION);
 	if(isset($_SESSION['edit_id']))	{
 		$editid = $_SESSION['edit_id'];
         }
@@ -102,7 +101,7 @@ if (isset($_POST['uaction']) && ('sub_data' === $_POST['uaction'])) {
 		die();
 	}
 
-	if(check_user_data($tpl, $_SESSION['user_id'], $editid))
+	if(check_user_data($tpl, $sql, $_SESSION['user_id'], $editid))
 	{// Save data to db
 		$_SESSION['dedit'] = "_yes_";
 		Header("Location: users.php");
@@ -168,10 +167,6 @@ SQL_QUERY;
 			header('Location: users.php');
 			die();
 		}
-
-
-
-
 
 	list (
            $a, $sub,
@@ -364,7 +359,7 @@ function update_data_in_db($hpid)
 
 
 //Check input data
-function check_user_data ( &$tpl, $reseller_id, $user_id) {
+function check_user_data ( &$tpl, &$sql, $reseller_id, $user_id) {
 
     global $sub, $als, $mail, $ftp, $sql_db, $sql_user, $traff, $disk, $sql, $domain_ip, $domain_php, $domain_cgi;
 
@@ -475,9 +470,19 @@ function check_user_data ( &$tpl, $reseller_id, $user_id) {
     }
 
     if ($ed_error == '_off_') {
+		$query = <<<SQL_QUERY
+			SELECT
+				COUNT(su.sqlu_id) as cnt
+			FROM
+				sql_user as su, sql_database as sd
+			WHERE
+				su.sqld_id = sd.sqld_id
+			AND
+				sd.domain_id = ?
+SQL_QUERY;
 
-        calculate_user_dvals($sql_user, $usql_user_current, $usql_user_max, $rsql_user_current, $rsql_user_max, $ed_error, tr('SQL User'));
-
+		$rs = exec_query($sql, $query, array($_SESSION['user_id']));
+		calculate_user_dvals($sql_user, $rs -> fields['cnt'], $usql_user_max, $rsql_user_current, $rsql_user_max, $ed_error, tr('SQL User'));
     }
 
     if ($ed_error == '_off_') {

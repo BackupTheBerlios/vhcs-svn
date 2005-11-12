@@ -124,7 +124,8 @@ function send_circular(&$tpl, &$sql)
         if (check_user_data($tpl)) {
 
             send_reseller_users_message ( &$sql, $_SESSION['user_id']);
-
+			unset($_POST['uaction']);
+			gen_page_data($tpl, $sql);
         }
     }
 }
@@ -157,7 +158,7 @@ SQL_QUERY;
 
         $to = $rs->fields['fname']." ".$rs->fields['lname']." <".$rs->fields['email'].">";
 
-        send_circular_email($to, "$sender_name <$sender_email>", $msg_subject, $msg_text);
+        send_circular_email($to, "$sender_name <$sender_email>", stripslashes($msg_subject), stripslashes($msg_text));
 
         $rs -> MoveNext();
     }

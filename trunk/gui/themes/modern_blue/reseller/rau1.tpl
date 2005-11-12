@@ -195,14 +195,11 @@ function MM_swapImgRestore() { //v3.0
                 <td colspan="2" class="title"><font color="#FF0000">{MESSAGE}</font></td>
                 </tr>
               <!-- EDP: page_message -->
-			  <!-- BDP: add_user -->
+			  <!-- BDP: add_form -->
 			  <tr>
                 <td width="20">&nbsp;</td> 
                 <td colspan="2" class="content3">{TR_CORE_DATA}</td>
                 </tr>
-			
-			
-			
                 <tr>
                 <td width="20">&nbsp;</td> 
                 <td class="content2" width="200">{TR_DOMAIN_NAME}</td>
@@ -210,6 +207,7 @@ function MM_swapImgRestore() { //v3.0
                   <input type="text" name=dmn_name value="{DMN_NAME_VALUE}" style="width:210px" class="textinput">
                 </td>
               </tr>
+			  <!-- BDP: add_user -->
               <tr>
                 <td width="20">&nbsp;</td> 
                 <td class="content2" width="200">{TR_CHOOSE_HOSTING_PLAN}</td>
@@ -232,11 +230,12 @@ function MM_swapImgRestore() { //v3.0
                 </td>
               </tr>
 			  <!-- EDP: personalize -->
+			  <!-- EDP: add_user -->
               <tr>
                 <td>&nbsp;</td>
                 <td colspan="2"><input name="Submit" type="submit" class="button" value="{TR_NEXT_STEP}"></td>
                 </tr>
-				<!-- EDP: add_user -->
+				<!-- EDP: add_form -->
             </table>
 			
 			

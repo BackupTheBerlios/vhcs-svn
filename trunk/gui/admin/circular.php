@@ -41,8 +41,6 @@ $tpl -> assign(
                      )
               );
 
-
-
 function gen_page_data ( &$tpl, &$sql)
 {
 
@@ -96,9 +94,9 @@ function check_user_data ( &$tpl ) {
 
     $err_message = '_off_';
 
-    $msg_subject = htmlspecialchars($_POST['msg_subject'], ENT_QUOTES, "UTF-8");
+    $msg_subject = $_POST['msg_subject'];
 
-    $msg_text = htmlspecialchars($_POST['msg_text'], ENT_QUOTES, "UTF-8");
+    $msg_text = $_POST['msg_text'];
 
     $sender_email = $_POST['sender_email'];
 
@@ -145,7 +143,7 @@ function send_reseller_message ( &$sql) {
 
     $user_id = $_SESSION['user_id'];
 
-    $msg_subject = $_POST['msg_subject'];
+    $msg_subject = stripslashes($_POST['msg_subject']);
 
     $msg_text = $_POST['msg_text'];
 
@@ -171,7 +169,8 @@ SQL_QUERY;
         if ($_POST['rcpt_to'] == 'rslrs' || $_POST['rcpt_to'] == 'usrs_rslrs') {
 
             $to = $rs->fields['fname']." ".$rs->fields['lname']." <".$rs->fields['email'].">";
-            send_circular_email($to, "$sender_name <$sender_email>", $msg_subject, $msg_text);
+            send_circular_email($to, "$sender_name <$sender_email>", stripslashes($msg_subject),
+			                    stripslashes($msg_text));
 
         }
 
@@ -200,8 +199,12 @@ function send_circular(&$tpl, &$sql)
         if (check_user_data($tpl)) {
 
             send_reseller_message( &$sql);
+			
+			unset($_POST['uaction']);
+			
+			gen_page_data($tpl, $sql);
 
-        }
+        };
     }
 }
 
@@ -232,7 +235,7 @@ SQL_QUERY;
 
         $to = $rs->fields['fname']." ".$rs->fields['lname']." <".$rs->fields['email'].">";
 
-        send_circular_email($to, "$sender_name <$sender_email>", $msg_subject, $msg_text);
+        send_circular_email($to, "$sender_name <$sender_email>", stripslashes($msg_subject), stripslashes($msg_text));
 
         $rs -> MoveNext();
     }
@@ -248,18 +251,15 @@ function send_circular_email ($to, $from, $subject, $message) {
 
     $headers = "From: $from\r\n";
 
-	//$headers .= "Date: ".$mail_date."\r\n";
-
-    $headers .= "X-Mailer: VHCS Pro v2.0 marketing mailer";
-
-    $mail_result = mail($to, $subject, $message, $headers);
+    $headers .= "X-Mailer: VHCS Pro v2 marketing mailer";
+	
+	$mail_result = mail($to, $subject, $message, $headers);
 
     $mail_status = ($mail_result) ? 'OK' : 'NOT OK';
 
     $user_logged= $_SESSION['user_logged'];
 
     $log_message = "$user_logged: Circular Mail To: |$to|, From: |$from|, Status: |$mail_status| !";
-
 
 }
 
