@@ -42,7 +42,8 @@ BEGIN {
                   MIME::Parser, 
                   Crypt::CBC, 
                   Crypt::Blowfish,
-                  MIME::Base64, 
+                  MIME::Base64,
+                  Mail::Address,
                   Term::ReadPassword);
     
     my ($mod, $mod_err, $mod_missing) = ('', '_off_', '');
@@ -1633,12 +1634,6 @@ sub arpl_msgr_shut_down {
 
 sub arpl_msgr_engine {
     
-	my $cmd = undef;
-	
-	my @all_to = undef;
-	
-	my $to_ma_orig = undef;
-
 	push_el(\@main::el, 'arpl_msgr_engine()', 'Starting...');
     
 	my $msg_parser = new MIME::Parser;
@@ -1649,160 +1644,181 @@ sub arpl_msgr_engine {
     
     my $head = $msg_entity -> head();
     
-    my $from_ma = $head -> get('From');
-   
-    my $to_ma = $head -> get('To');
-    
-    $from_ma = $1 if ($from_ma =~ /([^\n\r]+)[\n\r]/);
-
-    $from_ma = $1 if ($from_ma =~ /\<([^\>]+)\>/);
-    
-	@all_to = split(/,/, $to_ma);
-	
-	foreach(@all_to) {
-
-		$to_ma = $_; $to_ma_orig = $_;
-
-    	$to_ma = $1 if ($to_ma =~ /([^\n\r]+)[\n\r]/);
-    
-	    $to_ma = $1 if ($to_ma =~ /\<([^\>]+)\>/);
-
-    	push_el(\@main::el, 'arpl_msgr_engine():', ">>> From: |$from_ma|, To: |$to_ma|");
-    
-	    if ($to_ma ne $from_ma) {
+	my @from_ma = Mail::Address->parse($head -> get('From'));
         
-    	    push_el(\@main::el, 'arpl_msgr_engine():', "loop!");
-        
-			my $ma = "$to_ma\n";
-        
-        	return 0 if (!($ma =~ /^([^\@]+)\@([^\n]+)\n$/));
-        
-        	my ($user, $dmn) = ($1, $2);
+	my @to_addrs = Mail::Address->parse($head -> get('To'));
 
-        	my ($sql, $rs, $ref, $dmn_id, $sub_id, $pt) = (undef, undef, undef, undef, undef, undef);
+	my $buffer = "0";
 
-       	 	my ($domainformsubdomain, $subformsubdomain) = (undef, undef);
+	my $name = undef;
 
+	my $mail_to = undef;
 
-        	$sql = "select count(domain_id) as cnt from domain where domain_name = '$dmn'";
+	my $to_ma = undef;
 
-        
-        	($rs, $ref) = doSQL($sql);
-            
-        	return $rs if ($rs != 0);
-        
-        	$ref = @$ref[0];
-        
-        	if (@$ref[0] == 1) {
-            
-            	$pt = 1;
-            
-        	} else {
-            
-            	$pt = 2;
-            
-        	}
+	foreach $to_ma (@to_addrs) {
 
-        	if ($pt == 1) {
-            
-            	$sql = "select domain_id from domain where domain_name = '$dmn';"; 
-            
-            	($rs, $ref) = doSQL($sql);
-            
-            	return $rs if ($rs != 0);
-            
-            	$ref = @$ref[0]; $dmn_id = @$ref[0];            
-            
-            	$sql = "select mail_auto_respond from mail_users where mail_acc = '$user' and domain_id = '$dmn_id' and sub_id = '0';";
-            
-        	} elsif ($pt == 2) {
+		if($to_ma->address =~ m/@/i && $to_ma->address !~ m/"/g) {
 
-				$sql = "select alias_id as alias_id, domain_id as domain_id from domain_aliasses where alias_name = '$dmn';";
-            
-				($rs, $ref) = doSQL($sql);
-            
-				return $rs if ($rs != 0);
-            
-				$ref = @$ref[0]; $sub_id = @$ref[0]; $dmn_id = @$ref[1];
-
- 				if($dmn =~ /(.*)(\.)(.*\.)(.*)$/ && !$sub_id) 
-				{
-
-					$domainformsubdomain = $3.$4;
-					$subformsubdomain = $1;
-
-					$sql = "select count(domain_id) as cnt from domain where domain_name = '$domainformsubdomain'";
-
-					($rs, $ref) = doSQL($sql);
-            
-					return $rs if ($rs != 0);
-        
-					$ref = @$ref[0];
-        
-		           	$sql = "select domain_id from domain where domain_name = '$domainformsubdomain';";
-            	
-	   		        ($rs, $ref) = doSQL($sql);
-            
-	   	        	return $rs if ($rs != 0);
-        	    
-		            $ref = @$ref[0]; $dmn_id = @$ref[0];
-
-					$sql = "select subdomain_id from subdomain where subdomain_name = '$subformsubdomain';"; 
-            
-					($rs, $ref) = doSQL($sql);
-            
-					return $rs if ($rs != 0);
-           
-					$ref = @$ref[0]; $sub_id = @$ref[0];
-				}
-
-				$sql = "select mail_auto_respond from mail_users where mail_acc = '$user' and sub_id = '$sub_id' and domain_id = '$dmn_id';";
-            
-	        }
-            
-	        ($rs, $ref) = doSQL($sql);
-            
-	        return $rs if ($rs != 0);
-        
-        
-	        $ref = @$ref[0]; my $auto_message = @$ref[0];
-
-			if($auto_message ne '_no_') {
-			
-		        my $out = new MIME::Entity;
-            
-				$out -> build(
-    		                  From => $to_ma_orig,
-        		              To => $head -> get('From'),
-            		          Subject => "[Autoreply] ".$head -> get('Subject'),
-                		      Type => "multipart/mixed",
-                    		  'X-Mailer' => "$main::cfg{'VersionH'} Autoreply Manager"
-							);
-        
-        
-				$out -> attach(
-                    		  Type => "text/plain",
-                    		  Encoding => "7bit",
-                    		  Description => "Mail User Autoreply Message",
-                    		  Data => $auto_message
-							);
-        
-				$out -> attach(
-                    		  Type => "message/rfc822",
-                    		  Description => "Original Message",
-                    		  Data => $msg
-							);
-            
-				open MAIL, "| /usr/sbin/sendmail -t -oi";
-        
-				$out -> print(\*MAIL);
-        
-				close MAIL;
+			if($buffer) {
+				$name = $buffer;
+				$buffer = "0";
+			}
+			else {
+				if($to_ma->phrase) { $name = $to_ma->phrase; }
+				else { $name = ""; }
 			}
 
-	    }
+			print $to_ma->address."\n";
+
+    		push_el(\@main::el, 'arpl_msgr_engine():', ">>> From: |".$from_ma[0]->address."|, To: |".$to_ma->address."|");
+
+
+	    	if ($to_ma->address ne $from_ma[0]->address) {
+
+    	    	push_el(\@main::el, 'arpl_msgr_engine():', "loop!");
+
+				my $ma = $to_ma->address."\n";
+
+        		return 0 if (!($ma =~ /^([^\@]+)\@([^\n]+)\n$/));
+
+	        	my ($user, $dmn) = ($1, $2);
+
+    	    	my ($sql, $rs, $ref, $dmn_id, $sub_id, $pt) = (undef, undef, undef, undef, undef, undef);
+
+       		 	my ($domainformsubdomain, $subformsubdomain) = (undef, undef);
+
+        		$sql = "select count(domain_id) as cnt from domain where domain_name = '$dmn'";
+
+	        	($rs, $ref) = doSQL($sql);
+
+    	    	return $rs if ($rs != 0);
+
+        		$ref = @$ref[0];
+        
+        		if (@$ref[0] == 1) {
+            
+            		$pt = 1;
+            
+	        	} else {
+            
+    	        	$pt = 2;
+            
+        		}
+
+        		if ($pt == 1) {
+            
+            		$sql = "select domain_id from domain where domain_name = '$dmn';"; 
+            
+	            	($rs, $ref) = doSQL($sql);
+            
+    	        	return $rs if ($rs != 0);
+            
+        	    	$ref = @$ref[0]; $dmn_id = @$ref[0];            
+            
+	            	$sql = "select mail_auto_respond from mail_users where mail_acc = '$user' and domain_id = '$dmn_id' and sub_id = '0';";
+            
+    	    	} elsif ($pt == 2) {
+
+					$sql = "select alias_id as alias_id, domain_id as domain_id from domain_aliasses where alias_name = '$dmn';";
+            
+					($rs, $ref) = doSQL($sql);
+            
+					return $rs if ($rs != 0);
+            
+					$ref = @$ref[0]; $sub_id = @$ref[0]; $dmn_id = @$ref[1];
+
+ 					if($dmn =~ /(.*)(\.)(.*\.)(.*)$/ && !$sub_id) 
+					{
+
+						$domainformsubdomain = $3.$4;
+						$subformsubdomain = $1;
+
+						$sql = "select count(domain_id) as cnt from domain where domain_name = '$domainformsubdomain'";
+
+						($rs, $ref) = doSQL($sql);
+            
+						return $rs if ($rs != 0);
+        
+						$ref = @$ref[0];
+        
+		        	   	$sql = "select domain_id from domain where domain_name = '$domainformsubdomain';";
+            	
+	   		        	($rs, $ref) = doSQL($sql);
+            
+		   	        	return $rs if ($rs != 0);
+        	    
+			            $ref = @$ref[0]; $dmn_id = @$ref[0];
+
+						$sql = "select subdomain_id from subdomain where subdomain_name = '$subformsubdomain';"; 
+            
+						($rs, $ref) = doSQL($sql);
+            
+						return $rs if ($rs != 0);
+           
+						$ref = @$ref[0]; $sub_id = @$ref[0];
+					}
+	
+					$sql = "select mail_auto_respond from mail_users where mail_acc = '$user' and sub_id = '$sub_id' and domain_id = '$dmn_id';";
+            
+		        }
+            
+	    	    ($rs, $ref) = doSQL($sql);
+            
+	        	return $rs if ($rs != 0);
+        
+        
+		        $ref = @$ref[0]; my $auto_message = @$ref[0];
+
+				if($auto_message ne '_no_') {
+
+					if($name) { $mail_to = "\"".$name."\" "."<".$to_ma->address.">"; }
+					
+					else{ $mail_to = $to_ma->address; }
+
+
+			        my $out = new MIME::Entity;
+            
+					$out -> build(
+    		    	              From => $mail_to,
+        		    	          To => $head -> get('From'),
+            		    	      Subject => "[Autoreply] ".$head -> get('Subject'),
+                		    	  Type => "multipart/mixed",
+	                    		  'X-Mailer' => "$main::cfg{'VersionH'} Autoreply Manager"
+								);
+        
+        	
+					$out -> attach(
+	                    		  Type => "text/plain",
+    	                		  Encoding => "7bit",
+        	            		  Description => "Mail User Autoreply Message",
+            	        		  Data => $auto_message
+								);
+        
+					$out -> attach(
+    	                		  Type => "message/rfc822",
+        	            		  Description => "Original Message",
+            	        		  Data => $msg
+								);
+            
+					open MAIL, "| /usr/sbin/sendmail -t -oi";
+    	    
+					$out -> print(\*MAIL);
+        
+					close MAIL;
+				}
+
+		    }
     
-	    push_el(\@main::el, 'arpl_msgr_engine()', 'Ending...');
+	    	push_el(\@main::el, 'arpl_msgr_engine()', 'Ending...');
+
+		}
+		else
+		{
+			$buffer = $to_ma->address;
+			$buffer =~ s/"//g;
+		}
+
 
     }
     
@@ -1847,4 +1863,3 @@ if ($rs != 0) {
 }
 
 exit 0;
-
