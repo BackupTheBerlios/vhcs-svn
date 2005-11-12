@@ -2663,10 +2663,8 @@ sub mbox_add_sasl_data {
     
     my $cmd_sasldb_passwd2 = $main::cfg{'CMD_SASLDB_PASSWD2'};
 
-	my $postfix_chroot = $main::cfg{'POSTFIX_CHROOT'};
+	my $sasldb_file = $main::cfg{'SASLDB_FILE'};
 
-	my $cmd_cp = $main::cfg{'CMD_CP'};
-    
     my $cmd_echo = $main::cfg{'CMD_ECHO'};
     
     my $cmd_del_user = undef; 
@@ -2695,11 +2693,11 @@ sub mbox_add_sasl_data {
         
         $check_user = "$mail_acc\@$dmn_name";
         
-        $cmd_del_user = "$cmd_sasldb_passwd2 -d -f $mta_sasldb_file -u $dmn_name $mail_acc";
-		$cmd_del_user .= " && $cmd_cp $mta_sasldb_file $mta_sasldb_file$postfix_chroot";
+        $cmd_del_user =  "$cmd_sasldb_passwd2 -d -f $mta_sasldb_file -u $dmn_name $mail_acc";
+        $cmd_del_user .=  " && $cmd_sasldb_passwd2 -d -f $sasldb_file -u $dmn_name $mail_acc";
 		
 		$cmd_add_user = "$cmd_echo \"$mail_pass\" | $cmd_sasldb_passwd2 -p -c -f $mta_sasldb_file -u $dmn_name $mail_acc";
-        $cmd_add_user .= " && $cmd_cp $mta_sasldb_file $postfix_chroot";
+		$cmd_add_user .= " && $cmd_echo \"$mail_pass\" | $cmd_sasldb_passwd2 -p -c -f $sasldb_file -u $dmn_name $mail_acc";
         
         $hash_key = "$mail_acc\@$dmn_name";
         
@@ -2722,11 +2720,11 @@ sub mbox_add_sasl_data {
         
         $check_user = "$mail_acc\@$dmn_name";
         
-        $cmd_del_user = "$cmd_sasldb_passwd2 -d -f $mta_sasldb_file -u $dmn_name $mail_acc";
-		$cmd_del_user .= " && $cmd_cp $mta_sasldb_file $mta_sasldb_file$postfix_chroot";
-
-        $cmd_add_user = "$cmd_echo \"$mail_pass\" | $cmd_sasldb_passwd2 -p -c -f $mta_sasldb_file -u $dmn_name $mail_acc";
-		$cmd_add_user .= " && $cmd_cp $mta_sasldb_file $postfix_chroot";
+        $cmd_del_user =  "$cmd_sasldb_passwd2 -d -f $mta_sasldb_file -u $dmn_name $mail_acc";
+        $cmd_del_user .=  " && $cmd_sasldb_passwd2 -d -f $sasldb_file -u $dmn_name $mail_acc";
+		
+		$cmd_add_user = "$cmd_echo \"$mail_pass\" | $cmd_sasldb_passwd2 -p -c -f $mta_sasldb_file -u $dmn_name $mail_acc";
+		$cmd_add_user .= " && $cmd_echo \"$mail_pass\" | $cmd_sasldb_passwd2 -p -c -f $sasldb_file -u $dmn_name $mail_acc";
 
         $hash_key = "$mail_acc\@$dmn_name";
         
@@ -2754,11 +2752,11 @@ sub mbox_add_sasl_data {
         
         $check_user = "$mail_acc\@$sub_name";
         
-        $cmd_del_user = "$cmd_sasldb_passwd2 -d -f $mta_sasldb_file -u $sub_name $mail_acc";
-		$cmd_del_user .= " && $cmd_cp $mta_sasldb_file $mta_sasldb_file$postfix_chroot";
-    
-        $cmd_add_user = "$cmd_echo \"$mail_pass\" | $cmd_sasldb_passwd2 -p -c -f $mta_sasldb_file -u $sub_name $mail_acc";
-		$cmd_add_user .= " && $cmd_cp $mta_sasldb_file $postfix_chroot";
+        $cmd_del_user =  "$cmd_sasldb_passwd2 -d -f $mta_sasldb_file -u $dmn_name $mail_acc";
+        $cmd_del_user .=  " && $cmd_sasldb_passwd2 -d -f $sasldb_file -u $dmn_name $mail_acc";
+		
+		$cmd_add_user = "$cmd_echo \"$mail_pass\" | $cmd_sasldb_passwd2 -p -c -f $mta_sasldb_file -u $dmn_name $mail_acc";
+		$cmd_add_user .= " && $cmd_echo \"$mail_pass\" | $cmd_sasldb_passwd2 -p -c -f $sasldb_file -u $dmn_name $mail_acc";
         
         $hash_key = "$mail_acc\@$sub_name";
         
@@ -2854,10 +2852,6 @@ sub mbox_del_sasl_data {
     my $mta_sasldb_file = $main::cfg{'MTA_SASLDB_FILE'};
     
     my $cmd_sasldb_passwd2 = $main::cfg{'CMD_SASLDB_PASSWD2'};
-
-	my $postfix_chroot = $main::cfg{'POSTFIX_CHROOT'};
-
-	my $cmd_cp = $main::cfg{'CMD_CP'};
     
     my $cmd_echo = $main::cfg{'CMD_ECHO'};
     
@@ -2887,11 +2881,11 @@ sub mbox_del_sasl_data {
         
         $check_user = "$mail_acc\@$dmn_name";
         
-        $cmd_del_user = "$cmd_sasldb_passwd2 -d -f $mta_sasldb_file -u $dmn_name $mail_acc";
-		$cmd_del_user .= " && $cmd_cp $mta_sasldb_file $mta_sasldb_file$postfix_chroot";
-    
-        $cmd_add_user = "$cmd_echo \"$mail_pass\" | $cmd_sasldb_passwd2 -p -c -f $mta_sasldb_file -u $dmn_name $mail_acc";
-		$cmd_add_user .= " && $cmd_cp $mta_sasldb_file $postfix_chroot";
+        $cmd_del_user =  "$cmd_sasldb_passwd2 -d -f $mta_sasldb_file -u $dmn_name $mail_acc";
+        $cmd_del_user .=  " && $cmd_sasldb_passwd2 -d -f $sasldb_file -u $dmn_name $mail_acc";
+		
+		$cmd_add_user = "$cmd_echo \"$mail_pass\" | $cmd_sasldb_passwd2 -p -c -f $mta_sasldb_file -u $dmn_name $mail_acc";
+		$cmd_add_user .= " && $cmd_echo \"$mail_pass\" | $cmd_sasldb_passwd2 -p -c -f $sasldb_file -u $dmn_name $mail_acc";
         
         $hash_key = "$mail_acc\@$dmn_name";
         
@@ -2914,11 +2908,11 @@ sub mbox_del_sasl_data {
         
         $check_user = "$mail_acc\@$dmn_name";
         
-        $cmd_del_user = "$cmd_sasldb_passwd2 -d -f $mta_sasldb_file -u $dmn_name $mail_acc";
-		$cmd_del_user .= " && $cmd_cp $mta_sasldb_file $mta_sasldb_file$postfix_chroot";
-    
-        $cmd_add_user = "$cmd_echo \"$mail_pass\" | $cmd_sasldb_passwd2 -p -c -f $mta_sasldb_file -u $dmn_name $mail_acc";
-		$cmd_add_user .= " && $cmd_cp $mta_sasldb_file $postfix_chroot";
+        $cmd_del_user =  "$cmd_sasldb_passwd2 -d -f $mta_sasldb_file -u $dmn_name $mail_acc";
+        $cmd_del_user .=  " && $cmd_sasldb_passwd2 -d -f $sasldb_file -u $dmn_name $mail_acc";
+		
+		$cmd_add_user = "$cmd_echo \"$mail_pass\" | $cmd_sasldb_passwd2 -p -c -f $mta_sasldb_file -u $dmn_name $mail_acc";
+		$cmd_add_user .= " && $cmd_echo \"$mail_pass\" | $cmd_sasldb_passwd2 -p -c -f $sasldb_file -u $dmn_name $mail_acc";
         
         $hash_key = "$mail_acc\@$dmn_name";
         
@@ -2945,11 +2939,11 @@ sub mbox_del_sasl_data {
         
         $check_user = "$mail_acc\@$sub_name";
         
-        $cmd_del_user = "$cmd_sasldb_passwd2 -d -f $mta_sasldb_file -u $sub_name $mail_acc";
-		$cmd_del_user .= " && $cmd_cp $mta_sasldb_file $mta_sasldb_file$postfix_chroot";
+        $cmd_del_user =  "$cmd_sasldb_passwd2 -d -f $mta_sasldb_file -u $dmn_name $mail_acc";
+        $cmd_del_user .=  " && $cmd_sasldb_passwd2 -d -f $sasldb_file -u $dmn_name $mail_acc";
 		
-        $cmd_add_user = "$cmd_echo \"$mail_pass\" | $cmd_sasldb_passwd2 -p -c -f $mta_sasldb_file -u $sub_name $mail_acc";
-		$cmd_add_user .= " && $cmd_cp $mta_sasldb_file $postfix_chroot";
+		$cmd_add_user = "$cmd_echo \"$mail_pass\" | $cmd_sasldb_passwd2 -p -c -f $mta_sasldb_file -u $dmn_name $mail_acc";
+		$cmd_add_user .= " && $cmd_echo \"$mail_pass\" | $cmd_sasldb_passwd2 -p -c -f $sasldb_file -u $dmn_name $mail_acc";
 		
         $hash_key = "$mail_acc\@$sub_name";
         
