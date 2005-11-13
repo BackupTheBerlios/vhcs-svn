@@ -244,8 +244,8 @@ function MM_swapImgRestore() { //v3.0
                 </tr>
                 <tr>
                   <td>&nbsp;</td>
-                  <td class="content2">{TR_VALUE}</td>
-                  <td class="content"><input name="hp_value" {READONLY} type="text" class="textinput" id="hp_value" style="width:100px" value="{HP_VELUE}">
+                  <td class="content2">{TR_CURRENCY}</td>
+                  <td class="content"><input name="hp_currency" {READONLY} type="text" class="textinput" id="hp_currency" style="width:100px" value="{HP_CURRENCY}">
                     <small>{TR_EXAMPEL}</small></td>
                 </tr>
                 <tr>
