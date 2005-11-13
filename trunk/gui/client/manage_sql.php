@@ -42,7 +42,7 @@ function gen_db_user_list(&$tpl, &$sql, $db_id)
         where
             sqld_id = ?
         order by
-            sqlu_id
+            sqlu_name
 SQL_QUERY;
 
   $rs = exec_query($sql, $query, array($db_id));
@@ -78,7 +78,7 @@ function gen_db_list(&$tpl, &$sql, $user_id)
         where
             domain_id = ?
         order by
-            sqld_id
+            sqld_name
 SQL_QUERY;
 
   $rs = exec_query($sql, $query, array($dmn_id));

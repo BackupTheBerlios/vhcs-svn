@@ -59,7 +59,7 @@ function gen_user_sub_list(&$tpl, &$sql, $user_id)
         where
             domain_id = ?
         order by
-            subdomain_id
+            subdomain_name
 SQL_QUERY;
 
   $rs = exec_query($sql, $query, array($domain_id));
@@ -136,7 +136,7 @@ function gen_user_als_list(&$tpl, &$sql, $user_id)
         where
             domain_id = ?
         order by
-            alias_id
+            alias_name
 SQL_QUERY;
 
   $rs = exec_query($sql, $query, array($domain_id));

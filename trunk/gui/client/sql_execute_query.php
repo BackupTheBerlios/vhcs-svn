@@ -161,6 +161,9 @@ function execute_sql_query(&$tpl, &$sql, $user_id, $db_user_id)
            t1.sqlu_id = ?
          and
            t2.domain_id = ?
+		 ORDER BY
+		   t2.sqld_name asc,
+		   t1.sqlu_name asc 
 SQL_QUERY;
 
   $rs = exec_query($sql, $query, array($db_user_id, $dmn_id));

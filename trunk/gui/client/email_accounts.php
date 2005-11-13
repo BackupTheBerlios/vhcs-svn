@@ -128,7 +128,7 @@ function gen_page_dmn_mail_list(&$tpl, &$sql, $dmn_id, $dmn_name)
             (mail_type  = 'normal_mail' or mail_type  = 'normal_forward')
         order by
             mail_type desc,
-            mail_id
+            mail_acc asc
 SQL_QUERY;
 
   $rs = exec_query($sql, $dmn_query, array($dmn_id));
@@ -205,7 +205,7 @@ function gen_page_sub_mail_list(&$tpl, &$sql, $dmn_id, $dmn_name)
           and
             t1.subdomain_id = t2.sub_id
         order by
-            t2.mail_type desc, t2.mail_id
+            t2.mail_type desc, t2.mail_acc asc
 SQL_QUERY;
 
   $rs = exec_query($sql, $sub_query, array($dmn_id, $dmn_id));
@@ -285,7 +285,7 @@ function gen_page_als_mail_list(&$tpl, &$sql, $dmn_id, $dmn_name)
           and
             (t2.mail_type = 'alias_mail' or t2.mail_type = 'alias_forward')
         order by
-            t2.mail_type desc, t2.mail_id
+            t2.mail_type desc, t2.mail_acc asc
 SQL_QUERY;
 
   $rs = exec_query($sql, $als_query, array($dmn_id, $dmn_id));
