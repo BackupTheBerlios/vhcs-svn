@@ -1,0 +1,133 @@
+HOWTO Update VHCS 2.4.6 to VHCS 2.4.7 (English)
+
+-------------------
+General Information
+-------------------
+
+1) Download the newest VHCS2 release :
+
+tangra: # wget http://heanet.dl.sourceforge.net/sourceforge/vhcs/vhcs2.4.7.tar.bz2
+
+2) Turn off the VHCS Daemon:
+
+tangra: # /etc/init.d/vhcs2_daemon stop
+
+3) Make a backup of the current VHCS files of your system:
+
+tangra: # mv /var/www/vhcs2/gui/ /var/www/vhcs2/gui_bcp_yyyymmdd
+tangra: # cp /var/www/vhcs2/engine/ -R /var/www/vhcs2/engine_bcp_yyyymmdd
+
+4) Unpack the downloaded archive :
+
+tangra: #tar -xjf vhcs2.4.7.tar.bz2
+
+
+-------------------
+vhcs2.conf Update
+-------------------
+
+search for MTA_SASLDB_FILE and add lines. The result should looks like this:
+
+MTA_SASLDB_FILE = /var/spool/postfix/etc/sasldb2
+
+ETC_SASLDB_FILE = /etc/sasldb2
+
+CMD_SASLDB_LISTUSERS2 = /usr/sbin/sasldblistusers2
+
+CMD_SASLDB_PASSWD2 = /usr/sbin/saslpasswd2
+
+
+search for MAIL_TRAFF_LOG and add lines. The result should looks like this:
+
+MAIL_TRAFF_LOG = mail.log
+
+#
+# if AMAVIS is used set MAIL_LOG_INC_AMAVIS = 1
+#
+
+MAIL_LOG_INC_AMAVIS = 0
+
+#
+# if .prev file size is greater then PREV_TRAFF_LOG_MAX_SIZE
+# vrl-traff will cut it;
+#
+
+PREV_TRAFF_LOG_MAX_SIZE = 10485760
+
+QUOTA_ROOT_DIR = /var/www/vhcs2/engine/quota
+
+
+
+If you are using AMAVIS and SPAMASSASIN change 
+
+MAIL_LOG_INC_AMAVIS = 0
+
+to 
+
+MAIL_LOG_INC_AMAVIS = 1
+
+
+-------------------
+Engine Update
+-------------------
+
+1) Copy the new engine files
+
+tangra: # cp -a /mydir/engine/ /var/www/vhcs2/
+
+2) Copy your crypt key from the old /engine_bcp_yyyymmdd/vhcs2-db-keys.pl to /engine/vhcs2-db-keys.pl
+
+tangra: # cp /var/www/vhcs2/engine_bcp_yyyymmdd/vhcs2-db-keys.pl to /var/www/vhcs2/engine/vhcs2-db-keys.pl
+
+3) We changed sasldb2 management for the postfix chroot.
+	
+So postfix had his own file in /var/spool/postfix/etc/sasldb2
+and the system file is located in /etc/sasldb2. 
+
+If you DIDN'T have other apps running that are using /etc/sasldb2 you have to run
+following command:
+
+tangra: # cp /var/spool/postfix/etc/sasldb2 /etc/sasldb2
+
+If you DID have other apps running that are using /etc/sasldb2 you don't have to run
+any command
+
+
+Traffic Engine Update
+-------------------
+
+1) Delete old log analyzing tool:
+
+tangra: # rm /usr/sbin/pflogsumm.pl
+
+4) Changes for SuSE:
+
+tangra: # mv /var/www/vhcs2/traffic/vhcs2-vrl-traff /var/www/vhcs2/traffic/vhcs2-vrl-traff-DEBIAN
+tangra: # mv /var/www/vhcs2/traffic/vhcs2-vrl-traff-SUSE /var/www/vhcs2/traffic/vhcs2-vrl-traff
+
+-------------------
+GUI Update
+-------------------
+
+
+-------------------
+Database Update
+-------------------
+
+UPDATE `vhcs2`.`mail_users` SET `status` = 'change' WHERE `status` = 'ok';
+
+
+
+-------------------
+Finish update
+-------------------
+
+1) Now you should execute the VHCS engine manually, because users/customers may have made system changes during your update operation
+
+tangra: # /var/www/vhcs2/engine/vhcs2-rqst-mngr
+
+2) Now you can start the VHCS daemon
+
+tangra: # /etc/init.d/vhcs2_daemon start
+
+VHCS is successfully updated !
