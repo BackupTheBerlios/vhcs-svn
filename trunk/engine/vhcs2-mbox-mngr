@@ -2856,6 +2856,8 @@ sub mbox_del_sasl_data {
 	my $etc_sasldb_file = $main::cfg{'ETC_SASLDB_FILE'};
     
     my $cmd_sasldb_passwd2 = $main::cfg{'CMD_SASLDB_PASSWD2'};
+
+	my $cmd_cp = $main::cfg{'CMD_CP'};
     
     my $cmd_echo = $main::cfg{'CMD_ECHO'};
     
