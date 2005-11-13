@@ -8,14 +8,17 @@ UebiMiau is a GPL'ed software developed by
 Fell free to contact, send donations or anything to me :-)
 São Paulo - Brasil
 *************************************************************************/
-
-error_reporting (E_ALL ^E_NOTICE);
+if(file_exists('./install/')) {
+	header('Location: ./install/index.php');
+	exit;
+}
 require("./inc/config.php");
 require("./inc/lib.php");
 
 define("SMARTY_DIR","./smarty/");
 
 require_once(SMARTY_DIR."Smarty.class.php");
+
 $smarty = new Smarty;
 $smarty->security=true;
 $smarty->secure_dir=array("./");
@@ -23,7 +26,8 @@ $smarty->compile_dir = $temporary_directory;
 $smarty->assign("umLanguageFile",$selected_language.".txt");
 
 $smarty->assign("umEmail",$f_email);
-
+$host = str_replace("webmail.","",strtolower($_SERVER['HTTP_HOST']));
+$smarty->assign("domainname",$host);
 
 $jssource = "
 <script language=javascript>
@@ -103,9 +107,9 @@ $smarty->assign("umAllowSelectLanguage",$allow_user_change_language); $func($tex
 if($allow_user_change_language) {
 	$def_lng = (is_numeric($lid))?$lid:$default_language;
 	$langsel = "<select name=lng onChange=selectLanguage()>\r";
-	for($i=0;$i<$avallangs;$i++) {
-		$selected = ($lid == $i)?" selected":"";
-		$langsel .= "<option value=$i$selected>".$languages[$i]["name"]."\r";
+	foreach($languages as $key => $lang) {
+		$selected = ($lid == $key)?" selected":"";
+		$langsel .= "<option value=\"$key\"$selected>".$lang["name"]."\r";
 	}
 	$langsel .= "</select>\r";
 	$smarty->assign("umLanguages",$langsel);
@@ -116,14 +120,13 @@ $smarty->assign("umAllowSelectTheme",$allow_user_change_theme);
 if($allow_user_change_theme) {
 	$def_tem = (is_numeric($tid))?$tid:$default_theme;
 	$themsel = "<select name=tem onChange=selectLanguage()>\r";
-	for($i=0;$i<$avalthemes;$i++) {
-		$selected = ($tid == $i)?" selected":"";
-		$themsel .= "<option value=$i$selected>".$themes[$i]["name"]."\r";
+	foreach($themes as $key => $theme) {
+		$selected = ($tid == $key)?" selected":"";
+		$themsel .= "<option value=\"$key\"$selected>".$theme["name"]."\r";
 	}
 	$themsel .= "</select>\r";
-	$smarty->assign("umThemes",$themsel);
+	$smarty->assign("umThemes", $themsel);
 }
 
 
 $smarty->display("$selected_theme/login.htm");
-?>

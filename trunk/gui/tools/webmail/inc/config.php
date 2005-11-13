@@ -15,8 +15,10 @@ São Paulo - Brasil
 #0 - No/Off/False
 # do not remove or change this
 
-define("yes",1);
-define("no",0);
+define('yes',1);
+define('no',0);
+
+$ALL_OK = false;
 
 $themes 	= Array();
 $languages 	= Array();
@@ -37,7 +39,7 @@ $languages 	= Array();
 # for all operating systems, INCLUDING Windows
 ########################################################################
 
-$temporary_directory = "./database/";
+$temporary_directory = "database/";
 
 ########################################################################
 # Your local SMTP Server (alias or IP) such as "smtp.yourdomain.com"
@@ -48,22 +50,9 @@ $smtp_server = "localhost";  #YOU NEED CHANGE IT !!
 
 
 ########################################################################
-# Protocol and port
-# Choose "imap" as protocol to use the Internet Mail Access Protocol, 
-# or "pop3" to use the Post Office Protocol.
-# The default ports are:
-# pop3 -> 110
-# imap -> 143
-# The imap is more fast, but all functions of UebiMiau works with POP3
+# You should enable this option if you know what are doing
 ########################################################################
-
-$mail_protocol 	= "pop3";
-$mail_port		= 110;
-
-########################################################################
-# The TIME ZONE of server, format (+|-)HHMM (H=hours, M=minutes), eg. +0100
-########################################################################
-$server_time_zone = "-0000";
+$allow_filters = no;
 
 
 ########################################################################
@@ -71,13 +60,13 @@ $server_time_zone = "-0000";
 # In order to keep you system fast, use values better than 5MB
 # If you need disable it, set the value to 0 or leave it blank
 ########################################################################
-$quota_limit = 4096;  //  in KB, eg. 4096 Kb = 4MB
+$quota_limit = 0;  //  in KB, eg. 4096 Kb = 4MB
 
 
 ########################################################################
 # Use SMTP password (AUTH LOGIN type)
 ########################################################################
-$use_password_for_smtp	= no;
+$use_password_for_smtp	= yes;
 
 ########################################################################
 # Redirect new users to the preferences page at first login
@@ -85,25 +74,23 @@ $use_password_for_smtp	= no;
 $check_first_login		= yes;
 
 ########################################################################
-# Enable visualization of HTML messages
-# *This option afect only incoming messages, the  HTML editor
-# for new messages (compose page) is automatically activated 
-# when the client's browser support it (IE5 or higher)
-########################################################################
-
-$allow_html 			= yes;
-
-########################################################################
-# FILTER javascript (and others scripts) from incoming messages
-########################################################################
-$allow_scripts			= no;
-
-########################################################################
 # Turn this option to 'yes' if you want allow users send messages using
 # they 'Reply to' preference's option as your 'From' header, otherwise 
 # the From field will be the email wich the users log in
 ########################################################################
 $allow_modified_from	= yes;
+
+########################################################################
+# Language & themes settings
+########################################################################
+
+require("./inc/config.languages.php");
+
+########################################################################
+# Security related settings
+########################################################################
+
+require("./inc/config.security.php");
 
 
 ########################################################################
@@ -137,66 +124,81 @@ $allow_modified_from	= yes;
 # %user%
 # %user%@%domain%
 # %user%.%domain%
+#
+# PROTOCOL and PORT
+# Choose "imap" as protocol to use the Internet Mail Access Protocol, 
+# or "pop3" to use the Post Office Protocol.
+# The default ports are:
+# pop3 -> 110
+# imap -> 143
+# The imap is more fast, but all functions of UebiMiau works with POP3
+########################################################################
 
 ########################################################################
 
-$mail_server_type 	= "ONE-FOR-ALL";
+$mail_server_type 	= "ONE-FOR-EACH";
 
 ########################################################################
 # TYPE: DETECT
 ########################################################################
 
-$mail_detect_remove 	= "www.";
-$mail_detect_prefix 	= "mail.";
-$mail_detect_login_type = "%user%@%domain%";
+$mail_detect_remove 		= "webmail.";
+$mail_detect_prefix 		= "mail.";
+$mail_detect_login_type 	= "%user%@%domain%";
+$mail_detect_protocol 		= "pop3";
+$mail_detect_port 			= "110";
+$mail_detect_folder_prefix 	= "";
 
 ########################################################################
 # TYPE: ONE-FOR-EACH
 # Each domain have your own mail server
 ########################################################################
-/*
-$mail_servers[] = Array(
-	"domain" => "domain.com", 
-	"server" => "domain.com", 
-	"login_type" => "%user%@%domain%"
+
+$mail_servers[] = Array( //sample using POP3
+	"domain" 		=> "", 
+	"server" 		=> "localhost", 
+	"login_type" 	=> "%user%@%domain%",
+	"protocol"		=> "POP3",
+	"port"			=> "110",
+	"folder_prefix"	=> ""
 );
 
-
-$mail_servers[] = Array(
-	"domain" => "your-2nd-domain.com", 
-	"server" => "mail.your-2nd-domain.com", 
-	"login_type" => "%user%@%domain%" 
-);
-*/
 
 /*
-$mail_servers[] = Array(
-	"domain" => "your-Nth-domain.com", 
-	"server" => "mail.Nth-domain.com", 
-	"login_type" => "%user%@%domain%"
+$mail_servers[] = Array( //sample using IMAP
+	"domain" 		=> "another-domain.com", 
+	"server" 		=> "mail.another-domain.com", 
+	"login_type" 	=> "%user%@%domain%",
+	"protocol"		=> "imap",
+	"port"			=> "143",
+	"folder_prefix"	=> "INBOX."
 );
+
 */
 
 ########################################################################
 # TYPE: ONE-FOR-ALL
 # the default mail server for all domains
 ########################################################################
-
-$default_mail_server 	= "127.0.0.1";
+/*
+$default_mail_server 	= "mail.YOUR-UNIQUE-SERVER.com.br";
 $one_for_all_login_type	= "%user%@%domain%";
+$default_protocol		= "pop3";
+$default_port			= "110";
+$default_folder_prefix	= "";
+*/
 
 ########################################################################
-# Language & themes settings
+# Specify mail transport
+# Allowed values:
+# "smtp" 		- To use an external SMTP Server specified in $smtp_server
+# "sendmail" 	- To server's sendmail-compatible MTA. If you need to change
+#				  the path, look into /inc/class.phpmailer.php and search for
+#				  var $Sendmail          = "/usr/sbin/sendmail";
+# "mail"		- To use default PHP's mail() function
 ########################################################################
 
-require("./inc/config.languages.php");
-
-########################################################################
-# Support for SendMail (DEFAULT DISABLED (using SMTP))
-# Only for *nix Systems (NOT Win32)
-########################################################################
-$use_sendmail     = no;
-$path_to_sendmail = "/usr/sbin/sendmail";
+$mailer_type		= "smtp";
 
 
 ########################################################################
@@ -212,20 +214,21 @@ $mail_use_top = yes;
 # "X-Mailer" field, footer
 ########################################################################
 
-$appversion = "2.7.2";
+$appversion = "2.7.9";
 $appname = "UebiMiau";
 
 
 ########################################################################
 # Add a "footer" to sent mails
 ########################################################################
-
+$footer = "";
+/*
 $footer = "
 
 ________________________________________________
-VHCS Webmail
+Message sent using $appname $appversion
 ";
-
+*/
 ########################################################################
 # Enable debug :)
 # no - disabled
@@ -234,19 +237,6 @@ VHCS Webmail
 # ********************************************************/
 $enable_debug = no;
 
-########################################################################
-# Block external images.
-# If an HTML message have external images, it will be 
-# blocked. This feature prevent spam tracking
-########################################################################
-
-$block_external_images = no;
-
-########################################################################
-# Session timeout for inactivity
-########################################################################
-
-$idle_timeout = 10; //minutes
 
 ########################################################################
 # Order setting
@@ -266,12 +256,16 @@ $default_preferences = Array(
 	"empty_trash_default"		=> yes,		# empty trash on logout
 	"sortby_default"			=> "date",	# alowed: "attach","subject","fromname","date","size"
 	"sortorder_default"			=> "DESC",	# alowed: "ASC","DESC"
-	"rpp_default"				=> 10,		# records per page (messages), alowed: 10,20,30,40,50,100,200
+	"rpp_default"				=> 20,		# records per page (messages), alowed: 10,20,30,40,50,100,200
 	"add_signature_default"		=> no,		# add the signature by default
 	"signature_default"			=> "",		# a default signature for all users, use text only, with multiple lines if needed
-	"timezone_default"			=> "+0000",	# timezone, format (+|-)HHMM (H=hours, M=minutes)
-	"display_images_deafult"	=> yes,		# automatically show attached images in the body of message
-	"editor_mode_default"		=> "html",	# use "html" or "text" to set default editor. "html" will be used only in IE5+ browsers
+	"timezone_default"			=> "-0500",	# timezone, format (+|-)HHMM (H=hours, M=minutes)
+	"display_images_default"	=> yes,		# automatically show attached images in the body of message
+	"editor_mode_default"		=> "text",	# use "html" or "text" to set default editor. "html" will be used only in IE5+ browsers
 	"refresh_time_default"		=> 10		# after this time, the message list will be refreshed, in minutes
-						);
+);
+/*
+don't touch here
+*/
+$ALL_OK = true;
 ?>

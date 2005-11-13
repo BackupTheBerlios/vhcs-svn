@@ -1,4 +1,4 @@
-<?php
+<?
 
 /************************************************************************
 UebiMiau is a GPL'ed software developed by 
@@ -11,42 +11,47 @@ São Paulo - Brasil
 *************************************************************************/
 
 require("./inc/inc.php");
+require("./folder_list.php");
 
 echo($nocache);
 
-if($tipo == "send") {
+if(isset($tipo) && $tipo == "send") {
 
-	require("./inc/class.smtp.php");
+	require("./inc/class.phpmailer.php");
 
+	$mail = new PHPMailer;
+	$mail->PluginDir = "./inc/";
+
+	
 	$ARTo = $UM->get_names(stripslashes($to));
 	$ARCc = $UM->get_names(stripslashes($cc));
 	$ARBcc = $UM->get_names(stripslashes($bcc));
-
+	
 	if((count($ARTo)+count($ARCc)+count($ARBcc)) > 0) {
-		$mail = new phpmailer;
 		// for password authenticated servers
 
-		if($use_password_for_smtp) {
-			$mail->UseAuthLogin($sess["user"],$sess["pass"]);
-		}
+		$mail->SMTPAuth 	= $use_password_for_smtp;
+		$mail->Username 	= $sess["user"];
+		$mail->Password 	= $sess["pass"];
 		// if using the advanced editor
 
 		if($is_html == "true")  {
 			$mail->IsHTML(1);
-			if($footer != "") $body .= preg_replace("/(\r\n|\n|\r)/","<BR />\\1",$footer);
+			if($footer != "") $body .= preg_replace("/(\r?\n)/","<BR />\\1",$footer);
 
 		} elseif ($footer != "") $body .= $footer;
 
 		$mail->CharSet		= $default_char_set;
-		$mail->IPAddress	= getenv("REMOTE_ADDR");
-		$mail->timezone		= $server_time_zone;
+		$mail->Hostname		= getenv("REMOTE_ADDR");
 		$mail->From 		= ($allow_modified_from && !empty($prefs["reply-to"]))?$prefs["reply-to"]:$sess["email"];
 		$mail->FromName 	= $UM->mime_encode_headers($prefs["real-name"]);
 		$mail->AddReplyTo($prefs["reply-to"], $UM->mime_encode_headers($prefs["real-name"]));
+
 		$mail->Host 		= $smtp_server;
 		$mail->WordWrap 	= 76;
 		$mail->Priority		= $priority;
-
+		$mail->SMTPDebug 	= false;
+		
 		if(count($ARTo) != 0) {
 			for($i=0;$i<count($ARTo);$i++) {
 				$name = $ARTo[$i]["name"];
@@ -80,48 +85,44 @@ if($tipo == "send") {
 			}
 		}
 
-		if(is_array($attachs = $sess["attachments"])) {
+		if(array_key_exists("attachments",$sess)) {
+			$attachs = $sess["attachments"];
 			for($i=0;$i<count($attachs);$i++) {
 				if(file_exists($attachs[$i]["localname"])) {
-					$mail->AddAttachment($attachs[$i]["localname"], $attachs[$i]["name"], $attachs[$i]["type"]);
+					$mail->AddAttachment($attachs[$i]["localname"], $attachs[$i]["name"], "base64", $attachs[$i]["type"]);
 				}
 			}
 		}
 
 		$mail->Subject = $UM->mime_encode_headers(stripslashes($subject));
 		$mail->Body = stripslashes($body);
+		$mail->Mailer = $mailer_type;
 
-
-		if(($resultmail = $mail->Send()) === false) {
-
-			$err = $mail->ErrorAlerts[count($mail->ErrorAlerts)-1];
+		if(($mail->Send()) === false) {
 			$smarty->assign("umMailSent",false);
-			$smarty->assign("umErrorMessage",$err);
+			$smarty->assign("umErrorMessage",$mail->ErrorInfo);
 
 		} else {
+		
 			$smarty->assign("umMailSent",true);
 
-			if(is_array($attachs = $sess["attachments"])) {
-				for($i=0;$i<count($attachs);$i++) {
-					if(file_exists($attachs[$i]["localname"])) {
-						@unlink($attachs[$i]["localname"]);
-					}
-				}
-				
+			if(array_key_exists("attachments",$sess)) {
 				unset($sess["attachments"]);
 				reset($sess);
 				$SS->Save($sess);
 			}
-
+			
+			
 			if($prefs["save-to-sent"]) {
-				if(!$UM->mail_connect()) { Header("Location: error.php?err=1&sid=$sid&tid=$tid&lid=$lid\r\n"); exit; }
-				if(!$UM->mail_auth(false)) { Header("Location: badlogin.php?sid=$sid&tid=$tid&lid=$lid\r\n"); exit; }
-				$UM->mail_save_message("sent",$resultmail,"\\SEEN");
+
+				if(!$UM->mail_connect()) { redirect("error.php?err=1&sid=$sid&tid=$tid&lid=$lid"); exit; }
+				if(!$UM->mail_auth(false)) { redirect("badlogin.php?sid=$sid&tid=$tid&lid=$lid&error=".urlencode($UM->mail_error_msg)); exit; }
+				$UM->mail_save_message("sent",$mail->FormatedMail,"\\SEEN");
 				unset($sess["headers"][base64_encode("sent")]);
 				$UM->mail_disconnect();
 				$SS->Save($sess);
-			}
 
+			}
 		}
 
 	} else die("<script language=\"javascript\">location = 'error.php?err=3&sid=$sid&tid=$tid&lid=$lid';</script>");
@@ -131,7 +132,7 @@ if($tipo == "send") {
 	function newmsg() { location = 'newmsg.php?pag=$pag&folder=".urlencode($folder)."&sid=$sid&tid=$tid&lid=$lid'; }
 	function folderlist() { location = 'folders.php?folder=".urlencode($folder)."&sid=$sid&tid=$tid&lid=$lid'}
 	function goend() { location = 'logout.php?sid=$sid&tid=$tid&lid=$lid'; }
-	function goinbox() { location = 'msglist.php?folder=inbox&sid=$sid&tid=$tid&lid=$lid'; }
+	function goinbox() { location = 'messages.php?folder=inbox&sid=$sid&tid=$tid&lid=$lid'; }
 	function emptytrash() {	location = 'folders.php?empty=trash&folder=".urlencode($folder)."&goback=true&sid=$sid&tid=$tid&lid=$lid';}
 	function search() {	location = 'search.php?folder=".urlencode($folder)."&sid=$sid&tid=$tid&lid=$lid';}
 	function addresses() { location = 'addressbook.php?sid=$sid&tid=$tid&lid=$lid'; }
@@ -148,7 +149,7 @@ if($tipo == "send") {
 
 }else {
 
-	$priority_level = (!$priority)?3:$priority;
+	$priority_level = (!isset($priority) || empty($priority))?3:$priority;
 
 	$uagent = $HTTP_SERVER_VARS["HTTP_USER_AGENT"];
 	$isMac = ereg("Mac",$uagent);
@@ -158,6 +159,7 @@ if($tipo == "send") {
 	$uagent = explode(" ",$uagent[1]);
 	$bname = strtoupper($uagent[0]);
 	$bvers = $uagent[1];
+	if(!isset($textmode)) $textmode = null;
 	$show_advanced = (($bname == "MSIE") && (intval($bvers) >= 5) && (!$textmode) && (!$isMac) && (!$isOpera) && ($prefs["editor-mode"] != "text"))?1:0;
 
 	//$show_advanced = 0;
@@ -205,7 +207,7 @@ if($tipo == "send") {
 
 	function upwin(rem) { 
 		mywin = 'upload.php';
-		if (rem != null) mywin += '?rem='+rem+'&sid=$sid';
+		if (rem != null) mywin += '?rem='+rem+'&sid=$sid&tid=$tid&lid=$lid';
 		else mywin += '?sid=$sid&tid=$tid&lid=$lid';
 		window.open(mywin,'Upload','width=300,height=50,scrollbars=0,menubar=0,status=0'); 
 	}
@@ -258,7 +260,7 @@ if($tipo == "send") {
 	function newmsg() { location = 'newmsg.php?pag=$pag&folder=".urlencode($folder)."&sid=$sid&tid=$tid&lid=$lid'; }
 	function folderlist() { location = 'folders.php?folder=".urlencode($folder)."&sid=$sid&tid=$tid&lid=$lid'}
 	function goend() { location = 'logout.php?sid=$sid&tid=$tid&lid=$lid'; }
-	function goinbox() { location = 'msglist.php?folder=inbox&sid=$sid&tid=$tid&lid=$lid'; }
+	function goinbox() { location = 'messages.php?folder=inbox&sid=$sid&tid=$tid&lid=$lid'; }
 	function emptytrash() {	location = 'folders.php?empty=trash&folder=".urlencode($folder)."&goback=true&sid=$sid&tid=$tid&lid=$lid';}
 	function search() {	location = 'search.php?folder=".urlencode($folder)."&sid=$sid&tid=$tid&lid=$lid';}
 	function addrpopup() {	mywin = window.open('quick_address.php?sid=$sid&tid=$tid&lid=$lid','AddressBook','width=480,height=220,top=200,left=200'); }
@@ -320,19 +322,19 @@ if($tipo == "send") {
 	$smarty->assign("umAddSignature",$umAddSig);
 	$smarty->assign("umForms",$forms);
 	$smarty->assign("umJS",$jssource);
-
+	if(!isset($body)) $body = null;
 	$body = stripslashes($body);
 
 
 	if(isset($rtype)) {
-		$mail_info = $sess["headers"][base64_encode(strtolower($folder))][$ix];
+		$mail_info = $sess["headers"][base64_encode($folder)][$ix];
 
 		if(!eregi("\\ANSWERED",$mail_info["flags"])) {
 
 			if(!$UM->mail_connect()) { die("<script>location = 'error.php?err=1&sid=$sid&tid=$tid&lid=$lid'</script>"); }
-			if(!$UM->mail_auth()) { die("<script>location = 'badlogin.php?sid=$sid&tid=$tid&lid=$lid'</script>"); }
+			if(!$UM->mail_auth()) { die("<script>location = 'badlogin.php?sid=$sid&tid=$tid&lid=$lid&error=".urlencode($UM->mail_error_msg)."'</script>"); }
 			if($UM->mail_set_flag($mail_info,"\\ANSWERED","+")) {
-				$sess["headers"][base64_encode(strtolower($folder))][$ix] = $mail_info;
+				$sess["headers"][base64_encode($folder)][$ix] = $mail_info;
 				$SS->Save($sess);
 			}
 			$UM->mail_disconnect(); 
@@ -342,7 +344,7 @@ if($tipo == "send") {
 
 		$filename = $mail_info["localname"];
 
-		if(!file_exists($filename)) die("<script>location = 'msglist.php?err=2&folder=".urlencode($folder)."&pag=$pag&sid=$sid&tid=$tid&lid=$lid&refr=true';</script>");
+		if(!file_exists($filename)) die("<script>location = 'messages.php?err=2&folder=".urlencode($folder)."&pag=$pag&sid=$sid&tid=$tid&lid=$lid&refr=true';</script>");
 		$result = $UM->_read_file($filename);
 		
 		$email = $UM->Decode($result);
@@ -463,40 +465,19 @@ $tmpbody";
 			break;
 		case "forward":
 			if(!eregi("^$forward_prefix",trim($subject))) $subject = "$forward_prefix $subject";
-
 			if(count($email["attachments"]) > 0) {
-				$bound = $email["attachments"][0]["boundary"];
-				if($bound != "") {
-					$parts = $UM->split_parts($bound,$result["body"]);
-				} else {
-					$parts[0] = $result["body"];
-				}
-
 				for($i = 0; $i < count($email["attachments"]); $i++) {
-
 					$current = $email["attachments"][$i];
-
-					$currentstruc = $UM->fetch_structure($parts[$current["part"]]);
-
-					$tmpfilename 	= $userfolder."_attachments/".uniqid("").".tmp";
-					$contenttype 	= ($current["content-type"] != "")?$current["content-type"]:"application/octet-stream";
-					$filename		= ($current["name"] != "")?$current["name"]:basename($tmpfilename);
-
-					$UM->save_attach($currentstruc["header"],$currentstruc["body"],$tmpfilename);
-
 					$ind = count($sess["attachments"]);
-					$sess["attachments"][$ind]["localname"] = $tmpfilename;
-					$sess["attachments"][$ind]["name"] = $filename;
-					$sess["attachments"][$ind]["type"] = $contenttype;
-					$sess["attachments"][$ind]["size"] = filesize($tmpfilename);
+					$sess["attachments"][$ind]["localname"] = $current["filename"];
+					$sess["attachments"][$ind]["name"] = $current["name"];
+					$sess["attachments"][$ind]["type"] = $current["content-type"];
+					$sess["attachments"][$ind]["size"] = $current["size"];
 				}
-	
 				$SS->Save($sess);
 			}
 			break;
 		}
-		
-		
 		if($add_sig && !empty($signature)) 
 			if($show_advanced) $body = "<br><br>--<br>$signature<br><br>$body";
 			else $body = "\r\n\r\n--\r\n$signature\r\n\r\n$body";
@@ -509,19 +490,25 @@ $tmpbody";
 	$haveSig = empty($signature)?0:1;
 	$smarty->assign("umHaveSignature",$haveSig);
 
+	if(!isset($to)) $to = null;
+	if(!isset($cc)) $cc = null;
+	if(!isset($bcc)) $bcc = null;
+	if(!isset($subject)) $subject = null;
+
+
 	$strto = (isset($nameto) && eregi("([-a-z0-9_$+.]+@[-a-z0-9_.]+[-a-z0-9_])",$mailto))?
-	"<input class=textinput style=\"width : 200px;\" type=text size=20 name=to value=\"&quot;".htmlspecialchars(stripslashes($nameto))."&quot; <".htmlspecialchars(stripslashes($mailto)).">\">
-	":"<input class=textinput style=\"width : 200px;\" type=text size=20 name=to value=\"".htmlspecialchars(stripslashes($to))."\">";
+	"<input class=textbox style=\"width : 200px;\" type=text size=20 name=to value=\"&quot;".htmlspecialchars(stripslashes($nameto))."&quot; <".htmlspecialchars(stripslashes($mailto)).">\">
+	":"<input class=textbox style=\"width : 200px;\" type=text size=20 name=to value=\"".htmlspecialchars(stripslashes($to))."\">";
 
-	$strcc = "<input class=textinput style=\"width : 200px;\" type=text size=20 name=cc value=\"".htmlspecialchars(stripslashes($cc))."\">";
-	$strbcc = "<input class=textinput style=\"width : 200px;\" type=text size=20 name=bcc value=\"".htmlspecialchars(stripslashes($bcc))."\">";
-	$strsubject = "<input class=textinput style=\"width : 200px;\" type=text size=20 name=subject value=\"".htmlspecialchars(stripslashes($subject))."\">";
 
-	$haveAttachs = (is_array($attachs = $sess["attachments"]) && count($sess["attachments"]) != 0)?1:0;
-	$smarty->assign("umHaveAttachs",$haveAttachs);
+	$strcc = "<input class=textbox style=\"width : 200px;\" type=text size=20 name=cc value=\"".htmlspecialchars(stripslashes($cc))."\">";
+	$strbcc = "<input class=textbox style=\"width : 200px;\" type=text size=20 name=bcc value=\"".htmlspecialchars(stripslashes($bcc))."\">";
+	$strsubject = "<input class=textbox style=\"width : 200px;\" type=text size=20 name=subject value=\"".htmlspecialchars(stripslashes($subject))."\">";
 
-	if(is_array($attachs = $sess["attachments"]) && count($sess["attachments"]) != 0) {
 
+	if(array_key_exists("attachments", $sess) && count($attachs = $sess["attachments"]) > 0) {
+
+		$smarty->assign("umHaveAttachs",1);
 		$attachlist = Array();
 		for($i=0;$i<count($attachs);$i++) {
 			$index = count($attachlist);
@@ -536,8 +523,9 @@ $tmpbody";
 
 	if(!$show_advanced) $body = stripslashes($body);
 
+	if(!isset($txtarea)) $txtarea = null;
 	$umAdvEdit = ($show_advanced)?1:0;
-
+	
 	$smarty->assign("umBody",$body);
 	$smarty->assign("umTo",$strto);
 	$smarty->assign("umCc",$strcc);

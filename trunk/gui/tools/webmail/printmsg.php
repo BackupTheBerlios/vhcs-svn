@@ -1,4 +1,4 @@
-<?php
+<?
 /************************************************************************
 UebiMiau is a GPL'ed software developed by 
 
@@ -12,7 +12,7 @@ São Paulo - Brasil
 require("./inc/inc.php");
 
 if(!isset($folder) || !isset($ix)) die("Expected parameters");
-$mail_info = $sess["headers"][base64_encode(strtolower($folder))][$ix];
+$mail_info = $sess["headers"][base64_encode($folder)][$ix];
 
 echo($nocache);
 

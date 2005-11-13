@@ -1,4 +1,4 @@
-<?php
+<?
 /************************************************************************
 UebiMiau is a GPL'ed software developed by 
 
@@ -31,7 +31,10 @@ if (isset($rem) && $rem != "") {
 	</script>\n
 	");
 
-} elseif (is_uploaded_file($userfile) || is_uploaded_file($userfile["tmp_name"])) {
+} elseif (
+		isset($userfile) && 
+		((!is_array($userfile) && is_uploaded_file($userfile)) || 
+		is_uploaded_file($userfile["tmp_name"]))) {
 
 	//if(file_exists($userfile["tmp_name"])) {
 
@@ -66,6 +69,8 @@ if (isset($rem) && $rem != "") {
 } else {
 
 	$smarty->assign("umSid",$sid);
+	$smarty->assign("umLid",$lid);
+	$smarty->assign("umTid",$tid);
 	$smarty->display("$selected_theme/upload-attach.htm");
 
 }

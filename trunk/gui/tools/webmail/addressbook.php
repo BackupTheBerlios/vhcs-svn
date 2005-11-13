@@ -1,4 +1,4 @@
-<?php
+<?
 /************************************************************************
 UebiMiau is a GPL'ed software developed by 
 
@@ -10,10 +10,10 @@ São Paulo - Brasil
 *************************************************************************/
 
 
-// load session management
 require("./inc/inc.php");
-// keep cache clean
-//echo($nocache);
+require("./folder_list.php");
+
+echo($nocache);
 
 $filename = $userfolder."_infos/addressbook.ucf";
 $myfile = $UM->_read_file($filename);
@@ -25,7 +25,7 @@ array_qsort2($addressbook,"name");
 
 $jssource = "
 <script language=\"JavaScript\">
-function goinbox() { location = 'msglist.php?folder=inbox&sid=$sid&tid=$tid&lid=$lid'; }
+function goinbox() { location = 'messages.php?folder=".$sess["sysmap"]["inbox"]."&sid=$sid&tid=$tid&lid=$lid'; }
 function newmsg() { location = 'newmsg.php?pag=$pag&folder=".urlencode($folder)."&sid=$sid&tid=$tid&lid=$lid'; }
 function refreshlist() { location = 'addressbook.php?sid=$sid&tid=$tid&lid=$lid' }
 function folderlist() { location = 'folders.php?folder=".urlencode($folder)."&sid=$sid&tid=$tid&lid=$lid'}

@@ -1,4 +1,4 @@
-<?php
+<?
 /************************************************************************
 UebiMiau is a GPL'ed software developed by 
 
@@ -12,21 +12,51 @@ São Paulo - Brasil
 //defines
 require("./inc/inc.php");
 
-if(!isset($ix) || !isset($pag)) Header("Location: error.php?err=3&sid=$sid&tid=$tid&lid=$lid");
+if(!isset($ix) || !isset($pag)) redirect("error.php?err=3&sid=$sid&tid=$tid&lid=$lid");
 
-$mysess = $sess["headers"][base64_encode(strtolower($folder))];
-$mail_info = $mysess[$ix];
+$folderkey = base64_encode($folder);
 
-if(!$UM->mail_connect()) { Header("Location: error.php?err=1&sid=$sid&tid=$tid&lid=$lid\r\n"); exit; }
-if(!$UM->mail_auth()) { Header("Location: badlogin.php?sid=$sid&tid=$tid&lid=$lid\r\n"); exit; }
+$mysess 		= $sess["headers"][$folderkey];
+$mail_info 		= $mysess[$ix];
+$arAttachment 	= Array();
 
-if(!($result = $UM->mail_retr_msg($mail_info,1))) { Header("Location: msglist.php?err=2&folder=".urlencode($folder)."&pag=$pag&sid=$sid&tid=$tid&lid=$lid&refr=true\r\n"); exit; }
 
-if($UM->mail_set_flag($mail_info,"\\SEEN","+")) {
-	$sess["headers"][base64_encode(strtolower($folder))][$ix] = $mail_info;
-	$SS->Save($sess);
+if(isset($attachment)) {
+
+	$is_attached = true;
+	$arAttachment 	= explode(",",$attachment);
+
+	$UM->current_level = $arAttachment;
+
+	$root = $mail_info;
+	foreach($arAttachment as $item )
+		if(is_numeric($item))
+			$root = &$root["attachments"][$item];
+
+	if( !is_array($root) || 
+		!file_exists($root["filename"])) redirect("error.php?err=3&sid=$sid&tid=$tid&lid=$lid");
+
+	$result = $UM->_read_file($root["filename"]);
+
+} else {
+	$is_attached = false;
+	$arAttachment = Array();
+
+	if(!$UM->mail_connect()) { redirect("error.php?err=1&sid=$sid&tid=$tid&lid=$lid"); exit; }
+	if(!$UM->mail_auth()) { redirect("badlogin.php?sid=$sid&tid=$tid&lid=$lid&error=".urlencode($UM->mail_error_msg)); exit; }
+
+	if(!($result = $UM->mail_retr_msg($mail_info,1))) { 
+		redirect("messages.php?err=2&folder=".urlencode($folder)."&pag=$pag&sid=$sid&tid=$tid&lid=$lid&refr=true"); 
+		exit; 
+	}
+
+	if($UM->mail_set_flag($mail_info,"\\SEEN","+")) {
+		$sess["headers"][$folderkey][$ix] = $mail_info;
+	}
+
+	$UM->mail_disconnect(); 
+
 }
-
 echo($nocache);
 
 $UM->displayimages = $prefs["display-images"];
@@ -34,11 +64,12 @@ $UM->allow_scripts = $allow_scripts;
 
 $email = $UM->Decode($result);
 
-if($ix > 0) {
-	$umHavePrevious = 1;
-	$umPreviousSubject = $mysess[($ix-1)]["subject"];
 
-	$umPreviousLink = "readmsg.php?folder=".urlencode($folder)."&pag=$pag&ix=".($ix-1)."&sid=$sid&tid=$tid&lid=$lid";
+if($ix > 0) {
+
+	$umHavePrevious 	= 1;
+	$umPreviousSubject 	= $mysess[($ix-1)]["subject"];
+	$umPreviousLink 	= "readmsg.php?folder=".urlencode($folder)."&pag=$pag&ix=".($ix-1)."&sid=$sid&tid=$tid&lid=$lid";
 
 	$smarty->assign("umHavePrevious",$umHavePrevious);
 	$smarty->assign("umPreviousSubject",$umPreviousSubject);
@@ -47,9 +78,9 @@ if($ix > 0) {
 }
 
 if($ix < (count($mysess)-1)) {
-	$umHaveNext = 1;
-	$umNextSubject = $mysess[($ix+1)]["subject"];
-	$umNextLink = "readmsg.php?folder=".urlencode($folder)."&pag=$pag&ix=".($ix+1)."&sid=$sid&tid=$tid&lid=$lid";
+	$umHaveNext 	= 1;
+	$umNextSubject 	= $mysess[($ix+1)]["subject"];
+	$umNextLink 	= "readmsg.php?folder=".urlencode($folder)."&pag=$pag&ix=".($ix+1)."&sid=$sid&tid=$tid&lid=$lid";
 	$smarty->assign("umHaveNext",$umHaveNext);
 	$smarty->assign("umNextSubject",$umNextSubject);
 	$smarty->assign("umNextLink",$umNextLink);
@@ -58,6 +89,18 @@ if($ix < (count($mysess)-1)) {
 
 
 $body	= 	$email["body"];
+
+if($block_external_images) 
+	$body = eregi_replace("(src|background)=([\"]?)(http[s]?:\/\/[a-z0-9~#%@\&:=?+\/\.,_-]+[a-z0-9~#%@\&=?+\/_-]+)([\"]?)","\\1=\\2images/trans.gif\\4 original_url=\"\\3\"",$body);
+
+
+$redir_path = getenv("PHP_SELF")?getenv("PHP_SELF"):$_SERVER["PHP_SELF"];
+if(!$redir_path) $redir_path = $PHP_SELF;
+$redir_path = dirname($redir_path)."/redir.php";
+
+$body = eregi_replace("target=[\"]?[A-Z_]+[\"]?","target=\"blank\"",$body);
+$body = eregi_replace("href=\"http([s]?)://","target=\"_blank\" href=\"$redir_path?http\\1://",$body);
+$body = eregi_replace("href=\"mailto:","target=\"_top\" href=\"newmsg.php?sid=$sid&tid=$tid&lid=$lid&to=",$body);
 
 $uagent = 	$HTTP_SERVER_VARS["HTTP_USER_AGENT"];
 
@@ -86,12 +129,10 @@ if ($other) {
 
 } elseif($ie4up || $ns6moz) {
 	$sess["currentbody"] = $body;;
-	$SS->Save($sess);
 	$body = "<iframe src=\"show_body.php?sid=$sid&tid=$tid&lid=$lid&folder=".htmlspecialchars($folder)."&ix=$ix\" width=\"100%\" height=\"400\" frameborder=\"0\"></iframe>";
 
 } elseif($ns4) {
 	$sess["currentbody"] = $body;;
-	$SS->Save($sess);
 	$body = "<ilayer width=\"100%\" left=\"0\" top=\"0\">$body</ilayer>";
 }
 
@@ -147,20 +188,23 @@ function reply() { document.msg.submit(); }
 function movemsg() { document.move.submit(); }
 function newmsg() {	location = 'newmsg.php?folder=$folder&pag=$pag&sid=$sid&tid=$tid&lid=$lid'; }
 function headers() { mywin = window.open('headers.php?folder=".urlencode($folder)."&ix=$ix&sid=$sid&tid=$tid&lid=$lid','Headers','width=550, top=100, left=100, height=320,directories=no,toolbar=no,status=no,scrollbars=yes,resizable=yes'); }
-function catch_addresses() { mywin = window.open('catch.php?folder=".urlencode($folder)."&ix=$ix&sid=$sid&tid=$tid&lid=$lid','Catch','width=550, top=100, left=100, height=320,directories=no,toolbar=no,status=no,scrollbars=yes'); }
+function catch_addresses() { window.open('catch.php?folder=".urlencode($folder)."&ix=$ix&sid=$sid&tid=$tid&lid=$lid','Catch','width=550, top=100, left=100, height=320,directories=no,toolbar=no,status=no,scrollbars=yes'); }
+function block_addresses() { window.open('block_address.php?folder=".urlencode($folder)."&ix=$ix&sid=$sid&tid=$tid&lid=$lid','Block','width=550, top=100, left=100, height=320,directories=no,toolbar=no,status=no,scrollbars=yes'); }
+
 function replyall() { with(document.msg) { rtype.value = 'replyall'; submit(); } }
 function forward() { with(document.msg) { rtype.value = 'forward'; submit(); } }
 function newmsg() { location = 'newmsg.php?pag=$pag&folder=".urlencode($folder)."&sid=$sid&tid=$tid&lid=$lid'; }
 function folderlist() { location = 'folders.php?folder=".urlencode($folder)."&sid=$sid&tid=$tid&lid=$lid'}
 function goend() { location = 'logout.php?sid=$sid&tid=$tid&lid=$lid'; }
-function goinbox() { location = 'msglist.php?folder=inbox&sid=$sid&tid=$tid&lid=$lid'; }
-function goback() { location = 'msglist.php?folder=".urlencode($folder)."&sid=$sid&tid=$tid&lid=$lid&pag=$pag'; }
+function goinbox() { location = 'messages.php?folder=inbox&sid=$sid&tid=$tid&lid=$lid'; }
+function goback() { location = 'messages.php?folder=".urlencode($folder)."&sid=$sid&tid=$tid&lid=$lid&pag=$pag'; }
 function search() { location = 'search.php?sid=$sid&tid=$tid&lid=$lid'; }
 function emptytrash() {	location = 'folders.php?empty=trash&folder=".urlencode($folder)."&goback=true&sid=$sid&tid=$tid&lid=$lid';}
 function addresses() { location = 'addressbook.php?sid=$sid&tid=$tid&lid=$lid'; }
 function prefs() { location = 'preferences.php?sid=$sid&tid=$tid&lid=$lid'; }
 function printit() { window.open('printmsg.php?sid=$sid&tid=$tid&lid=$lid&folder=".urlencode($folder)."&ix=$ix','PrintView','resizable=1,top=10,left=10,width=600,heigth=500,scrollbars=1,status=0'); }
-
+function openmessage(attach) { window.open('readmsg.php?folder=".urlencode($folder)."&pag=$pag&ix=$ix&sid=$sid&tid=$tid&lid=$lid&attachment='+attach,'','resizable=1,top=10,left=10,width=600,height=400,scrollbars=1,status=0'); }
+function openwin(targetUrl) { window.open(targetUrl); }
 </script>
 ";
 
@@ -194,23 +238,45 @@ $smarty->assign("umDate",$email["date"]);
 
 $anexos = $email["attachments"];
 $haveattachs = (count($anexos) > 0)?1:0;
-$smarty->assign("umHaveAttachments",$haveattachs);
 
 if(count($anexos) > 0) {
-	for($i=0;$i<count($anexos);$i++) {
-		$link1 = "download.php?folder=$folder&ix=$ix&mnum=$mnum&bound=".base64_encode($anexos[$i]["boundary"])."&part=".$anexos[$i]["part"]."&sid=$sid&tid=$tid&lid=$lid";
-		$link2 = "$link1&down=1";
-		$anexos[$i]["normlink"] = $link1;
-		$anexos[$i]["downlink"] = $link2;
-		$anexos[$i]["size"] = ceil($anexos[$i]["size"]/1024);
-		$anexos[$i]["type"] = trim($anexos[$i]["content-type"]);
+	$root = &$mail_info["attachments"];
+
+	foreach($arAttachment as $item ) {
+		if(is_numeric($item)) {
+			$root = &$root[$item]["attachments"];
+		}
 	}
-	$smarty->assign("umAttachList",$anexos);
+
+	$root = $email["attachments"];
+	$sess["headers"][$folderkey][$ix] = $mail_info;
+
+	$nIndex = count($arAttachment);
+	$attachAr = Array();
+
+	for($i=0;$i<count($anexos);$i++) {
+
+		$arAttachment[$nIndex] 	= $i;
+		$link1 = "download.php?folder=$folder&ix=$ix&attach=".join(",",$arAttachment)."&sid=$sid&tid=$tid&lid=$lid";
+		$link2 = "$link1&down=1";
+
+		if(!$anexos[$i]["temp"]) {
+			if($anexos[$i]["content-type"] == "message/rfc822") 
+				$anexos[$i]["normlink"]	= "<a href=\"javascript:openmessage('".join(",",$arAttachment)."')\">";
+			else
+				$anexos[$i]["normlink"] = "<a href=\"$link1\" target=\"_new\">";
+
+			$anexos[$i]["downlink"] = "<a href=\"$link2\" target=\"_new\">";
+			$anexos[$i]["size"] = ceil($anexos[$i]["size"]/1024);
+			$anexos[$i]["type"] = $anexos[$i]["content-type"];
+			$attachAr[] = $anexos[$i];
+		}
+	}
+	$smarty->assign("umHaveAttachments",(count($attachAr) > 0));
+	$smarty->assign("umAttachList",$attachAr);
 }
 
-$UM->mail_disconnect(); 
-
-unset($UM);
+$SS->Save($sess);
 
 $avalfolders = Array();
 $d = dir($userfolder);
@@ -220,16 +286,16 @@ while($entry=$d->read()) {
 		$entry != "." && 
 		substr($entry,0,1) != "_" && 
 		$entry != $folder &&
-		($mail_protocol == "imap" || $entry != "inbox")) {
-
-		switch(strtolower($entry)) {
-		case "inbox":
+		($UM->mail_protocol == "imap" || $entry != "inbox")) {
+		$entry = $UM->fix_prefix($entry,0);
+		switch($entry) {
+		case $sess["sysmap"]["inbox"]:
 			$display = $inbox_extended;
 			break;
-		case "sent":
+		case $sess["sysmap"]["sent"]:
 			$display = $sent_extended;
 			break;
-		case "trash":
+		case $sess["sysmap"]["trash"]:
 			$display = $trash_extended;
 			break;
 		default:
@@ -241,5 +307,10 @@ while($entry=$d->read()) {
 }
 $d->close();
 $smarty->assign("umAvalFolders",$avalfolders);
-$smarty->display("$selected_theme/readmsg.htm");
+unset($UM);
+
+if($is_attached)
+	$smarty->display("$selected_theme/readmsg_popup.htm");
+else
+	$smarty->display("$selected_theme/readmsg.htm");
 ?>

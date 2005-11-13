@@ -1,4 +1,4 @@
-<?php
+<?
 /************************************************************************
 UebiMiau is a GPL'ed software developed by 
 
@@ -13,17 +13,18 @@ São Paulo - Brasil
 
 
 require("./inc/inc.php");
-if(!isset($ix) || !isset($folder)) Header("Location: error.php?err=3&sid=$sid&tid=$tid&lid=$lid");
+if(!isset($ix) || !isset($folder)) redirect("error.php?err=3&sid=$sid&tid=$tid&lid=$lid");
 
 
 $filename = $userfolder."_infos/addressbook.ucf";
 $myfile = $UM->_read_file($filename);
 $addressbook = Array();
+
 if($myfile != "") 
-	$addressbook = unserialize(~$myfile);
+	$addressbook = unserialize(base64_decode($myfile));
 
 function valid_email($thismail) {
-	if (!eregi("([-a-z0-9_$+.]+@[-a-z0-9_.]+[-a-z0-9_]+)", $thismail)) return 0;
+	if (!eregi("(^['+\./0-9A-Z^_`a-z{|}~-]+@[-a-z0-9_.]+[-a-z0-9_]+)", $thismail)) return 0;
 	global $addressbook,$f_email;
 	for($i=0;$i<count($addressbook);$i++)
 		if(trim($addressbook[$i]["email"]) == trim($thismail)) return 0;
@@ -31,7 +32,7 @@ function valid_email($thismail) {
 	return 1;
 }
 
-$mail_info = $sess["headers"][base64_encode(strtolower($folder))][$ix];
+$mail_info = $sess["headers"][base64_encode($folder)][$ix];
 
 $emails = Array();
 $from = $mail_info["from"];
@@ -59,9 +60,9 @@ if(isset($ckaval)) {
 		$addressbook[$id]["name"] = $emails[$idchecked]["name"];
 		$addressbook[$id]["email"] = $emails[$idchecked]["mail"];
 	}
-	$tmp = fopen($filename,"w"); 
-	fwrite($tmp,~serialize($addressbook));
-	fclose($tmp);
+
+	$UM->_save_file($filename,base64_encode(serialize($addressbook)));
+
 	echo("
 	<script language=javascript>
 		self.close();

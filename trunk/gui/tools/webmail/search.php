@@ -1,4 +1,4 @@
-<?php
+<?
 /************************************************************************
 UebiMiau is a GPL'ed software developed by 
 
@@ -19,7 +19,7 @@ $jssource = "
 function newmsg() { location = 'newmsg.php?pag=$pag&folder=".urlencode($folder)."&sid=$sid&tid=$tid&lid=$lid'; }
 function folderlist() { location = 'folders.php?folder=".urlencode($folder)."&sid=$sid&tid=$tid&lid=$lid'}
 function goend() { location = 'logout.php?sid=$sid&tid=$tid&lid=$lid'; }
-function goinbox() { location = 'msglist.php?folder=inbox&sid=$sid&tid=$tid&lid=$lid'; }
+function goinbox() { location = 'messages.php?folder=inbox&sid=$sid&tid=$tid&lid=$lid'; }
 function emptytrash() {	location = 'folders.php?empty=trash&folder=".urlencode($folder)."&goback=true&sid=$sid&tid=$tid&lid=$lid';}
 function addresses() { location = 'addressbook.php?sid=$sid&tid=$tid&lid=$lid'; }
 function prefs() { location = 'preferences.php?sid=$sid&tid=$tid&lid=$lid'; }
@@ -53,15 +53,15 @@ if($srcFrom != "" || $srcSubject != "" || $srcBody != "") {
 
 	for($n=0;$n<count($boxes);$n++) {
 		$entry = $boxes[$n]["name"];
-		if(!is_array($sess["headers"][base64_encode(strtolower($entry))])) {
+		if(!is_array($sess["headers"][base64_encode($entry)])) {
 			if(!$UM->mail_connected()) {
-				if(!$UM->mail_connect()) Header("Location: error.php?err=1&sid=$sid&tid=$tid&lid=$lid\r\n");
-				if(!$UM->mail_auth()) { Header("Location: badlogin.php?sid=$sid&tid=$tid&lid=$lid\r\n"); exit; }
+				if(!$UM->mail_connect()) redirect("error.php?err=1&sid=$sid&tid=$tid&lid=$lid");
+				if(!$UM->mail_auth()) { redirect("badlogin.php?sid=$sid&tid=$tid&lid=$lid&error=".urlencode($UM->mail_error_msg)); exit; }
 			}
 			$thisbox = $UM->mail_list_msgs($entry);
-			$sess["headers"][base64_encode(strtolower($entry))] = $thisbox;
+			$sess["headers"][base64_encode($entry)] = $thisbox;
 		} else 
-			$thisbox = $sess["headers"][base64_encode(strtolower($entry))];
+			$thisbox = $sess["headers"][base64_encode($entry)];
 	}
 	if($UM->mail_connected()) {
 		$UM->mail_disconnect(); 
@@ -142,7 +142,7 @@ if($srcFrom != "" || $srcSubject != "" || $srcBody != "") {
 		$readlink = "javascript:readmsg(".$headers[$i]["ix"].",$read,'".urlencode($headers[$i]["folder"])."')";
 		$composelink = "newmsg.php?folder=$folder&nameto=".htmlspecialchars($headers[$i]["from"][0]["name"])."&mailto=".htmlspecialchars($headers[$i]["from"][0]["mail"])."&sid=$sid&tid=$tid&lid=$lid";
 		$composelinksent = "newmsg.php?folder=$folder&nameto=".htmlspecialchars($headers[$i]["to"][0]["name"])."&mailto=".htmlspecialchars($headers[$i]["to"][0]["name"])."&sid=$sid&tid=$tid&lid=$lid";
-		$folderlink = "msglist.php?folder=".urlencode($headers[$i]["folder"])."&tid=$tid&lid=$lid&sid=$sid";
+		$folderlink = "messages.php?folder=".urlencode($headers[$i]["folder"])."&tid=$tid&lid=$lid&sid=$sid";
 		
 		$from = $headers[$i]["from"][0]["name"];
 		$to = $headers[$i]["to"][0]["name"];
@@ -167,7 +167,19 @@ if($srcFrom != "" || $srcSubject != "" || $srcBody != "") {
 		$date = $headers[$i]["date"];
 		$size = ceil($headers[$i]["size"]/1024);
 		$index = count($messagelist);
-
+		switch($headers[$i]["folder"]) {
+		case $sess["sysmap"]["inbox"]:
+			$boxname = $inbox_extended;
+			break;
+		case $sess["sysmap"]["sent"]:
+			$boxname = $sent_extended;
+			break;
+		case $sess["sysmap"]["trash"]:
+			$boxname = $trash_extended;
+			break;
+		default:
+			$boxname = $headers[$i]["folder"];
+		}
 		$messagelist[$index]["read"] = $read;
 		$messagelist[$index]["readlink"] = $readlink;
 		$messagelist[$index]["composelink"] = $composelink;
@@ -183,6 +195,7 @@ if($srcFrom != "" || $srcSubject != "" || $srcBody != "") {
 		$messagelist[$index]["priorimg"] = $img_prior;
 		$messagelist[$index]["size"] = $size;
 		$messagelist[$index]["folder"] = $headers[$i]["folder"];
+		$messagelist[$index]["foldername"] = $boxname;
 	}
 	$smarty->assign("umMessageList",$messagelist);
 	unset($headers);

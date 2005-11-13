@@ -1,4 +1,4 @@
-<?php
+<?
 /************************************************************************
 UebiMiau is a GPL'ed software developed by 
 
@@ -11,6 +11,7 @@ São Paulo - Brasil
 
 
 require("./inc/inc.php");
+require("./folder_list.php");
 
 
 
@@ -41,7 +42,7 @@ disbl = false;
 function newmsg() { location = 'newmsg.php?pag=$pag&folder=".urlencode($folder)."&sid=$sid&tid=$tid&lid=$lid'; }
 function folderlist() { location = 'folders.php?folder=".urlencode($folder)."&sid=$sid&tid=$tid&lid=$lid'}
 function goend() { location = 'logout.php?sid=$sid&tid=$tid&lid=$lid'; }
-function goinbox() { location = 'msglist.php?folder=inbox&sid=$sid&tid=$tid&lid=$lid'; }
+function goinbox() { location = 'messages.php?folder=inbox&sid=$sid&tid=$tid&lid=$lid'; }
 function search() { location = 'search.php?sid=$sid&tid=$tid&lid=$lid'; }
 function emptytrash() {	location = 'folders.php?empty=trash&folder=".urlencode($folder)."&goback=true&sid=$sid&tid=$tid&lid=$lid';}
 function addresses() { location = 'addressbook.php?sid=$sid&tid=$tid&lid=$lid'; }
@@ -81,26 +82,16 @@ $sel_refreshtime .= "</select>";
 $txtsignature = "<textarea cols=\"40\" rows=\"3\" name=\"f_sig\" class=\"textarea\">".htmlspecialchars($prefs["signature"])."</textarea>";
 
 
-// timezone conversion
-
-$stzoper 	= $server_time_zone[0];
-$stzhours	= intval($stzoper.substr($server_time_zone,1,2))*3600;
-$stzmins	= intval($stzoper.substr($server_time_zone,3,2))*60;
-$stzdiff	= $stzhours+$stzmins;
-
-$gmttime = time()-$stzdiff;
-
-
-// end
+$gmttime = time()-date("Z");
 
 $tzselect = "<select name=f_timezone>\r";
-for($i=-12;$i<=12;$i++) {
-	$is = ($i > 0)?"+$i":$i;
+for($i=-12;$i<=12;$i = $i+0.5) {
 	$nowgmt = $gmttime + $i*3600;
-	$tzstr = ($i < 0)?"-":"+";
-	$tzstr .= sprintf("%02d",abs($i))."00";
-	$selected = ($prefs["timezone"] == $tzstr)?" selected":"";
-	$tzselect .= "<option value=\"$tzstr\"$selected>GMT $is (".date("h:i A",$nowgmt).")\r";
+	$operator = ($i < 0)?"-":"+";
+	$z = abs($i);
+	$diff = $operator.sprintf("%02d",intval($z)).sprintf("%02d",($z-intval($z))*60);
+	$selected = ($prefs["timezone"] == $diff)?" selected":"";
+	$tzselect .= "<option value=\"$diff\"$selected>GMT $diff (".date("h:i A",$nowgmt).")\r";
 }
 $tzselect .= "</select>\r";
 

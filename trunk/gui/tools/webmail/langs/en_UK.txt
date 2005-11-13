@@ -261,6 +261,7 @@ attch_force_hea					= Download
 attch_type_hea					= Type
 attch_size_hea					= Size
 catch_address					= Add to address book
+block_address					= Block address
 
 [Search]
 sch_information_text			= Write a phrase or a word that you are looking for.<br> Only read messages will be searched.
@@ -302,3 +303,13 @@ adr_new_entry					= New contact
 addr_saved						= The contact has been saved
 addr_added						= The contact has been added
 addr_deleted					= The contact has been deleted
+
+
+[BlockSender]
+blk_title						= Block sender
+blk_information					= Only shows e-mails that are not in the filter yet
+blk_email						= E-mail
+blk_no_address					= No address available
+blk_close						= Close
+blk_save						= Save
+

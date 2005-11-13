@@ -1,4 +1,4 @@
-<?php
+<?
 /************************************************************************
 UebiMiau is a GPL'ed software developed by 
 
@@ -14,7 +14,6 @@ São Paulo - Brasil
 // load configs
 require("./inc/config.php");
 require("./inc/lib.php");
-error_reporting (E_ALL ^ E_NOTICE); 
 
 define("SMARTY_DIR","./smarty/");
 require_once(SMARTY_DIR."Smarty.class.php");
