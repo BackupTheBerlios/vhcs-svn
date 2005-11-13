@@ -41,16 +41,7 @@ search for MAIL_TRAFF_LOG and add lines. The result should looks like this:
 
 MAIL_TRAFF_LOG = mail.log
 
-#
-# if AMAVIS is used set MAIL_LOG_INC_AMAVIS = 1
-#
-
 MAIL_LOG_INC_AMAVIS = 0
-
-#
-# if .prev file size is greater then PREV_TRAFF_LOG_MAX_SIZE
-# vrl-traff will cut it;
-#
 
 PREV_TRAFF_LOG_MAX_SIZE = 10485760
 
@@ -58,7 +49,7 @@ QUOTA_ROOT_DIR = /var/www/vhcs2/engine/quota
 
 
 
-If you are using AMAVIS and SPAMASSASIN change 
+If you are using AMAVIS and SPAMASSASSIN change 
 
 MAIL_LOG_INC_AMAVIS = 0
 
@@ -79,7 +70,13 @@ tangra: # cp -a /mydir/engine/ /var/www/vhcs2/
 
 tangra: # cp /var/www/vhcs2/engine_bcp_yyyymmdd/vhcs2-db-keys.pl to /var/www/vhcs2/engine/vhcs2-db-keys.pl
 
-3) We changed sasldb2 management for the postfix chroot.
+3) changes for vhcs2-arpl-msgr
+
+tangra: # cp /var/www/vhcs2/engine/vhcs2-db-keys.pl /var/www/vhcs2/engine/messager/vhcs2-db-keys.pl
+tangra: # chmod 0700 /var/www/vhcs2/engine/messager/vhcs2-db-keys.pl /var/www/vhcs2/engine/messager/vhcs2-arpl-msgr
+tangra: # chown vmail:mail /var/www/vhcs2/engine/messager/vhcs2-db-keys.pl /var/www/vhcs2/engine/messager/vhcs2-arpl-msgr
+
+4) We changed sasldb2 management for the postfix chroot.
 	
 So postfix had his own file in /var/spool/postfix/etc/sasldb2
 and the system file is located in /etc/sasldb2. 
