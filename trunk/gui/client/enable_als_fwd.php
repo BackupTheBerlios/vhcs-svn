@@ -131,7 +131,8 @@ function gen_editalias_page(&$tpl, $edit_id)
 
 
 	//Get data from sql
-	$res = exec_query($sql, "select * from domain_aliasses where alias_id=?", array($edit_id));
+	list($domain_id) = get_domain_default_props($sql, $_SESSION['user_id']);
+	$res = exec_query($sql, "select * from domain_aliasses where alias_id=? and domain_id = ?", array($edit_id, $domain_id));
 
 	if ($res->RecordCount() <= 0 ) {
 		$_SESSION['aledit'] = '_no_';

@@ -23,7 +23,25 @@ check_login();
 
 if (isset($_GET['id']) && $_GET['id'] !== '') {
   $als_id = $_GET['id'];
-	check_for_lock_file();
+  $dom_id = get_user_domain_id($sql, $_SESSION['user_id']);
+  check_for_lock_file();
+  $query = <<<SQL_QUERY
+  	SELECT
+	 *
+	FROM
+	 domain_aliasses
+	WHERE
+	 alias_id = ?
+	AND
+	 domain_id = ?
+SQL_QUERY;
+
+	$rs = exec_query($sql, $query, array($als_id, $dom_id));
+	if ($rs -> RecordCount() == 0) {
+		set_page_message(tr('You have no permission to disable this alias forward'));
+		header("Location: manage_domains.php");
+		die();
+	}
 
   $query = <<<SQL_QUERY
         update
@@ -33,9 +51,11 @@ if (isset($_GET['id']) && $_GET['id'] !== '') {
             alias_status = 'change'
         where
             alias_id = ?
+		and
+			domain_id = ?
 SQL_QUERY;
 
-  $rs = exec_query($sql, $query, array($als_id));
+  $rs = exec_query($sql, $query, array($als_id, $dom_id));
 
   send_request();
   write_log($_SESSION['user_logged']." : change domain alias forward");
