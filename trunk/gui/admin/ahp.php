@@ -163,7 +163,7 @@ function check_data_correction(&$tpl)
 
   $ahp_error  = "_off_";
 
-	$hp_name = htmlspecialchars(stripslashes($_POST['hp_name'], ENT_QUOTES, "UTF-8"));
+	$hp_name = htmlspecialchars(stripslashes($_POST['hp_name']), ENT_QUOTES, "UTF-8");
 	$hp_sub = $_POST['hp_sub'];
 	$hp_als = $_POST['hp_als'];
 	$hp_mail = $_POST['hp_mail'];
@@ -172,7 +172,7 @@ function check_data_correction(&$tpl)
 	$hp_sql_user= $_POST['hp_sql_user'];
 	$hp_traff = $_POST['hp_traff'];
 	$hp_disk = $_POST['hp_disk'];
-	$description = htmlspecialchars(stripslashes($_POST['hp_description'], ENT_QUOTES, "UTF-8"));
+	$description = htmlspecialchars(stripslashes($_POST['hp_description']), ENT_QUOTES, "UTF-8");
 	
 	if ($_POST['hp_price'] == ''){
 		$price = 0;
