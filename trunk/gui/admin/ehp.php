@@ -81,6 +81,8 @@ if (isset($_POST['uaction']) && ('add_plan' === $_POST['uaction'])) {
   // Process data
   if (check_data_iscorrect($tpl)) { // Save data to db
     save_data_to_db();
+  } else {
+  	restore_form($tpl, $sql);
   }
 } else {
   // Get hosting plan id tha come for edit
@@ -102,6 +104,41 @@ if (isset($cfg['DUMP_GUI_DEBUG'])) dump_gui_debug();
 //*******************************************************
 //* Function definitions
 //*
+
+// Restore form on any error
+function restore_form(&$tpl, &$sql) {
+	$tpl -> assign(array(
+						 'HP_NAME_VALUE' => htmlspecialchars(stripslashes($_POST['hp_name']), ENT_QUOTES, "UTF-8"),
+						 'HP_DESCRIPTION_VALUE' => htmlspecialchars(stripslashes($_POST['hp_description']), ENT_QUOTES, "UTF-8"),
+						 'TR_MAX_SUB_LIMITS' => $_POST['hp_sub'],
+						 'TR_MAX_ALS_VALUES' => $_POST['hp_als'],
+						 'HP_MAIL_VALUE' => $_POST['hp_mail'],
+						 'HP_FTP_VALUE' => $_POST['hp_ftp'],
+						 'HP_SQL_DB_VALUE' => $_POST['hp_sql_db'],
+						 'HP_SQL_USER_VALUE' => $_POST['hp_sql_user'],
+						 'HP_TRAFF_VALUE' => $_POST['hp_traff'],
+						 'HP_TRAFF' => $_POST['hp_traff'],
+						 'HP_DISK_VALUE' => $_POST['hp_disk'],
+						 'HP_PRICE' => $_POST['hp_price'],
+						 'HP_SETUPFEE' => $_POST['hp_setupfee'],
+						 'HP_CURRENCY' => stripslashes($_POST['hp_currency']),
+						 'HP_PAYMENT' => stripslashes($_POST['hp_payment'])
+						 ));
+						 
+	if ('_yes_' === $_POST['php']) {
+		$tpl -> assign(array('TR_PHP_YES' => 'checked'));
+	} else
+		$tpl -> assign(array('TR_PHP_NO' => 'checked'));
+	if ('_yes_' === $_POST['cgi']) {
+		$tpl -> assign(array('TR_CGI_YES' => 'checked'));
+	} else
+		$tpl -> assign(array('TR_CGI_NO' => 'checked'));
+		
+	if ($_POST['status'] == 1) {
+    $tpl -> assign(array('TR_STATUS_YES' => 'checked'));
+  } else
+    $tpl -> assign(array('TR_STATUS_NO' => 'checked'));
+}
 
 // Generate load data from sql for requested hosting plan
 function gen_load_ehp_page(&$tpl, &$sql, $hpid, $admin_id)
@@ -165,7 +202,7 @@ SQL_QUERY;
 					   'HP_DESCRIPTION_VALUE' => $description,
 					   'HP_PRICE' => $price,
 					   'HP_SETUPFEE' => $setup_fee,
-					   'HP_VELUE' => $value,
+					   'HP_CURRENCY' => $value,
 					   'READONLY' => $readonly,
 					   'DISBLED' => $disabled,
 					   'HP_PAYMENT' => $payment));
@@ -226,24 +263,32 @@ function check_data_iscorrect(&$tpl)
   // if (!vhcs_name_check($hp_name, 200)) {
         // $ahp_error = tr('Incorrect template name range or syntax!');
     // } else
+	
+	if (!is_numeric($_POST['hp_price'])) {
+		$ahp_error = tr('Incorrect price. Example: 9.99');
+	}
+	
+	if (!is_numeric($_POST['hp_setupfee'])) {
+		$ahp_error = tr('Incorrect setup fee. Example: 19.99');
+	}
 
-  if (!vhcs_limit_check($hp_sub, 999)) {
-    $ahp_error = tr('Incorrect subdomain range or syntax!');
-  } else if (!vhcs_limit_check($hp_als, 999)) {
-    $ahp_error = tr('Incorrect alias range or syntax!');
-  } else if (!vhcs_limit_check($hp_mail, 999) || $hp_mail == -1) {
-    $ahp_error = tr('Incorrect mail account range or syntax!');
-  } else if (!vhcs_limit_check($hp_ftp, 999) || $hp_ftp == -1) {
-    $ahp_error = tr('Incorrect FTP account range or syntax!');
-  } else if (!vhcs_limit_check($hp_sql_user, 999)) {
-    $ahp_error = tr('Incorrect SQL database range or syntax!');
-  } else if (!vhcs_limit_check($hp_sql_db, 999)) {
-    $ahp_error = tr('Incorrect SQL user range or syntax!');
-  } else if (!vhcs_limit_check($hp_traff, 1024*1024) || $hp_traff == -1) {
-    $ahp_error = tr('Incorrect traffic range or syntax!');
-  } else if (!vhcs_limit_check($hp_disk, 1024*1024) || $hp_disk == -1) {
-    $ahp_error = tr('Incorrect disk range or syntax!');
-  }
+	if (!vhcs_limit_check($hp_sub, 999)) {
+		$ahp_error = tr('Incorrect subdomain range or syntax!');
+	} else if (!vhcs_limit_check($hp_als, 999)) {
+		$ahp_error = tr('Incorrect alias range or syntax!');
+	} else if (!vhcs_limit_check($hp_mail, 999) || $hp_mail == -1) {
+		$ahp_error = tr('Incorrect mail account range or syntax!');
+	} else if (!vhcs_limit_check($hp_ftp, 999) || $hp_ftp == -1) {
+		$ahp_error = tr('Incorrect FTP account range or syntax!');
+	} else if (!vhcs_limit_check($hp_sql_user, 999)) {
+		$ahp_error = tr('Incorrect SQL database range or syntax!');
+	} else if (!vhcs_limit_check($hp_sql_db, 999)) {
+		$ahp_error = tr('Incorrect SQL user range or syntax!');
+	} else if (!vhcs_limit_check($hp_traff, 1024*1024) || $hp_traff == -1) {
+		$ahp_error = tr('Incorrect traffic range or syntax!');
+	} else if (!vhcs_limit_check($hp_disk, 1024*1024) || $hp_disk == -1) {
+		$ahp_error = tr('Incorrect disk range or syntax!');
+	}
 
   if ($ahp_error == '_off_') {
     $tpl -> assign('MESSAGE', '');
@@ -272,7 +317,7 @@ function save_data_to_db()
 	$description = $_POST['hp_description'];
 	$price = $_POST['hp_price'];
 	$setup_fee = $_POST['hp_setupfee'];
-	$value = $_POST['hp_value'];
+	$value = $_POST['hp_currency'];
 	$payment = $_POST['hp_payment'];
 	$status = $_POST['status'];
 	
