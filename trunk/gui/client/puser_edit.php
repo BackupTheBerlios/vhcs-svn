@@ -61,13 +61,9 @@ function pedit_user(&$tpl, &$sql, &$dmn_id, &$user_id)
 	if(isset($_POST['uaction']) && $_POST['uaction'] == 'modify_user'){
 	// we have user to add
 		if(isset($_POST['pass']) && isset($_POST['pass_rep']))
-		{
-		    if (chk_password($_POST['pass']) > 0) {
-				set_page_message(tr('Passwords does not match!'));
-				return;
-		    }
+		{ 
 			if ($_POST['pass'] !== $_POST['pass_rep']){
-				set_page_message(tr('Passwords does not match!'));
+				set_page_message(tr('Passwords don\'t match!'));
 				return;
 			}
 			
