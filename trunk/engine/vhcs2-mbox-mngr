@@ -2660,10 +2660,12 @@ sub mbox_add_sasl_data {
     my $mta_sasldb_local_domain = $main::cfg{'MTA_SASLDB_LOCAL_DOMAIN'};
     
     my $mta_sasldb_file = $main::cfg{'MTA_SASLDB_FILE'};
+
+	my $etc_sasldb_file = $main::cfg{'ETC_SASLDB_FILE'};
     
     my $cmd_sasldb_passwd2 = $main::cfg{'CMD_SASLDB_PASSWD2'};
 
-	my $sasldb_file = $main::cfg{'SASLDB_FILE'};
+	my $cmd_cp = $main::cfg{'CMD_CP'};
     
     my $cmd_echo = $main::cfg{'CMD_ECHO'};
     
@@ -2686,18 +2688,18 @@ sub mbox_add_sasl_data {
        
         #$check_user = "$mail_acc:$dmn_name";
        
-        #$cmd_del_user = "$cmd_sasldb_passwd2 -d -f $mta_sasldb_file -u $mta_sasldb_local_domain $mail_acc:$dmn_name";
+        #$cmd_del_user = "$cmd_sasldb_passwd2 -d -f $etc_sasldb_file -u $mta_sasldb_local_domain $mail_acc:$dmn_name";
        
-        #$cmd_add_user = "$cmd_echo \"$mail_pass\" | $cmd_sasldb_passwd2 -p -c -f $mta_sasldb_file -u $mta_sasldb_local_domain $mail_acc:$dmn_name";
+        #$cmd_add_user = "$cmd_echo \"$mail_pass\" | $cmd_sasldb_passwd2 -p -c -f $etc_sasldb_file -u $mta_sasldb_local_domain $mail_acc:$dmn_name";
        
         
         $check_user = "$mail_acc\@$dmn_name";
         
-        $cmd_del_user =  "$cmd_sasldb_passwd2 -d -f $mta_sasldb_file -u $dmn_name $mail_acc";
-        $cmd_del_user .=  " && $cmd_sasldb_passwd2 -d -f $sasldb_file -u $dmn_name $mail_acc";
+        $cmd_del_user = "$cmd_sasldb_passwd2 -d -f $etc_sasldb_file -u $dmn_name $mail_acc";
+		$cmd_del_user .= " && $cmd_cp $etc_sasldb_file $mta_sasldb_file";
 		
-		$cmd_add_user = "$cmd_echo \"$mail_pass\" | $cmd_sasldb_passwd2 -p -c -f $mta_sasldb_file -u $dmn_name $mail_acc";
-		$cmd_add_user .= " && $cmd_echo \"$mail_pass\" | $cmd_sasldb_passwd2 -p -c -f $sasldb_file -u $dmn_name $mail_acc";
+		$cmd_add_user = "$cmd_echo \"$mail_pass\" | $cmd_sasldb_passwd2 -p -c -f $etc_sasldb_file -u $dmn_name $mail_acc";
+        $cmd_add_user .= " && $cmd_cp $etc_sasldb_file $mta_sasldb_file";
         
         $hash_key = "$mail_acc\@$dmn_name";
         
@@ -2712,19 +2714,19 @@ sub mbox_add_sasl_data {
        
         #$check_user = "$mail_acc:$dmn_name";
        
-        #$cmd_del_user = "$cmd_sasldb_passwd2 -d -f $mta_sasldb_file -u $mta_sasldb_local_domain $mail_acc:$dmn_name";
+        #$cmd_del_user = "$cmd_sasldb_passwd2 -d -f $etc_sasldb_file -u $mta_sasldb_local_domain $mail_acc:$dmn_name";
        
-        #$cmd_add_user = "$cmd_echo \"$mail_pass\" | $cmd_sasldb_passwd2 -p -c -f $mta_sasldb_file -u $mta_sasldb_local_domain $mail_acc:$dmn_name";
+        #$cmd_add_user = "$cmd_echo \"$mail_pass\" | $cmd_sasldb_passwd2 -p -c -f $etc_sasldb_file -u $mta_sasldb_local_domain $mail_acc:$dmn_name";
         
         $dmn_name = $main::als_id_name{$mail_sub_id};
         
         $check_user = "$mail_acc\@$dmn_name";
         
-        $cmd_del_user =  "$cmd_sasldb_passwd2 -d -f $mta_sasldb_file -u $dmn_name $mail_acc";
-        $cmd_del_user .=  " && $cmd_sasldb_passwd2 -d -f $sasldb_file -u $dmn_name $mail_acc";
-		
-		$cmd_add_user = "$cmd_echo \"$mail_pass\" | $cmd_sasldb_passwd2 -p -c -f $mta_sasldb_file -u $dmn_name $mail_acc";
-		$cmd_add_user .= " && $cmd_echo \"$mail_pass\" | $cmd_sasldb_passwd2 -p -c -f $sasldb_file -u $dmn_name $mail_acc";
+        $cmd_del_user = "$cmd_sasldb_passwd2 -d -f $etc_sasldb_file -u $dmn_name $mail_acc";
+		$cmd_del_user .= " && $cmd_cp $etc_sasldb_file $mta_sasldb_file";
+
+        $cmd_add_user = "$cmd_echo \"$mail_pass\" | $cmd_sasldb_passwd2 -p -c -f $etc_sasldb_file -u $dmn_name $mail_acc";
+		$cmd_add_user .= " && $cmd_cp $etc_sasldb_file $mta_sasldb_file";
 
         $hash_key = "$mail_acc\@$dmn_name";
         
@@ -2745,18 +2747,18 @@ sub mbox_add_sasl_data {
        
         #$check_user = "$mail_acc:$sub_name";
        
-        #$cmd_del_user = "$cmd_sasldb_passwd2 -d -f $mta_sasldb_file -u $mta_sasldb_local_domain $mail_acc:$sub_name";
+        #$cmd_del_user = "$cmd_sasldb_passwd2 -d -f $etc_sasldb_file -u $mta_sasldb_local_domain $mail_acc:$sub_name";
        
-        #$cmd_add_user = "$cmd_echo \"$mail_pass\" | $cmd_sasldb_passwd2 -p -c -f $mta_sasldb_file -u $mta_sasldb_local_domain $mail_acc:$sub_name";
+        #$cmd_add_user = "$cmd_echo \"$mail_pass\" | $cmd_sasldb_passwd2 -p -c -f $etc_sasldb_file -u $mta_sasldb_local_domain $mail_acc:$sub_name";
        
         
         $check_user = "$mail_acc\@$sub_name";
         
-        $cmd_del_user =  "$cmd_sasldb_passwd2 -d -f $mta_sasldb_file -u $dmn_name $mail_acc";
-        $cmd_del_user .=  " && $cmd_sasldb_passwd2 -d -f $sasldb_file -u $dmn_name $mail_acc";
-		
-		$cmd_add_user = "$cmd_echo \"$mail_pass\" | $cmd_sasldb_passwd2 -p -c -f $mta_sasldb_file -u $dmn_name $mail_acc";
-		$cmd_add_user .= " && $cmd_echo \"$mail_pass\" | $cmd_sasldb_passwd2 -p -c -f $sasldb_file -u $dmn_name $mail_acc";
+        $cmd_del_user = "$cmd_sasldb_passwd2 -d -f $etc_sasldb_file -u $sub_name $mail_acc";
+		$cmd_del_user .= " && $cmd_cp $etc_sasldb_file $mta_sasldb_file";
+    
+        $cmd_add_user = "$cmd_echo \"$mail_pass\" | $cmd_sasldb_passwd2 -p -c -f $etc_sasldb_file -u $sub_name $mail_acc";
+		$cmd_add_user .= " && $cmd_cp $etc_sasldb_file $mta_sasldb_file";
         
         $hash_key = "$mail_acc\@$sub_name";
         
@@ -2851,7 +2853,7 @@ sub mbox_del_sasl_data {
     
     my $mta_sasldb_file = $main::cfg{'MTA_SASLDB_FILE'};
 
-    my $sasldb_file = $main::cfg{'SASLDB_FILE'};
+	my $etc_sasldb_file = $main::cfg{'ETC_SASLDB_FILE'};
     
     my $cmd_sasldb_passwd2 = $main::cfg{'CMD_SASLDB_PASSWD2'};
     
@@ -2876,18 +2878,18 @@ sub mbox_del_sasl_data {
        
         #$check_user = "$mail_acc:$dmn_name";
        
-        #$cmd_del_user = "$cmd_sasldb_passwd2 -d -f $mta_sasldb_file -u $mta_sasldb_local_domain $mail_acc:$dmn_name";
+        #$cmd_del_user = "$cmd_sasldb_passwd2 -d -f $etc_sasldb_file -u $mta_sasldb_local_domain $mail_acc:$dmn_name";
        
-        #$cmd_add_user = "$cmd_echo \"$mail_pass\" | $cmd_sasldb_passwd2 -p -c -f $mta_sasldb_file -u $mta_sasldb_local_domain $mail_acc:$dmn_name";
+        #$cmd_add_user = "$cmd_echo \"$mail_pass\" | $cmd_sasldb_passwd2 -p -c -f $etc_sasldb_file -u $mta_sasldb_local_domain $mail_acc:$dmn_name";
        
         
         $check_user = "$mail_acc\@$dmn_name";
         
-        $cmd_del_user =  "$cmd_sasldb_passwd2 -d -f $mta_sasldb_file -u $dmn_name $mail_acc";
-        $cmd_del_user .=  " && $cmd_sasldb_passwd2 -d -f $sasldb_file -u $dmn_name $mail_acc";
-		
-		$cmd_add_user = "$cmd_echo \"$mail_pass\" | $cmd_sasldb_passwd2 -p -c -f $mta_sasldb_file -u $dmn_name $mail_acc";
-		$cmd_add_user .= " && $cmd_echo \"$mail_pass\" | $cmd_sasldb_passwd2 -p -c -f $sasldb_file -u $dmn_name $mail_acc";
+        $cmd_del_user = "$cmd_sasldb_passwd2 -d -f $etc_sasldb_file -u $dmn_name $mail_acc";
+		$cmd_del_user .= " && $cmd_cp $etc_sasldb_file $mta_sasldb_file";
+    
+        $cmd_add_user = "$cmd_echo \"$mail_pass\" | $cmd_sasldb_passwd2 -p -c -f $etc_sasldb_file -u $dmn_name $mail_acc";
+		$cmd_add_user .= " && $cmd_cp $etc_sasldb_file $mta_sasldb_file";
         
         $hash_key = "$mail_acc\@$dmn_name";
         
@@ -2902,19 +2904,19 @@ sub mbox_del_sasl_data {
        
         #$check_user = "$mail_acc:$dmn_name";
        
-        #$cmd_del_user = "$cmd_sasldb_passwd2 -d -f $mta_sasldb_file -u $mta_sasldb_local_domain $mail_acc:$dmn_name";
+        #$cmd_del_user = "$cmd_sasldb_passwd2 -d -f $etc_sasldb_file -u $mta_sasldb_local_domain $mail_acc:$dmn_name";
        
-        #$cmd_add_user = "$cmd_echo \"$mail_pass\" | $cmd_sasldb_passwd2 -p -c -f $mta_sasldb_file -u $mta_sasldb_local_domain $mail_acc:$dmn_name";
+        #$cmd_add_user = "$cmd_echo \"$mail_pass\" | $cmd_sasldb_passwd2 -p -c -f $etc_sasldb_file -u $mta_sasldb_local_domain $mail_acc:$dmn_name";
         
         $dmn_name = $main::als_id_name{$mail_sub_id};
         
         $check_user = "$mail_acc\@$dmn_name";
         
-        $cmd_del_user =  "$cmd_sasldb_passwd2 -d -f $mta_sasldb_file -u $dmn_name $mail_acc";
-        $cmd_del_user .=  " && $cmd_sasldb_passwd2 -d -f $sasldb_file -u $dmn_name $mail_acc";
-		
-		$cmd_add_user = "$cmd_echo \"$mail_pass\" | $cmd_sasldb_passwd2 -p -c -f $mta_sasldb_file -u $dmn_name $mail_acc";
-		$cmd_add_user .= " && $cmd_echo \"$mail_pass\" | $cmd_sasldb_passwd2 -p -c -f $sasldb_file -u $dmn_name $mail_acc";
+        $cmd_del_user = "$cmd_sasldb_passwd2 -d -f $etc_sasldb_file -u $dmn_name $mail_acc";
+		$cmd_del_user .= " && $cmd_cp $etc_sasldb_file $mta_sasldb_file";
+    
+        $cmd_add_user = "$cmd_echo \"$mail_pass\" | $cmd_sasldb_passwd2 -p -c -f $etc_sasldb_file -u $dmn_name $mail_acc";
+		$cmd_add_user .= " && $cmd_cp $etc_sasldb_file $mta_sasldb_file";
         
         $hash_key = "$mail_acc\@$dmn_name";
         
@@ -2934,18 +2936,18 @@ sub mbox_del_sasl_data {
        
         #$check_user = "$mail_acc:$sub_name";
        
-        #$cmd_del_user = "$cmd_sasldb_passwd2 -d -f $mta_sasldb_file -u $mta_sasldb_local_domain $mail_acc:$sub_name";
+        #$cmd_del_user = "$cmd_sasldb_passwd2 -d -f $etc_sasldb_file -u $mta_sasldb_local_domain $mail_acc:$sub_name";
        
-        #$cmd_add_user = "$cmd_echo \"$mail_pass\" | $cmd_sasldb_passwd2 -p -c -f $mta_sasldb_file -u $mta_sasldb_local_domain $mail_acc:$sub_name";
+        #$cmd_add_user = "$cmd_echo \"$mail_pass\" | $cmd_sasldb_passwd2 -p -c -f $etc_sasldb_file -u $mta_sasldb_local_domain $mail_acc:$sub_name";
        
         
         $check_user = "$mail_acc\@$sub_name";
         
-        $cmd_del_user =  "$cmd_sasldb_passwd2 -d -f $mta_sasldb_file -u $dmn_name $mail_acc";
-        $cmd_del_user .=  " && $cmd_sasldb_passwd2 -d -f $sasldb_file -u $dmn_name $mail_acc";
+        $cmd_del_user = "$cmd_sasldb_passwd2 -d -f $etc_sasldb_file -u $sub_name $mail_acc";
+		$cmd_del_user .= " && $cmd_cp $etc_sasldb_file $mta_sasldb_file";
 		
-		$cmd_add_user = "$cmd_echo \"$mail_pass\" | $cmd_sasldb_passwd2 -p -c -f $mta_sasldb_file -u $dmn_name $mail_acc";
-		$cmd_add_user .= " && $cmd_echo \"$mail_pass\" | $cmd_sasldb_passwd2 -p -c -f $sasldb_file -u $dmn_name $mail_acc";
+        $cmd_add_user = "$cmd_echo \"$mail_pass\" | $cmd_sasldb_passwd2 -p -c -f $etc_sasldb_file -u $sub_name $mail_acc";
+		$cmd_add_user .= " && $cmd_cp $etc_sasldb_file $mta_sasldb_file";
 		
         $hash_key = "$mail_acc\@$sub_name";
         
