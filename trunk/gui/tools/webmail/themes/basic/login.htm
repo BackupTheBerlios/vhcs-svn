@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<title>UebiMiau - Login</title>
+</head>
+<link rel="stylesheet" href="themes/english/webmail.css" type="text/css">
+<!--%UM_JS%-->
+<body bgcolor="#004080" text="#FFFFFF" link="#FFFFFF" vlink="#FFFFFF" alink="#FFFFFF">
+<br><br><br>
+
+<table width="400" border="0" cellspacing="0" cellpadding="2" align="center">
+	<tr>
+		<td><img src="images/logo.gif" width="183" height="73" border="0" alt=""></td>
+	<tr>
+		<td bgcolor=white>
+			<table width="100%" border="0" cellspacing="1" cellpadding="1" align="center">
+			<form name="form1" action="msglist.php" method=post>
+				<input type="hidden" name=sid value="<!--%UM_SID%-->">
+				<tr><td align=right class="title" colspan=2>.: <b>Login information</b> :.</td>
+				<!--%UM_VARIABLE_SERVER_BEGIN%-->
+				<tr><td align=right class="right"><b>Email</b>: &nbsp;</td><td class="default"><input type=text size=25 name=f_email value="" class="textbox"></td>
+				<tr><td align=right class="right"><b>Login</b>: &nbsp;</td><td class="default"><input type=text size=15 name=f_user value="<!--%UM_F_USER%-->" class="textbox"></td>
+				<tr><td align=right class="right"><b>Password</b>: &nbsp;</td><td class="default"><input type=password size=15 name="f_pass" class="textbox"></td>
+				<tr><td align=right class="right"><b>Server</b>: &nbsp;</td><td class="default"><input type=text size=20 name="f_server" class="textbox"></td>
+				<!--%UM_VARIABLE_SERVER_END%-->
+				<!--%UM_STATIC_SERVER_BEGIN%-->
+				<tr><td align=right class="right"><b>Login</b>: &nbsp;</td><td class="default"><input type=text size=15 name=f_user value="<!--%UM_F_USER%-->" class="textbox"> &nbsp;<b><!--%UM_SERVERS%--></b></td>
+				<tr><td align=right class="right"><b>Password</b>: &nbsp;</td><td class="default"><input type=password size=15 name="f_pass" class="textbox"></td>
+				<!--%UM_STATIC_SERVER_END%-->
+
+				<!--%UM_LANGUAGE_BEGIN%-->
+				<tr><td align=right class="right"><b>Language</b>: &nbsp;</td><td class="default"><!--%UM_LANGUAGES%--></td>
+				<!--%UM_LANGUAGE_END%-->
+
+				<tr><td align=right>&nbsp;</td><td><input type=submit name=submit value="Login >>" class="button"></td>
+			</form>
+			</table>
+		</td>
+	</tr>
+</td>
+</table>
+
+</body>
+</html>

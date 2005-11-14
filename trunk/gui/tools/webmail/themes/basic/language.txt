@@ -1,0 +1,74 @@
+; ***************************************** ;
+; User-friendly names to system folders     ;
+; ***************************************** :
+
+inbox_extended                = Inbox
+sent_extended                 = Sent
+trash_extended                = Trash
+
+; ***************************************** ;
+; Navigation texts                          ;
+; ***************************************** ;
+previous_text                 = Previous
+next_text                     = Next
+
+
+; ***************************************** ;
+; POP3 Errors                               ;
+; ***************************************** ;
+
+error_permiss                 = You need set permissions in temporary folder
+error_retrieving              = Could not receive the message
+error_deleting                = Could not delete the message
+error_connect                 = Could not connect to the server
+error_other                   = An error was occured, please contact your Administrator
+
+; ***************************************** ;
+; Invalid name of mailbox                   ;
+; ***************************************** ;
+error_invalid_name            = Invalid name - Use only this chars: A-Z, 0-9, .-
+
+
+; ***************************************** ;
+; Validations when sending mails            ;
+; ***************************************** ;
+error_no_recipients           = You must especify at least one recipient
+error_compose_invalid_mail1_s = The following email do not appear be valid
+error_compose_invalid_mail1_p = The following emails do not appears be valid
+error_compose_invalid_mail2_s = Make sure that is correct before send the message
+error_compose_invalid_mail2_p = Make sure that are correct before send the message
+
+
+; ***************************************** ;
+; Confirmation of delete                    ;
+; ***************************************** ;
+confirm_delete                = Are you sure to delete this message ?
+
+; ***************************************** ;
+; Display a message counter                 ;
+; ***************************************** ;
+msg_count_p                   = You have <b>%s</b> messages
+msg_count_s                   = You have <b>1</b> message
+msg_unread_p                  = , <b>%s unread</b>
+msg_unread_s                  = , <b>1 unread</b></b>
+msg_no_unread                 = , none unread</b>
+msg_boxname                   = , in folder "<b>%s</b>"
+
+; ***************************************** ;
+; If the message no have a subject or sender;
+; ***************************************** ;
+no_subject_text               = [No subject]
+no_sender_text                = [Unknown]
+
+; ***************************************** ;
+; Messages from the address book management ;
+; ***************************************** ;
+addr_saved                    = Address "<b>%s</b>" succesfully saved
+addr_added                    = Address "<b>%s</b>" succesfully added
+addr_deleted                  = Entry deleted
+
+; ***************************************** ;
+; If the quota limit was exceeded           ;
+; ***************************************** ;
+
+quota_exceeded                = Your quota limit was exceeded.\rPlease delete old messages and try again
