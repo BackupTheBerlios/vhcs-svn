@@ -26,6 +26,8 @@ tangra: #tar -xjf vhcs2.4.7.tar.bz2
 vhcs2.conf Update
 -------------------
 
+1) Updates in the vhcs2.conf:
+
 search for MTA_SASLDB_FILE and add lines. The result should looks like this:
 
 MTA_SASLDB_FILE = /var/spool/postfix/etc/sasldb2
@@ -56,6 +58,11 @@ MAIL_LOG_INC_AMAVIS = 0
 to 
 
 MAIL_LOG_INC_AMAVIS = 1
+
+
+2) Set permissions for vhcs2.conf (needed for autoresponder) :
+
+tangra: # chmod 0644 /etc/vhcs2/vhcs2.conf
 
 
 -------------------
