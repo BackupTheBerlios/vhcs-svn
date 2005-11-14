@@ -1365,7 +1365,7 @@ $main::cfg_file = '/etc/vhcs2/vhcs2.conf';
 
 $main::cfg_re = '^([\_A-Za-z0-9]+) *= *([^\n\r]*)[\n\r]';
 
-require '/var/www/vhcs2/engine/vhcs2-db-keys.pl';
+require '/var/www/vhcs2/engine/messager/vhcs2-db-keys.pl';
 
 sub encrypt_db_password {
     
@@ -1656,25 +1656,25 @@ sub arpl_msgr_engine {
 
 	my $to_ma = undef;
 
-	foreach $to_ma (@to_addrs) {
+	if(	$head -> get('X-Mailer') !~ m/Autoreply Manager/i && 
+		!$head -> get('X-Autoresponse-From') && 
+		$head -> get('Auto-Submitted') !~ m/auto-replied/i && 
+		$head -> get('Sender')!~ m/autoresponder/i) {
 
-		if($to_ma->address =~ m/@/i && $to_ma->address !~ m/"/g) {
+		foreach $to_ma (@to_addrs) {
 
-			if($buffer) {
-				$name = $buffer;
-				$buffer = "0";
-			}
-			else {
-				if($to_ma->phrase) { $name = $to_ma->phrase; }
-				else { $name = ""; }
-			}
+			if($to_ma->address =~ m/@/i && $to_ma->address !~ m/"/g) {
 
-			print $to_ma->address."\n";
+				if($buffer) {
+					$name = $buffer;
+					$buffer = "0";
+				}
+				else {
+					if($to_ma->phrase) { $name = $to_ma->phrase; }
+					else { $name = ""; }
+				}
 
-    		push_el(\@main::el, 'arpl_msgr_engine():', ">>> From: |".$from_ma[0]->address."|, To: |".$to_ma->address."|");
-
-
-	    	if ($to_ma->address ne $from_ma[0]->address) {
+    			push_el(\@main::el, 'arpl_msgr_engine():', ">>> From: |".$from_ma[0]->address."|, To: |".$to_ma->address."|");
 
     	    	push_el(\@main::el, 'arpl_msgr_engine():', "loop!");
 
@@ -1730,8 +1730,8 @@ sub arpl_msgr_engine {
 
  					if($dmn =~ /(.*)(\.)(.*\.)(.*)$/ && !$sub_id) 
 					{
-
 						$domainformsubdomain = $3.$4;
+
 						$subformsubdomain = $1;
 
 						$sql = "select count(domain_id) as cnt from domain where domain_name = '$domainformsubdomain'";
@@ -1808,21 +1808,20 @@ sub arpl_msgr_engine {
 					close MAIL;
 				}
 
-		    }
-    
-	    	push_el(\@main::el, 'arpl_msgr_engine()', 'Ending...');
+		    	push_el(\@main::el, 'arpl_msgr_engine()', 'Ending...');
+
+			}
+			else
+			{
+				$buffer = $to_ma->address;
+				$buffer =~ s/"//g;
+			}
 
 		}
-		else
-		{
-			$buffer = $to_ma->address;
-			$buffer =~ s/"//g;
-		}
 
-
-    }
+	}
     
-    return 0;
+	return 0;
     
 }
 
