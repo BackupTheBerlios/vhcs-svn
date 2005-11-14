@@ -14,8 +14,8 @@ tangra: # /etc/init.d/vhcs2_daemon stop
 
 3) Make a backup of the current VHCS files of your system:
 
-tangra: # mv /var/www/vhcs2/gui/ /var/www/vhcs2/gui_bcp_yyyymmdd
-tangra: # cp /var/www/vhcs2/engine/ -R /var/www/vhcs2/engine_bcp_yyyymmdd
+tangra: # mv /var/www/vhcs2/gui /var/www/vhcs2/gui_bcp_yyyymmdd
+tangra: # cp -R /var/www/vhcs2/engine /var/www/vhcs2/engine_bcp_yyyymmdd
 
 4) Unpack the downloaded archive :
 
@@ -96,15 +96,26 @@ Traffic Engine Update
 1) Delete old log analyzing tool:
 
 tangra: # rm /usr/sbin/pflogsumm.pl
+tangra: # rm -R /var/www/vhcs2/engine/traffic/pflogsumm-1.0.10
+tangra: # rm -R /var/www/vhcs2/engine/traffic/pflogsumm-1.1.0
 
-4) Changes for SuSE:
+2) Changes for SuSE:
 
-tangra: # mv /var/www/vhcs2/traffic/vhcs2-vrl-traff /var/www/vhcs2/traffic/vhcs2-vrl-traff-DEBIAN
-tangra: # mv /var/www/vhcs2/traffic/vhcs2-vrl-traff-SUSE /var/www/vhcs2/traffic/vhcs2-vrl-traff
+tangra: # mv /var/www/vhcs2/engine/traffic/vhcs2-vrl-traff /var/www/vhcs2/engine/traffic/vhcs2-vrl-traff-DEBIAN
+tangra: # mv /var/www/vhcs2/engine/traffic/vhcs2-vrl-traff-SUSE /var/www/vhcs2/engine/traffic/vhcs2-vrl-traff
+
+3) Set correct engine permissions:
+
+tangra: # ./mydir/tools/set-engine-permissions.sh
+
 
 -------------------
 GUI Update
 -------------------
+
+1) Set correct gui permissions:
+
+tangra: # ./mydir/tools/set-gui-permissions.sh
 
 
 -------------------
@@ -112,7 +123,6 @@ Database Update
 -------------------
 
 UPDATE `vhcs2`.`mail_users` SET `status` = 'change' WHERE `status` = 'ok';
-
 
 
 -------------------
@@ -126,5 +136,6 @@ tangra: # /var/www/vhcs2/engine/vhcs2-rqst-mngr
 2) Now you can start the VHCS daemon
 
 tangra: # /etc/init.d/vhcs2_daemon start
+
 
 VHCS is successfully updated !
