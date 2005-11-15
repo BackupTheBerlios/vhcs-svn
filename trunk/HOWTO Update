@@ -96,6 +96,23 @@ tangra: # cp /var/spool/postfix/etc/sasldb2 /etc/sasldb2
 If you DID have other apps running that are using /etc/sasldb2 you don't have to run
 any command
 
+Backup Engine Update
+-------------------
+
+1) Remove old files if they allready exists:
+
+tangra: # rm /var/www/vhcs2/engine/tools/vhcs2-backup-all
+
+2) Check and maybe change the crontab line for the backup
+
+if line looks like: 
+
+/var/www/vhcs2/engine/tools/vhcs2-backup-all yes &>/var/log/vhcs2/vhcs2-backup-all-mngr.log
+
+change it too:
+
+/var/www/vhcs2/engine/backup/vhcs2-backup-all yes &>/var/log/vhcs2/vhcs2-backup-all-mngr.log
+
 
 Traffic Engine Update
 -------------------
@@ -111,7 +128,11 @@ tangra: # rm -R /var/www/vhcs2/engine/traffic/pflogsumm-1.1.0
 tangra: # mv /var/www/vhcs2/engine/traffic/vhcs2-vrl-traff /var/www/vhcs2/engine/traffic/vhcs2-vrl-traff-DEBIAN
 tangra: # mv /var/www/vhcs2/engine/traffic/vhcs2-vrl-traff-SUSE /var/www/vhcs2/engine/traffic/vhcs2-vrl-traff
 
-3) Set correct engine permissions:
+
+Finish Engine Updates
+-------------------
+
+1) Set correct engine permissions:
 
 tangra: # ./mydir/tools/set-engine-permissions.sh
 
