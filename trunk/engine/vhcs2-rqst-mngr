@@ -525,6 +525,7 @@ sub mngr_engine {
 					
 				}
 				
+				sys_command_rs("rm -rf /tmp/htaccess-*");
 				
 			}
 			
