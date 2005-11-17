@@ -26,9 +26,9 @@ tangra: #tar -xjf vhcs2.4.7.tar.bz2
 vhcs2.conf Update
 -------------------
 
-1) Updates in the vhcs2.conf:
+1) Lines to add:
 
-search for MTA_SASLDB_FILE and add lines. The result should looks like this:
+Search for MTA_SASLDB_FILE and add lines. The result should looks like this:
 
 MTA_SASLDB_FILE = /var/spool/postfix/etc/sasldb2
 
@@ -39,7 +39,7 @@ CMD_SASLDB_LISTUSERS2 = /usr/sbin/sasldblistusers2
 CMD_SASLDB_PASSWD2 = /usr/sbin/saslpasswd2
 
 
-search for MAIL_TRAFF_LOG and add lines. The result should looks like this:
+Search for MAIL_TRAFF_LOG and add lines. The result should looks like this:
 
 MAIL_TRAFF_LOG = mail.log
 
@@ -50,6 +50,7 @@ PREV_TRAFF_LOG_MAX_SIZE = 10485760
 QUOTA_ROOT_DIR = /var/www/vhcs2/engine/quota
 
 
+2) Set your default settings for traffic counting:
 
 If you are using AMAVIS and SPAMASSASSIN change 
 
@@ -60,7 +61,7 @@ to
 MAIL_LOG_INC_AMAVIS = 1
 
 
-2) Set permissions for vhcs2.conf (needed for autoresponder) :
+3) Set permissions for vhcs2.conf (needed for autoresponder) :
 
 tangra: # chmod 0644 /etc/vhcs2/vhcs2.conf
 
@@ -96,10 +97,11 @@ tangra: # cp /var/spool/postfix/etc/sasldb2 /etc/sasldb2
 If you DID have other apps running that are using /etc/sasldb2 you don't have to run
 any command
 
+
 Backup Engine Update
 -------------------
 
-1) Remove old files if they allready exists:
+1) Remove old file if they allready exists:
 
 tangra: # rm /var/www/vhcs2/engine/tools/vhcs2-backup-all
 
@@ -123,10 +125,14 @@ tangra: # rm /usr/sbin/pflogsumm.pl
 tangra: # rm -R /var/www/vhcs2/engine/traffic/pflogsumm-1.0.10
 tangra: # rm -R /var/www/vhcs2/engine/traffic/pflogsumm-1.1.0
 
-2) Changes for SuSE:
+2) Changes specially for SuSE:
 
 tangra: # mv /var/www/vhcs2/engine/traffic/vhcs2-vrl-traff /var/www/vhcs2/engine/traffic/vhcs2-vrl-traff-DEBIAN
 tangra: # mv /var/www/vhcs2/engine/traffic/vhcs2-vrl-traff-SUSE /var/www/vhcs2/engine/traffic/vhcs2-vrl-traff
+
+3) Delete backup-lock file if it exit:
+
+tangra: # rm /tmp/vhcs2-backup-all.lock
 
 
 Finish Engine Updates
@@ -134,7 +140,7 @@ Finish Engine Updates
 
 1) Set correct engine permissions:
 
-tangra: # ./mydir/tools/set-engine-permissions.sh
+tangra: # ./mydir/engine/setup/set-engine-permissions.sh
 
 
 -------------------
@@ -143,15 +149,21 @@ GUI Update
 
 1) Set correct gui permissions:
 
-tangra: # ./mydir/tools/set-gui-permissions.sh
+tangra: # ./mydir/engine/setup/set-gui-permissions.sh
 
 
 -------------------
 Database Update
 -------------------
+Change status for all mail-addresses because of rebuild SASDB2 and MD5 passwords
 
 UPDATE `vhcs2`.`mail_users` SET `status` = 'change' WHERE `status` = 'ok';
 
+Update field settings
+
+ALTER TABLE `hosting_plans` 
+ADD `price` decimal(10,2) NOT NULL default '0.00',
+ADD `setup_fee` decimal(10,2) NOT NULL default '0.00';
 
 -------------------
 Finish update

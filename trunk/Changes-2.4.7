@@ -57,7 +57,10 @@ added CMD_SASLDB_LISTUSERS2 to vhcs2.conf;
 
 	(o) vhcs2-mbox-mngr fix by 'Reisswolf' - fix bug #0000101 (fix postfix waring
 "/var/spool/postfix/etc/sasldb2 and /etc/sasldb2 differ" changed: MTA_SASLDB_FILE 
-and added: ETC_SASLDB_FILE in vhcs2.conf
+and added: ETC_SASLDB_FILE in vhcs2.conf;
+
+	(o) vhcs2-mbox-mngr fix by 'Reisswolf' - now mail passwords would be encoded
+in md5 used by courier, so passwords with more then 8 characters could be used;
 
 	(o) vhcs2-backup-all fix by 'Reisswolf' - fixed locking if user backup folder did
 not exist; fixed error message in the backup manager logfile in /var/log/vhcs ;
