@@ -34,15 +34,15 @@ use strict;
 
 use warnings;
 
-sub lock_bakcup_all_system {
+sub lock_backup_all_system {
     
     my ($lock_file) = @_; 
     
-    push_el(\@main::el, 'lock_bakcup_all_system()', 'Starting...');
+    push_el(\@main::el, 'lock_backup_all_system()', 'Starting...');
     
     if (-e $lock_file) {
         
-        push_el(\@main::el, 'lock_bakcup_all_system()', 'ERROR: backup request engine already locked !');
+        push_el(\@main::el, 'lock_backup_all_system()', 'ERROR: backup request engine already locked !');
         
         return 1;
         
@@ -54,25 +54,23 @@ sub lock_bakcup_all_system {
     
     return 1 if ($rs != 0);
     
-    push_el(\@main::el, 'lock_bakcup_all_system()', 'Ending...');
+    push_el(\@main::el, 'lock_backup_all_system()', 'Ending...');
     
     return 0;
 }
 
 
-sub unlock_bakcup_all_system {
+sub unlock_backup_all_system {
     
     my ($lock_file) = @_; 
     
-    push_el(\@main::el, 'unlock_bakcup_all_system()', 'Starting...');
+    push_el(\@main::el, 'unlock_backup_all_system()', 'Starting...');
     
-    my $rm_cmd = "/bin/rm -rf $lock_file";
+	my $rs = del_file($lock_file);
+
+	return $rs if ($rs != 0);
     
-    my $rs = sys_command($rm_cmd);
-    
-    return 1 if ($rs != 0);
-    
-    push_el(\@main::el, 'unlock_bakcup_all_system()', 'Ending...');
+    push_el(\@main::el, 'unlock_backup_all_system()', 'Ending...');
     
     return 0;
 
@@ -88,7 +86,7 @@ sub backup_all_start_up {
     
     push_el(\@main::el, 'backup_all_start_up()', 'Starting...');
     
-    $rs = lock_bakcup_all_system($lock_file);
+    $rs = lock_backup_all_system($lock_file);
     
     return $rs if ($rs != 0);
     
@@ -123,7 +121,7 @@ sub backup_all_shut_down {
     
     push_el(\@main::el, 'backup_all_shut_down()', 'Starting...');
     
-    $rs = unlock_bakcup_all_system($lock_file);
+    $rs = unlock_backup_all_system($lock_file);
     
     return $rs if ($rs != 0);
     
@@ -136,11 +134,13 @@ sub backup_all_shut_down {
 sub err_exit {
     
     my $el_data = pop_el(\@main::el);
-    
-    my ($sub_name, $msg) = split(/$main::el_sep/, $el_data);
-    
-    print STDERR "$msg\n";
-    
+
+	$main::el_sep = "\t#\t";
+
+	my ($sub_name, $msg) = split(/$main::el_sep/, $el_data);
+        
+	print STDERR "$msg\n";
+        
     exit 1;
     
 }
@@ -248,21 +248,41 @@ sub backup_all_engine {
 		my $httpd_uid = $main::cfg{'APACHE_USER'};
 		
 		my $httpd_gid = $main::cfg{'APACHE_GROUP'};
-		
+
+#		my $make_dmn_backup_dir_cmd = "/usr/bin/install -d -m 0644 -o root -g root $dmn_backup_dir";
+
 		my $backup_filename = "$dmn_name-backup-$date.tar.gz";
 		
 		my $backup_cmd = "$cmd_tar --create --directory $dmn_dir --gzip --file $dmn_dir/$backup_filename --exclude=logs --exclude=backups --exclude=$backup_filename .";
 			
 		if ($dmn_status eq 'ok') {
+
+			if( -z $dmn_backup_dir)
+			{
+				$rs = del_file($dmn_backup_dir);
 			
+				return $rs if ($rs != 0);		
+			}
+
+			if(! -d $dmn_backup_dir)
+			{
+				$rs = make_dir($dmn_backup_dir);
+			
+				return $rs if ($rs != 0);		
+
+				$rs = setfmode($dmn_backup_dir, "root", "root", 0644);
+			
+				return $rs if ($rs != 0);
+			}
+
 			$rs = sys_command($backup_cmd);
 			
 			return $rs if ($rs != 0);
-			
+
 			$rs = sys_command("$cmd_rm -rf $dmn_backup_dir/$dmn_name-*");
 			
 			return $rs if ($rs != 0);
-			
+
 			$rs = sys_command("$cmd_mv -f $dmn_dir/$backup_filename $dmn_backup_dir");
 			
 			return $rs if ($rs != 0);
