@@ -43,6 +43,36 @@ CREATE TABLE `admin` (
 
 # --------------------------------------------------------
 
+CREATE TABLE `orders` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `user_id` int(10) unsigned NOT NULL default '0',
+  `plan_id` int(10) unsigned NOT NULL default '0',
+  `date` int(10) unsigned NOT NULL default '0',
+  `domain_name` varchar(200) default NULL,
+  `customer_id` varchar(200) default NULL,
+  `fname` varchar(200) default NULL,
+  `lname` varchar(200) default NULL,
+  `firm` varchar(200) default NULL,
+  `zip` varchar(10) default NULL,
+  `city` varchar(200) default NULL,
+  `country` varchar(200) default NULL,
+  `email` varchar(200) default NULL,
+  `phone` varchar(200) default NULL,
+  `fax` varchar(200) default NULL,
+  `street1` varchar(200) default NULL,
+  `street2` varchar(200) default NULL,
+  `status` varchar(255) default NULL,
+  PRIMARY KEY  (`id`)
+) TYPE=MyISAM;
+
+CREATE TABLE `orders_settings` (
+  `id` int(10) unsigned NOT NULL default '0',
+  `user_id` int(10) unsigned NOT NULL default '0',
+  `header` text,
+  `footer` text,
+  PRIMARY KEY  (`id`)
+) TYPE=MyISAM;
+
 #
 # Tabellenstruktur für Tabelle `custom_menus`
 #
@@ -228,50 +258,27 @@ CREATE TABLE `ftp_group` (
 
 # --------------------------------------------------------
 
+#
+# Tabellenstruktur für Tabelle `hosting_plans`
+#
+
 CREATE TABLE `hosting_plans` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `reseller_id` int(10) unsigned NOT NULL default '0',
   `name` varchar(255) default NULL,
   `description` varchar(255) default NULL,
   `props` text,
-  `price` int(10) unsigned NOT NULL default '0',
-  `setup_fee` int(10) unsigned NOT NULL default '0',
+  `price` decimal(10,2) NOT NULL default '0.00',
+  `setup_fee` decimal(10,2) NOT NULL default '0.00',
   `value` varchar(255) default NULL,
   `payment` varchar(255) default NULL,
   `status` int(10) unsigned NOT NULL default '0',
   UNIQUE KEY `id` (`id`)
 ) TYPE=MyISAM;
 
-CREATE TABLE `orders` (
-  `id` int(10) unsigned NOT NULL auto_increment,
-  `user_id` int(10) unsigned NOT NULL default '0',
-  `plan_id` int(10) unsigned NOT NULL default '0',
-  `date` int(10) unsigned NOT NULL default '0',
-  `domain_name` varchar(200) default NULL,
-  `customer_id` varchar(200) default NULL,
-  `fname` varchar(200) default NULL,
-  `lname` varchar(200) default NULL,
-  `firm` varchar(200) default NULL,
-  `zip` varchar(10) default NULL,
-  `city` varchar(200) default NULL,
-  `country` varchar(200) default NULL,
-  `email` varchar(200) default NULL,
-  `phone` varchar(200) default NULL,
-  `fax` varchar(200) default NULL,
-  `street1` varchar(200) default NULL,
-  `street2` varchar(200) default NULL,
-  `status` varchar(255) default NULL,
-  PRIMARY KEY  (`id`)
-) TYPE=MyISAM;
-        
-
-CREATE TABLE `orders_settings` (
-  `id` int(10) unsigned NOT NULL default '0',
-  `user_id` int(10) unsigned NOT NULL default '0',
-  `header` text,
-  `footer` text,
-  PRIMARY KEY  (`id`)
-) TYPE=MyISAM;
+#
+# Daten für Tabelle `hosting_plans`
+#
 
 
 -- 
