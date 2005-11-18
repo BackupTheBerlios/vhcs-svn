@@ -2380,7 +2380,7 @@ sub mbox_add_po_data {
         
         my $dmn_name = $main::domain_id_name{$mail_dmn_id};
         
-        ($rs, $rdata) = crypt_data($mail_pass);
+        ($rs, $rdata) = crypt_md5_data($mail_pass);
         
         return $rs if ($rs != 0);
         
@@ -2399,7 +2399,7 @@ sub mbox_add_po_data {
         
         my $dmn_name = $main::als_id_name{$mail_sub_id};
         
-        ($rs, $rdata) = crypt_data($mail_pass);
+        ($rs, $rdata) = crypt_md5_data($mail_pass);
         
         return $rs if ($rs != 0);
         
@@ -2422,7 +2422,7 @@ sub mbox_add_po_data {
         
         my $sub_name = "$sub_pref.$dmn_name";
         
-        ($rs, $rdata) = crypt_data($mail_pass);
+        ($rs, $rdata) = crypt_md5_data($mail_pass);
         
         return $rs if ($rs != 0);
         

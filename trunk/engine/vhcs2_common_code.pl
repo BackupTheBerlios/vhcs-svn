@@ -40,7 +40,8 @@ BEGIN {
                   MIME::Parser, 
                   Crypt::CBC, 
                   Crypt::Blowfish,
-                  MIME::Base64, 
+                  Crypt::PasswdMD5, 
+                  MIME::Base64,
                   Term::ReadPassword);
     
     my ($mod, $mod_err, $mod_missing) = ('', '_off_', '');
@@ -722,6 +723,32 @@ sub gen_rand_num {
     }
     
     push_el(\@main::el, 'gen_rand_num()', 'Ending...');
+    
+    return (0, $rdata);
+    
+}
+
+sub crypt_md5_data {
+    
+    my ($data) = @_;
+    
+    push_el(\@main::el, 'crypt_md5_data()', 'Starting...');
+    
+    if (!defined($data) || $data eq '') {
+        
+        push_el(\@main::el, 'crypt_md5_data()', "ERROR: Undefined input data, data: |$data| !");
+        
+        return (-1, '');
+        
+    }
+    
+    my ($rs, $rdata) = gen_rand_num(2);
+
+    return (-1, '') if ($rs != 0);
+    
+    $rdata = unix_md5_crypt($data, $rdata);
+    
+    push_el(\@main::el, 'crypt_md5_data()', 'Ending...');
     
     return (0, $rdata);
     
