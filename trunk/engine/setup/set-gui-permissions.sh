@@ -50,4 +50,12 @@ echo "0755 www-data:www-data [$i]";
 chmod 0755 $i;
 chown -R www-data:www-data $i;
 
+i='/var/www/vhcs2/gui/tools/webmail/database/_cached_templates'
+
+echo "0755 www-data:www-data [$i]";
+
+chmod 0755 $i;
+chown -R www-data:www-data $i;
+
+
 chmod 0400 /var/www/vhcs2/gui/include/vhcs2-db-keys.php                                               
