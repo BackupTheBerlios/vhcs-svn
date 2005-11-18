@@ -159,7 +159,7 @@ function check_user_permissions(&$tpl, $dmn_sqld_limit, $dmn_sqlu_limit, $dmn_ph
 	}
 
 	// check if SQL Support is available for this user
-	if ($dmn_sqld_limit == -1 && $dmn_sqlu_limit == -1)
+	if ($dmn_sqld_limit == -1 || $dmn_sqlu_limit == -1)
 	{
 		$_SESSION['sql_support'] = "no";
 		$tpl -> assign('SQL_SUPPORT', '');
