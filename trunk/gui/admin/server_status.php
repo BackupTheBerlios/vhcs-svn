@@ -156,8 +156,11 @@ function get_server_status(&$tpl)
 	$vhcs_status->AddService('localhost', 25, 'SMTP', 'tcp');
 	$vhcs_status->AddService('localhost', 53, 'DNS', 'tcp');
 	$vhcs_status->AddService('localhost', 80, 'HTTP', 'tcp');
+	$vhcs_status->AddService('localhost', 443, 'HTML-SSL', 'tcp');
 	$vhcs_status->AddService('localhost', 110, 'POP3', 'tcp');
+	$vhcs_status->AddService('localhost', 995, 'POP3-SSL', 'tcp');
 	$vhcs_status->AddService('localhost', 143, 'IMAP', 'tcp');
+	$vhcs_status->AddService('localhost', 993, 'IMAP-SSL', 'tcp');
 	$vhcs_status->CheckStatus(1);
 	$data = $vhcs_status->GetStatus();
 	
