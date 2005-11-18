@@ -74,6 +74,10 @@ $tpl -> assign(
 						)
 				);
 
+	if (isset($cfg['HOSTING_PLANS_LEVEL']) && $cfg['HOSTING_PLANS_LEVEL'] === 'admin') {
+		$tpl -> assign('EDIT_OPTION', '');
+	}
+
 gen_reseller_menu($tpl);
 
 gen_logged_from($tpl);
@@ -316,6 +320,7 @@ SQL_QUERY;
 	else {
 		$dom_alias =  $data['domain_alias_limit'];
 	}
+	
 	// Fill in the fileds
 	$tpl -> assign(
                 array(
