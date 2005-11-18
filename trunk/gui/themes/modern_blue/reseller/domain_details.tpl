@@ -313,7 +313,9 @@ function MM_swapImgRestore() { //v3.0
 				<form name="buttons" method="post" action="#">
 				  <input name="Submit" type="submit" class="button" onClick="MM_goToURL('parent','users.php');return document.MM_returnValue" value="  {TR_BACK}  ">
 				  &nbsp;&nbsp;&nbsp;
+				  <!-- BDP: edit_option -->
 	              <input name="Submit" type="submit" class="button" onClick="MM_goToURL('parent','edit_domain.php?edit_id={DOMAIN_ID}');return document.MM_returnValue" value="   {TR_EDIT}   ">
+				  <!-- EDP: edit_option -->
                 </form>
 				</td>
 			    </tr>
