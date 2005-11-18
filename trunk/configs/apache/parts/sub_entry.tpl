@@ -23,10 +23,14 @@
 
     Alias /errors {WWW_DIR}/{DMN_NAME}/errors/
 
-    ErrorDocument 401 /errors/401/index.html
-    ErrorDocument 403 /errors/403/index.html
-    ErrorDocument 404 /errors/404/index.html
-    ErrorDocument 500 /errors/500/index.html
+    <Directory {WWW_DIR}/{DMN_NAME}/errors/>
+        php_admin_value open_basedir "{WWW_DIR}/{DMN_NAME}/errors/"
+    </Directory>
+
+    ErrorDocument 401 /errors/401/index.php
+    ErrorDocument 403 /errors/403/index.php
+    ErrorDocument 404 /errors/404/index.php
+    ErrorDocument 500 /errors/500/index.php
 
     # httpd sub entry cgi support BEGIN.
     # httpd sub entry cgi support END.
