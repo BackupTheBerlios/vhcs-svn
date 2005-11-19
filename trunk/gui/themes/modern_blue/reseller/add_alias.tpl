@@ -40,16 +40,15 @@ var mpointError = 'Please write mount point !';
             }
     }
 
-function makeUser(){ 
-    var dname  = document.forms[0].elements['ndomain_name'].value; 
-
-	dname = dname.toLowerCase(); 
-    dname = dname.replace(/\u00E4/gi, "ae"); 
-    dname = dname.replace(/\u00FC/gi, "ue"); 
-    dname = dname.replace(/\u00F6/gi, "oe"); 
-    dname = dname.replace(/\u00DF/gi, "ss");
-	document.forms[0].elements['ndomain_mpoint'].value = "/" + dname.replace('.','_');     
-}
+    function makeUser(){
+	    var dname  = document.forms[0].elements['ndomain_name'].value;
+		dname = dname.toLowerCase();
+	    dname = dname.replace(/ä/gi, "ae");
+	    dname = dname.replace(/ü/gi, "ue");
+	    dname = dname.replace(/ö/gi, "oe");
+	    dname = dname.replace(/ß/gi, "ss");
+        document.forms[0].elements['ndomain_mpoint'].value = "/" + dname.replace('.','_');
+    }
 
 //-->
 </script>
@@ -130,10 +129,10 @@ function makeUser(){
           <tr background="{THEME_COLOR_PATH}/images/menu/open_background.jpg">
             <td colspan="3" class="menu" background="{THEME_COLOR_PATH}/images/menu/open_background.jpg"><table width="100%" border="0" cellspacing="0" cellpadding="0">
               <tr>
-                <td width="5" rowspan="10" background="{THEME_COLOR_PATH}/images/menu/open_background_left.gif"><img src="{THEME_COLOR_PATH}/images/trans.gif" width="12" height="1"></td>
+		     	<td width="5" rowspan="12" background="{THEME_COLOR_PATH}/images/menu/open_background_left.gif"><img src="{THEME_COLOR_PATH}/images/trans.gif" width="12" height="1"></td>
                 <td><img src="{THEME_COLOR_PATH}/images/icons/document.gif" width="12" height="15"></td>
                 <td><a href="users.php" class="submenu">{TR_MENU_OVERVIEW}</a></td>
-                <td width="5" rowspan="10" background="{THEME_COLOR_PATH}/images/menu/open_background_right.gif"><img src="{THEME_COLOR_PATH}/images/trans.gif" width="5" height="1"></td>
+	            <td width="5" rowspan="12" background="{THEME_COLOR_PATH}/images/menu/open_background_right.gif"><img src="{THEME_COLOR_PATH}/images/trans.gif" width="5" height="1"></td>
               </tr>
               <tr>
                 <td colspan="2"><img src="{THEME_COLOR_PATH}/images/trans.gif" width="30" height="4"></td>
