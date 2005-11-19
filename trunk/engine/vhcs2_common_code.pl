@@ -85,7 +85,7 @@ BEGIN {
 }
 
 
-# $main::engine_debug = '_on_';
+$main::engine_debug = '_on_';
 
 $main::cc_stdout = '/tmp/vhcs2-cc.stdout';
 
