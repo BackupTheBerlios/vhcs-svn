@@ -181,7 +181,7 @@ MSG;
 
     $headers .= "Content-Type: text/plain\nContent-Transfer-Encoding: 7bit\n";
 
-    $headers .= "X-Mailer: VHCS Pro v2.5.x lostpassword mailer";
+    $headers .= "X-Mailer: VHCS Pro lostpassword mailer";
 
     $mail_result = mail($to, $subject, $message, $headers);
 
@@ -322,7 +322,7 @@ MSG;
 
     $headers .= "Content-Type: text/plain\nContent-Transfer-Encoding: 7bit\n";
 
-    $headers .= "X-Mailer: VHCS Pro v2.5.x lostpassword mailer";
+    $headers .= "X-Mailer: VHCS Pro lostpassword mailer";
 
     $mail_result = mail($to, $subject, $message, $headers);
 

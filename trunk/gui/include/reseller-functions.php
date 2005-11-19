@@ -1,7 +1,7 @@
 <?php
 //   -------------------------------------------------------------------------------
 //  |             VHCS(tm) - Virtual Hosting Control System                         |
-//  |              Copyright (c) 2001-2004 be moleSoftware		            		|
+//  |              Copyright (c) 2001-2005 be moleSoftware		            		|
 //  |			http://vhcs.net | http://www.molesoftware.com		           		|
 //  |                                                                               |
 //  | This program is free software; you can redistribute it and/or                 |
@@ -66,6 +66,7 @@ function gen_reseller_menu(&$tpl)
 							'TR_MENU_ORDERS' => tr('Manage Orders'),
 							'TR_MENU_ORDER_SETTINGS' => tr('Order settings'),
 							'TR_MENU_ORDER_EMAIL' => tr('Order email setup'),
+							'TR_MENU_LOSTPW_EMAIL' => tr('Lostpw email setup'),
 						)
 				);
 

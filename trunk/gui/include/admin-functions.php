@@ -1,7 +1,7 @@
 <?php
 //   -------------------------------------------------------------------------------
 //  |             VHCS(tm) - Virtual Hosting Control System                         |
-//  |              Copyright (c) 2001-2004 be moleSoftware		            		|
+//  |              Copyright (c) 2001-2005 be moleSoftware		            		|
 //  |			http://vhcs.net | http://www.molesoftware.com		           		|
 //  |                                                                               |
 //  | This program is free software; you can redistribute it and/or                 |
@@ -59,6 +59,7 @@ $tpl -> assign(
                 'TR_MENU_MANAGE_SESSIONS' => tr('User sessions'),
                 'SUPPORT_SYSTEM_PATH' => $cfg['VHCS_SUPPORT_SYSTEM_PATH'],
                 'SUPPORT_SYSTEM_TARGET' => $cfg['VHCS_SUPPORT_SYSTEM_TARGET'],
+				'TR_MENU_LOSTPW_EMAIL' => tr('Lostpw email setup'),
 
             )
     );
