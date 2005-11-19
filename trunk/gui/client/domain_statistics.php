@@ -132,8 +132,8 @@ SQL_QUERY;
   $counter = 0;
 
   for ($i = 1; $i <= $curday; $i++) {
-    $ftm = mktime(0,0,10,$month,$i,$year);
-    $ltm = mktime(0,0,9,$month,$i,$year);
+    $ftm = mktime(0,0,0,$month,$i,$year);
+    $ltm = mktime(23,59,59,$month,$i,$year);
     $query = <<<SQL_QUERY
         select
             dtraff_web,dtraff_ftp,dtraff_mail,dtraff_pop,dtraff_time
