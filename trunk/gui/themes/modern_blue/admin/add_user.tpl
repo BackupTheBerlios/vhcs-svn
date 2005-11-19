@@ -70,10 +70,10 @@ function MM_swapImgRestore() { //v3.0
   <tr background="{THEME_COLOR_PATH}/images/menu/open_background.jpg">
     <td colspan="3" class="menu" background="{THEME_COLOR_PATH}/images/menu/open_background.jpg"><table width="100%" border="0" cellspacing="0" cellpadding="0">
         <tr>
-          <td width="5" rowspan="16" background="{THEME_COLOR_PATH}/images/menu/open_background_left.gif"><img src="{THEME_COLOR_PATH}/images/trans.gif" width="12" height="1"></td>
-          <td><img src="{THEME_COLOR_PATH}/images/icons/document.gif" width="12" height="15"></td>
-          <td><a href="manage_users.php" class="submenu">{TR_MENU_OVERVIEW}</a></td>
-          <td width="5" rowspan="16" background="{THEME_COLOR_PATH}/images/menu/open_background_right.gif"><img src="{THEME_COLOR_PATH}/images/trans.gif" width="5" height="1"></td>
+           <td width="5" rowspan="18" background="{THEME_COLOR_PATH}/images/menu/open_background_left.gif"><img src="{THEME_COLOR_PATH}/images/trans.gif" width="12" height="1"></td>
+           <td><img src="{THEME_COLOR_PATH}/images/icons/document.gif" width="12" height="15"></td>
+           <td><a href="manage_users.php" class="submenu">{TR_MENU_OVERVIEW}</a></td>
+           <td width="5" rowspan="18" background="{THEME_COLOR_PATH}/images/menu/open_background_right.gif"><img src="{THEME_COLOR_PATH}/images/trans.gif" width="5" height="1"></td>
         </tr>
         <tr>
           <td colspan="2"><img src="{THEME_COLOR_PATH}/images/trans.gif" width="30" height="4"></td>
