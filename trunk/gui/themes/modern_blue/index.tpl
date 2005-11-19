@@ -24,31 +24,32 @@
               <td width="20" rowspan="5">&nbsp;</td>
               <td width="2" rowspan="5" background="themes/modern_blue/images/login/content_line.gif"><img src="themes/modern_blue/images/trans.gif" width="2" height="2"></td>
               <td width="20" rowspan="5">&nbsp;</td>
-              <td><strong><div class="login_text">{TR_USERNAME}</div></strong></td>
+              <td COLSPAN="2"><strong><div class="login_text">{TR_USERNAME}</div></strong></td>
             </tr>
             <tr>
-              <td width="161"><input type="text" name="uname" value="" style="width:210px" class="textinput"></td>
+              <td width="161" COLSPAN="2"><input type="text" name="uname" value="" style="width:210px" class="textinput"></td>
             </tr>
             <tr>
-              <td>&nbsp;</td>
+              <td COLSPAN="2">&nbsp;</td>
             </tr>
             <tr>
-              <td><strong><div class="login_text">{TR_PASSWORD}</div></strong></td>
+              <td COLSPAN="2"><strong><div class="login_text">{TR_PASSWORD}</div></strong></td>
             </tr>
             <tr>
-              <td><input type="password" name="upass" value="" style="width:210px" class="textinput"></td>
+              <td COLSPAN="2"><input type="password" name="upass" value="" style="width:210px" class="textinput"></td>
             </tr>
             <tr>
               <td colspan="2">&nbsp;</td>
               <td background="themes/modern_blue/images/login/content_line.gif">&nbsp;</td>
-              <td colspan="2">&nbsp;</td>
+              <td colspan="3">&nbsp;</td>
               </tr>
             <tr>
               <td>&nbsp;</td>
               <td>&nbsp;</td>
               <td background="themes/modern_blue/images/login/content_line.gif">&nbsp;</td>
               <td>&nbsp;</td>
-              <td><input hidden type="submit" name="Submit" class="button" value="   {TR_LOGIN}   "></td>
+              <td ALIGN="LEFT" VALIGN="BOTTOM"><input hidden type="submit" name="Submit" class="button" value="   {TR_LOGIN}   "></td>
+              <td ALIGN="RIGHT" VALIGN="BOTTOM"><A CLASS="submenu" href="lostpw.php">{TR_LOSTPW}</A></td>
             </tr>
           </table>
 		  </form></td>
@@ -66,4 +67,3 @@
 </table>
 </body>
 </html>
-
