@@ -1767,7 +1767,7 @@ sub dmn_add_httpd_file_data {
 	# Default error page template;
 	#
 	
-	if (!(-e "$root_dir/gui/errordocs/index.php")) {
+	if (-e "$root_dir/gui/errordocs/index.php") {
 		
 		my $err_tpl = '';
 		
@@ -1775,50 +1775,65 @@ sub dmn_add_httpd_file_data {
 		
 		return $rs if ($rs != 0);
 		
-		($rs, $rdata) = store_file(
-									"$www_dir/$dmn_name/errors/401/index.php",
-									$err_tpl,
-									$sys_user,
-									$httpd_gid,
-									0660
-									);
+		if (!(-e "$www_dir/$dmn_name/errors/401/index.php")) {
+
+			($rs, $rdata) = store_file(
+										"$www_dir/$dmn_name/errors/401/index.php",
+										$err_tpl,
+										$sys_user,
+										$httpd_gid,
+										0660
+										);
 		
-		return $rs if ($rs != 0);
+			return $rs if ($rs != 0);
+		}
 		
-		($rs, $rdata) = store_file(
-									"$www_dir/$dmn_name/errors/403/index.php",
-									$err_tpl,
-									$sys_user,
-									$httpd_gid,
-									0660
-									);
+		if (!(-e "$www_dir/$dmn_name/errors/403/index.php")) {
+
+			($rs, $rdata) = store_file(
+										"$www_dir/$dmn_name/errors/403/index.php",
+										$err_tpl,
+										$sys_user,
+										$httpd_gid,
+										0660
+										);
 		
-		return $rs if ($rs != 0);
+			return $rs if ($rs != 0);
+		}
+			
+		if (!(-e "$www_dir/$dmn_name/errors/404/index.php")) {
+
+			($rs, $rdata) = store_file(
+										"$www_dir/$dmn_name/errors/404/index.php",
+										$err_tpl,
+										$sys_user,
+										$httpd_gid,
+										0660
+										);
 		
-		($rs, $rdata) = store_file(
-									"$www_dir/$dmn_name/errors/404/index.php",
-									$err_tpl,
-									$sys_user,
-									$httpd_gid,
-									0660
-									);
+			return $rs if ($rs != 0);
+		}
+			
+		if (!(-e "$www_dir/$dmn_name/errors/500/index.php")) {
+
+			($rs, $rdata) = store_file(
+										"$www_dir/$dmn_name/errors/500/index.php",
+										$err_tpl,
+										$sys_user,
+										$httpd_gid,
+										0660
+										);
 		
-		return $rs if ($rs != 0);
+			return $rs if ($rs != 0);
+		}
+	}
 		
-		($rs, $rdata) = store_file(
-									"$www_dir/$dmn_name/errors/500/index.php",
-									$err_tpl,
-									$sys_user,
-									$httpd_gid,
-									0660
-									);
+	#
+	# Default domain page template;
+	#
 		
-		return $rs if ($rs != 0);
-		
-		#
-		# Default domain page template;
-		#
-		
+	if (!(-e "$www_dir/$dmn_name/htdocs/index.html")) {
+	
 		my $index_tpl = '';
 		
 		($rs, $index_tpl) = get_file("$root_dir/gui/domain_default_page/index.html");
