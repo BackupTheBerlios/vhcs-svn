@@ -53,6 +53,7 @@ $tpl -> assign(
                         'TR_GREEN' => tr('Green'),
                         'TR_YELLOW' => tr('Yellow'),
                         'TR_RED' => tr('Red'),
+						'TR_LOSTPW' => tr('Lost password'),
 						'TR_TIME' => date("g:i a"),
 						'TR_DATE' => date("l dS of F Y"),
                         'TR_VHCS_LICENSE' => $cfg['VHCS_LICENSE']
