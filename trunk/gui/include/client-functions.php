@@ -742,6 +742,15 @@ function check_permissions(&$tpl)
     $tpl -> assign('DOMAINALIAS_SUPPORT', '');
   }
 
+  if (isset($_SESSION['subdomain_support']) && $_SESSION['subdomain_support'] == "no")
+  {
+    $tpl -> assign('SUBDOMAIN_SUPPORT_CONTENT', '');
+  }
+  if (isset($_SESSION['alias_support']) && $_SESSION['alias_support'] == "no")
+  {
+    $tpl -> assign('DOMAINALIAS_SUPPORT_CONTENT', '');
+  }
+
   if (isset($_SESSION['alias_support']) && $_SESSION['alias_support'] == "no" && isset($_SESSION['subdomain_support']) && $_SESSION['subdomain_support'] == "no")
   {
     $tpl -> assign('DMN_MNGMNT', '');
