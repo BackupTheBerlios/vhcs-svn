@@ -739,7 +739,7 @@ function insert_email_tpl(&$sql, $admin_id)
 
     global $cfg;
 
-    $msg_subject = 'Auto message allert for new VHCS user {USERNAME} !';
+    $msg_subject = 'Auto message alert for new VHCS user {USERNAME} !';
 
     $msg = <<<MSG
 
