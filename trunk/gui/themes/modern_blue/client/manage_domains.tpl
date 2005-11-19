@@ -101,6 +101,7 @@ function MM_swapImage() { //v3.0
                   <td><a href="manage_domains.php" class="submenu">{TR_MENU_OVERVIEW}</a></td>
                   <td width="5" rowspan="6" background="{THEME_COLOR_PATH}/images/menu/open_background_right.gif"><img src="{THEME_COLOR_PATH}/images/trans.gif" width="5" height="1"></td>
                 </tr>
+				<!-- BDP: subdomain_support -->
                 <tr>
                   <td colspan="2"><img src="{THEME_COLOR_PATH}/images/trans.gif" width="30" height="4"></td>
                 </tr>
@@ -108,6 +109,7 @@ function MM_swapImage() { //v3.0
                   <td width="15"><img src="{THEME_COLOR_PATH}/images/icons/document.gif" width="12" height="15"></td>
                   <td><a href="add_subdomain.php" class="submenu">{TR_MENU_ADD_SUBDOMAIN}</a></td>
                 </tr>
+				<!-- EDP: subdomain_support -->
                 <!-- BDP: domainalias_support -->
                 <tr>
                   <td colspan="2"><img src="{THEME_COLOR_PATH}/images/trans.gif" width="30" height="4"></td>
@@ -200,7 +202,23 @@ function MM_swapImage() { //v3.0
           </tr>
         </table>
 		<p>&nbsp;</p></td>
-        <td height="500" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <td height="500" valign="top">
+		<!-- BDP: page_message -->
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+		<tr>
+			<td height="62" width="20">&nbsp;</td>
+			<td valign="middle">
+				<table width="100%" cellspacing="7">
+                    <tr>
+						<td class="title"><font color="#FF0000">{MESSAGE}</font></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		</table>
+		<!-- EDP: page_message -->
+		<!-- BDP: domainalias_support_content -->
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
           <tr>
             <td height="62" align="left" background="{THEME_COLOR_PATH}/images/content/table_background.jpg" class="title"><img src="{THEME_COLOR_PATH}/images/content/table_icon_domains.jpg" width="85" height="62" align="absmiddle">{TR_DOMAIN_ALIASES}</td>
             <td width="27" align="right" background="{THEME_COLOR_PATH}/images/content/table_background.jpg"><img src="{THEME_COLOR_PATH}/images/content/table_icon_close.jpg" width="27" height="62"></td>
@@ -250,6 +268,8 @@ function MM_swapImage() { //v3.0
             <td>&nbsp;</td>
           </tr>
         </table>
+		<!-- EDP: domainalias_support_content -->
+		<!-- BDP: subdomain_support_content -->
           <table width="100%" border="0" cellspacing="0" cellpadding="0">
             <tr>
               <td height="62" align="left" background="{THEME_COLOR_PATH}/images/content/table_background.jpg" class="title"><img src="{THEME_COLOR_PATH}/images/content/table_icon_domains.jpg" width="85" height="62" align="absmiddle">{TR_SUBDOMAINS}</td>
@@ -293,6 +313,7 @@ function MM_swapImage() { //v3.0
               <td>&nbsp;</td>
             </tr>
           </table>
+		  <!-- EDP: subdomain_support_content -->
           </td>
       </tr>
     </table></td>

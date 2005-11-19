@@ -39,16 +39,15 @@ var mpointError = 'Please write mount point !';
             }
     }
 
-function makeUser(){ 
-    var dname  = document.forms[0].elements['ndomain_name'].value; 
-
-	dname = dname.toLowerCase(); 
-    dname = dname.replace(/\u00E4/gi, "ae"); 
-    dname = dname.replace(/\u00FC/gi, "ue"); 
-    dname = dname.replace(/\u00F6/gi, "oe"); 
-    dname = dname.replace(/\u00DF/gi, "ss");
-	document.forms[0].elements['ndomain_mpoint'].value = "/" + dname.replace('.','_');     
-}
+    function makeUser(){
+	    var dname  = document.forms[0].elements['sub_pre'].value;
+		dname = dname.toLowerCase();
+	    dname = dname.replace(/ä/gi, "ae");
+	    dname = dname.replace(/ü/gi, "ue");
+	    dname = dname.replace(/ö/gi, "oe");
+	    dname = dname.replace(/ß/gi, "ss");
+		document.forms[0].elements['ndomain_mpoint'].value = "/" + dname.replace('.','_') + "_" + document.forms[0].elements['sub_suf'].value.replace('.','_');
+    }
 
 function MM_preloadImages() { //v3.0
   var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
