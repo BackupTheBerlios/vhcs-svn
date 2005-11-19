@@ -35,14 +35,6 @@ chmod 0755 $i;
 #chmod 0755 "$i/*";
 chown -R www-data:www-data $i;
 
-i='/var/www/vhcs2/gui/themes/user_logos'
-
-echo "0755 www-data:www-data [$i]";
-
-chmod 0755 $i;
-chmod 0644 "$i/*";
-chown -R www-data:www-data $i;
-
 i='/var/www/vhcs2/gui/tools/webmail/database/_sessions'
 
 echo "0755 www-data:www-data [$i]";
@@ -57,5 +49,21 @@ echo "0755 www-data:www-data [$i]";
 chmod 0755 $i;
 chown -R www-data:www-data $i;
 
+#
+# fixing user_logo folder permissions;
+#
+
+i='/var/www/vhcs2/gui/themes/user_logos'
+
+echo "0755 www-data:www-data [$i]";
+
+chmod 0755 $i;
+chmod 0644 "$i/*";
+chown -R www-data:www-data $i;
+
+
+#
+# fixing db keys permissions;
+#
 
 chmod 0400 /var/www/vhcs2/gui/include/vhcs2-db-keys.php                                               
