@@ -19,8 +19,8 @@
 
 session_start();
 
-//error_reporting(0); 
-error_reporting(E_ALL); // setting for development edition - see all error messages
+error_reporting(0); 
+//error_reporting(E_ALL); // setting for development edition - see all error messages
 
 $include_path = '/var/www/vhcs2/gui/include/';
 
