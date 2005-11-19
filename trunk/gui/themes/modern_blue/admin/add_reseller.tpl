@@ -116,6 +116,13 @@
               </tr>
               <tr>
                 <td><img src="{THEME_COLOR_PATH}/images/icons/document.gif" width="12" height="15"></td>
+                <td><a href="lostpw_email_setup.php" class="submenu">{TR_MENU_LOSTPW_EMAIL}</a></td>
+              </tr>
+			  <tr>
+                <td colspan="2"><img src="{THEME_COLOR_PATH}/images/trans.gif" width="30" height="4"></td>
+              </tr>
+              <tr>
+                <td><img src="{THEME_COLOR_PATH}/images/icons/document.gif" width="12" height="15"></td>
                 <td><a href="circular.php" class="submenu">{TR_MENU_CIRCULAR}</a></td>
               </tr>
               <tr>
