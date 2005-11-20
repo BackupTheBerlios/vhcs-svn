@@ -136,7 +136,7 @@ require("./inc/config.security.php");
 
 ########################################################################
 
-$mail_server_type 	= "ONE-FOR-EACH";
+$mail_server_type 	= "ONE-FOR-ALL";
 
 ########################################################################
 # TYPE: DETECT
