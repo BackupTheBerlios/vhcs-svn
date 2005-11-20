@@ -31,23 +31,9 @@ i='/var/www/vhcs2/gui/tools/webmail/database'
 
 echo "0555 www-data:www-data [$i]";
 
-chmod 0755 $i;
+chmod 0755 -R $i;
 #chmod 0755 "$i/*";
-chown -R www-data:www-data $i;
-
-i='/var/www/vhcs2/gui/tools/webmail/database/_sessions'
-
-echo "0755 www-data:www-data [$i]";
-
-chmod 0755 $i;
-chown -R www-data:www-data $i;
-
-i='/var/www/vhcs2/gui/tools/webmail/database/_cached_templates'
-
-echo "0755 www-data:www-data [$i]";
-
-chmod 0755 $i;
-chown -R www-data:www-data $i;
+chown www-data:www-data -R $i;
 
 #
 # fixing user_logo folder permissions;
@@ -59,7 +45,7 @@ echo "0755 www-data:www-data [$i]";
 
 chmod 0755 $i;
 chmod 0644 "$i/*";
-chown -R www-data:www-data $i;
+chown www-data:www-data -R $i;
 
 
 #

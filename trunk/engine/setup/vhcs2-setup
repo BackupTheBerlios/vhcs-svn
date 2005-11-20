@@ -996,6 +996,26 @@ sub setup_sql {
 	$rs = del_file("/tmp/db.sql.stderr");
 	return $rs if ($rs != 0);
 	
+	# 
+	# languages tables;
+	#
+	
+	my $languages_sql = "$main::cfg{'CONF_DIR'}/database/languages.sql";
+	
+	$cmd = "$main::cfg{'CMD_MYSQL'} --user=$main::db_user --pass=$main::db_pwd $main::db_name < $languages_sql 1>/tmp/db.sql.stdout 2>/tmp/db.sql.stderr";
+	
+	$rs = sys_command($cmd);
+	return $rs if ($rs != 0);    
+	
+	$rs = del_file("/tmp/db.sql");
+	return $rs if ($rs != 0);
+		
+	$rs = del_file("/tmp/db.sql.stdout");
+	return $rs if ($rs != 0);
+		
+	$rs = del_file("/tmp/db.sql.stderr");
+	return $rs if ($rs != 0);
+	
 	#
 	# Let's populate our base with some data;
 	#
