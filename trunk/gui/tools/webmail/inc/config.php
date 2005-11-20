@@ -66,7 +66,7 @@ $quota_limit = 0;  //  in KB, eg. 4096 Kb = 4MB
 ########################################################################
 # Use SMTP password (AUTH LOGIN type)
 ########################################################################
-$use_password_for_smtp	= yes;
+$use_password_for_smtp	= no;
 
 ########################################################################
 # Redirect new users to the preferences page at first login
@@ -153,7 +153,7 @@ $mail_detect_folder_prefix 	= "";
 # TYPE: ONE-FOR-EACH
 # Each domain have your own mail server
 ########################################################################
-
+/*
 $mail_servers[] = Array( //sample using POP3
 	"domain" 		=> "", 
 	"server" 		=> "localhost", 
@@ -162,7 +162,7 @@ $mail_servers[] = Array( //sample using POP3
 	"port"			=> "110",
 	"folder_prefix"	=> ""
 );
-
+*/
 
 /*
 $mail_servers[] = Array( //sample using IMAP
@@ -180,13 +180,13 @@ $mail_servers[] = Array( //sample using IMAP
 # TYPE: ONE-FOR-ALL
 # the default mail server for all domains
 ########################################################################
-/*
-$default_mail_server 	= "mail.YOUR-UNIQUE-SERVER.com.br";
+
+$default_mail_server 	= "127.0.0.1";
 $one_for_all_login_type	= "%user%@%domain%";
 $default_protocol		= "pop3";
 $default_port			= "110";
 $default_folder_prefix	= "";
-*/
+
 
 ########################################################################
 # Specify mail transport
@@ -221,14 +221,13 @@ $appname = "UebiMiau";
 ########################################################################
 # Add a "footer" to sent mails
 ########################################################################
-$footer = "";
-/*
+
 $footer = "
 
 ________________________________________________
-Message sent using $appname $appversion
+VHCS Webmail
 ";
-*/
+
 ########################################################################
 # Enable debug :)
 # no - disabled
@@ -256,10 +255,10 @@ $default_preferences = Array(
 	"empty_trash_default"		=> yes,		# empty trash on logout
 	"sortby_default"			=> "date",	# alowed: "attach","subject","fromname","date","size"
 	"sortorder_default"			=> "DESC",	# alowed: "ASC","DESC"
-	"rpp_default"				=> 20,		# records per page (messages), alowed: 10,20,30,40,50,100,200
+	"rpp_default"				=> 10,		# records per page (messages), alowed: 10,20,30,40,50,100,200
 	"add_signature_default"		=> no,		# add the signature by default
 	"signature_default"			=> "",		# a default signature for all users, use text only, with multiple lines if needed
-	"timezone_default"			=> "-0500",	# timezone, format (+|-)HHMM (H=hours, M=minutes)
+	"timezone_default"			=> "+0000",	# timezone, format (+|-)HHMM (H=hours, M=minutes)
 	"display_images_default"	=> yes,		# automatically show attached images in the body of message
 	"editor_mode_default"		=> "text",	# use "html" or "text" to set default editor. "html" will be used only in IE5+ browsers
 	"refresh_time_default"		=> 10		# after this time, the message list will be refreshed, in minutes
