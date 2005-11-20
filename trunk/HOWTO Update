@@ -1,11 +1,11 @@
-HOWTO Update VHCS 2.4.6 to VHCS 2.4.7 (English)
+HOWTO Update VHCS 2.4.6.2 to VHCS 2.4.7 (English)
 
 -------------------
 General Information
 -------------------
 
 1) Download the newest VHCS2 release :
-
+// Only available for the final ;)
 tangra: # wget http://heanet.dl.sourceforge.net/sourceforge/vhcs/vhcs2.4.7.tar.bz2
 
 2) Turn off the VHCS Daemon:
@@ -52,7 +52,7 @@ QUOTA_ROOT_DIR = /var/www/vhcs2/engine/quota
 
 2) Set your default settings for traffic counting:
 
-If you are using AMAVIS and SPAMASSASSIN change 
+If you are using AMAVIS and SPAMASSASSIN change
 
 MAIL_LOG_INC_AMAVIS = 0
 
@@ -74,15 +74,15 @@ Engine Update
 
 tangra: # cp -a /mydir/engine/ /var/www/vhcs2/
 
-2) Copy your crypt key from the old /engine_bcp_yyyymmdd/vhcs2-db-keys.pl to /engine/vhcs2-db-keys.pl
+2) Copy your crypt key from the old /engine_bcp_yyyymmdd/vhcs2-db-keys.pl to /engine/vhcs2-db-keys.pl and
+	from the old /gui_bcp_yyyymmdd/include/vhcs2-db-keys.php to /gui/include/vhcs2-db-keys.php.
 
-tangra: # cp /var/www/vhcs2/engine_bcp_yyyymmdd/vhcs2-db-keys.pl to /var/www/vhcs2/engine/vhcs2-db-keys.pl
+tangra: # cp /var/www/vhcs2/engine_bcp_yyyymmdd/vhcs2-db-keys.pl /var/www/vhcs2/engine/vhcs2-db-keys.pl
+tangra: # cp /var/www/vhcs2/gui_bcp_yyyymmdd/include/vhcs2-db-keys.php /var/www/vhcs2/gui/include/vhcs2-db-keys.php
 
 3) changes for vhcs2-arpl-msgr
 
 tangra: # cp /var/www/vhcs2/engine/vhcs2-db-keys.pl /var/www/vhcs2/engine/messager/vhcs2-db-keys.pl
-tangra: # chmod 0700 /var/www/vhcs2/engine/messager/vhcs2-db-keys.pl /var/www/vhcs2/engine/messager/vhcs2-arpl-msgr
-tangra: # chown vmail:mail /var/www/vhcs2/engine/messager/vhcs2-db-keys.pl /var/www/vhcs2/engine/messager/vhcs2-arpl-msgr
 
 4) We changed sasldb2 management for the postfix chroot.
 	
@@ -101,7 +101,7 @@ any command
 Backup Engine Update
 -------------------
 
-1) Remove old file if they allready exists:
+1) Remove old file if they already exists:
 
 tangra: # rm /var/www/vhcs2/engine/tools/vhcs2-backup-all
 
@@ -135,12 +135,20 @@ tangra: # mv /var/www/vhcs2/engine/traffic/vhcs2-vrl-traff-SUSE /var/www/vhcs2/e
 tangra: # rm /tmp/vhcs2-backup-all.lock
 
 
+Engine Templates Update
+-------------------
+
+Update apache template part for subdomain errorpages:
+
+tangra: # cp /mydir/configs/apache/parts/sub_entry.tpl /etc/vhcs2/apache/parts/sub_entry.tpl
+
+
 Finish Engine Updates
 -------------------
 
 1) Set correct engine permissions:
 
-tangra: # ./mydir/engine/setup/set-engine-permissions.sh
+tangra: # /var/www/vhcs2/engine/setup/set-engine-permissions.sh
 
 
 -------------------
@@ -149,27 +157,59 @@ GUI Update
 
 1) Set correct gui permissions:
 
-tangra: # ./mydir/engine/setup/set-gui-permissions.sh
+tangra: # /var/www/vhcs2/engine/setup/set-gui-permissions.sh
 
+2) Password reminder:
+
+install GD library:
+tangra: # apt-get install php4-gd
+
+Apache neustarten:
+tangra: # apache2ctl graceful
+
+3) Hostingplan changes: 
+
+in the /vaw/www/vhcs2/gui/include/vhcs-lib.php
+
+Search for $cfg['HOSTING_PLANS_LEVEL'] you have this options:
+
+'admin' => hosting plans are available only in admin level, reseller can not make custom changes
+'reseller' => hosting plans are available only in reseller level
+
+!!!Attention: If you have already hostingplans in reseller area you should turn this option to
+	'reseller' !!!		
 
 -------------------
 Database Update
 -------------------
-Change status for all mail-addresses because of rebuild SASDB2 and MD5 passwords
+
+Updated language tables could be updated by importing the languages.sql 
+For example with phpmyadmin or over commandline. File is located in:
+
+configs/database/languages.sql
+
+Change status for all mail-addresses because of rebuild SASLDB2 and MD5 passwords:
 
 UPDATE `vhcs2`.`mail_users` SET `status` = 'change' WHERE `status` = 'ok';
 
-Update field settings
+Change status for all subdomains because of rebuild apache conf for subdomains:
+
+UPDATE `vhcs2`.`subdomain` SET `status` = 'change' WHERE `status` = 'ok';
+
+Update field settings:
 
 ALTER TABLE `hosting_plans` 
 ADD `price` decimal(10,2) NOT NULL default '0.00',
 ADD `setup_fee` decimal(10,2) NOT NULL default '0.00';
+
+ALTER TABLE `admin` ADD `uniqkey` varchar(255);
 
 -------------------
 Finish update
 -------------------
 
 1) Now you should execute the VHCS engine manually, because users/customers may have made system changes during your update operation
+   This could take a moment!
 
 tangra: # /var/www/vhcs2/engine/vhcs2-rqst-mngr
 

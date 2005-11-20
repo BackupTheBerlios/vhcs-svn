@@ -1,7 +1,7 @@
 VHCS 2.4.7 Changelog
 ~~~~~~~~~~~~~~~~~~~~~
 
-Perl engine fixes.(1z0)
+Perl engine fixes
 ------------------------
 
 	(o) Postfix master.cf config file was synced with postfix 2.2.x
@@ -65,6 +65,8 @@ in md5 used by courier, so passwords with more then 8 characters could be used;
 	(o) vhcs2-backup-all fix by 'Reisswolf' - fixed locking if user backup folder did
 not exist; fixed error message in the backup manager logfile in /var/log/vhcs ;
 
+	(o) vhcs2-dmn-mngr fix by 'Reisswolf' - fixed non copying the errorpages and
+default index page (was a fix for 2.4.7-dev);
 
 	If you want to do the same with apache2 log files for every
 domain in your server then you must add corresponding entry in your
@@ -102,7 +104,7 @@ counting.
 
 
 
-GUI Changes (alex)
+GUI Changes
 -------------------------------
 
 1. Optional Hosting Plan Managemnt in admin or reseller level
@@ -118,12 +120,97 @@ and should be defined in the variable $cfg['HOSTING_PLANS_LEVEL']
 	(this means only the new added FTP accounts, all other accounts must be 
 	changed manually by a SQL query.)
 
-5. phpMyAdmin update to phpMyAdmin-2.6.4-pl3 by 'Reisswolf'
+5. phpMyAdmin update to phpMyAdmin-2.6.4-pl4 by 'Reisswolf'
 
 6. deleted some unused templates by 'Reisswolf'
+
+7. webmail update to uebimiau version 2.7.9
+
+8. filemanager update to weeble version 1.2.2-CVS by 'Reisswolf'
+
+9. added HTML-SSL, POP3-SSL, IMAP-SSL to server status overview in admin section by 'Reisswolf'
+
+10. added Password reminder, thanks to Mark Henning (tirex)
+	Features:
+	* mail templates for admin and reseller
+	* verification with activationlink and captcha-grafic
+	* created passwords are build out of numbers and letters
+
+11. better character converting for suggested mountpoints, not showing "add subdomain" in the menu if now 
+subdomains are available.
+
+12. Not showing aliasdomain and subdomain parts in manage_domains content area if this functions are not
+available for the client
+
+13. better Cross Site Scripting prevention (GUI)
+
+14. new feature: a sql user can have more than one database (GUI)
+
+15. Hosting Plan Management reviewed (GUI)
+
+16. Hosting Plan now has decimal numbers (SQL Structure Update)
+
+17. Some template errors (layout + Javascript) are fixed
+
+18. Autoresponder reviewed (engine)
+
+19. autoresponder text can now be edited (GUI)
+
+20. fixed 2 security leaks in the autoresponder (GUI + SQL Injection)
+
+21. Domains and reseller are now sorted alphabetically (GUI)
+
+22. Email notification on support request (GUI)
+
 
 
 Extra Changes
 -------------------------------
 
 1. All language files are included into the build and in the database
+
+	* Spanish translation by Dani <danienjjsystem@teleline.es>, thanks!
+	* Finnish translation by Petri Mäkelä <puuhis@puuhis.net>, thanks!
+	* Chinese translation by Xu hiei <hieixu@hotmail.com>, thanks!
+	* German translation by Mauric Rene Oberlaender <rene@vhcs.at>, thanks!
+	* Italian translation by Ugo Viti <ugo.viti@initzero.it>, thanks!
+
+
+2. Seperate language tables out of database.sql
+
+
+
+All bugfixes from bugtracker:
+-------------------------------
+
+Fixed bug #0000037: webmail logout produces error message
+Fixed bug #0000130: User can provoke LOCK on VHCS Backup Manager
+Fixed bug #0000210: Protected pages return error
+Fixed bug #0000142: Subdomains don't get error docs defined
+Fixed bug #0000034: Error in vhcs2/gui/admin/sysinfo.php
+Fixed bug #0000101: postfix/postfix-script: warning: /var/spool/postfix/etc/sasldb2 and /etc/sasldb2 differ
+Fixed bug #0000060: error in domain statistics overview
+Fixed bug #0000067: Adding Users with .htaccess Management
+Fixed bug #0000138: Cross-Site-Scripting Issues in VHCS-GUI
+Fixed bug #0000161: "CMD_SASLDB_LISTUSERS2" fehlt in vhcs2.conf
+Fixed bug #0000191: get_human_date in vhcs2_common_code.pl returns wrong month number
+Fixed bug #0000125: webmail themes/templates loads a lot of not existing files
+Fixed bug #0000043: Wrong heading is shown in vhcs2/client/add_alias.php using template modern_blue
+Fixed bug #0000209: Orderpanel site (with more than 1 reseller)
+Fixed bug #0000197: email password length check
+Fixed bug #0000164: Cross Site Scripting in GUI
+Fixed bug #0000162: Add Alias is shown in enable alias forward even if alias are disabled by reseller
+Fixed bug #0000086: Wrong permissions for Autoresponder
+Fixed bug #0000203: Autoresponder dies on mailprocessing
+Fixed bug #0000189: Update hosting plan
+Fixed bug #0000166: HTML Format error + typo error
+Fixed bug #0000206: PHP Warning when /proc/swaps doesn't exist
+Fixed bug #0000208: Order_settings.php -> spaces in texareas
+Fixed bug #0000207: no "Custom buttons" under /reseller/language.php
+Fixed bug #0000201: Cannot create subdomains as domains
+Fixed bug #0000104: Autoresponder tool is broken
+Fixed bug #0000192: Autoreply English spelling
+Fixed bug #0000199: Orderpanel - does not use the correct language
+Fixed bug #0000195: Install doesn't start on debian
+Fixed bug #0000190: new domain user login problems
+
