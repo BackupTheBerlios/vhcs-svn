@@ -25,6 +25,7 @@ $tpl = new pTemplate();
 $tpl -> define_dynamic('page', $cfg['ADMIN_TEMPLATE_PATH'].'/manage_reseller_users.tpl');
 
 $tpl -> define_dynamic('page_message', 'page');
+
 $tpl -> define_dynamic('hosting_plans', 'page');
 
 $tpl -> define_dynamic('reseller_list', 'page');
@@ -41,8 +42,6 @@ $tpl -> define_dynamic('dst_reseller_option', 'dst_reseller');
 
 global $cfg;
 $theme_color = $cfg['USER_INITIAL_THEME'];
-
-
 
 
 function gen_user_table(&$tpl, &$sql)
@@ -63,7 +62,7 @@ SQL_QUERY;
 
 	if ($rs -> RecordCount() == 0) {
 
-        set_page_message('Reseller or user list is empty!');
+        set_page_message(tr('Reseller or user list is empty!'));
       	header('Location: manage_users.php');
 		die();
     }
@@ -138,7 +137,7 @@ SQL_QUERY;
 
     if ($rs -> RecordCount() == 0) {
 
-        set_page_message('User list is empty!');
+        set_page_message(tr('User list is empty!'));
 
         $tpl -> assign('RESELLER_LIST', '');
 
@@ -198,7 +197,7 @@ function update_reseller_user($sql)
 
         if(check_user_data()){
 
-            set_page_message('User was moved');
+            set_page_message(tr('User was moved'));
         }
     }
 }
