@@ -33,9 +33,10 @@ case "$1" in
 	echo "$NAME."
 	;;
   restart|force-reload)
-	echo -n "Restarting $DESC: "
+	echo "Restarting $DESC: "                                      
 	start-stop-daemon --stop --verbose --exec $DAEMON
 	start-stop-daemon --start --verbose --exec $DAEMON
+	/etc/init.d/vhcs2_network
 	echo "$NAME."
 	;;
   *)

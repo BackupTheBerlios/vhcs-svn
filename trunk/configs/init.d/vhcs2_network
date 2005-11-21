@@ -6,7 +6,7 @@
 
 RMMOD='/sbin/rmmod'
 
-IPTABLES="/usr/sbin/iptables"
+IPTABLES="/sbin/iptables"
 
 ${RMMOD} ipchains 1>/tmp/vhcs2_network.log 2>/tmp/vhcs2_network.err.log
 
