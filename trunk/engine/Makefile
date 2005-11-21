@@ -59,7 +59,8 @@ install:
 	$(CMD_INSTALL) ./quota/vhcs2-dsk-quota $(SYSTEM_ENGINE_ROOT)/quota
 	$(CMD_INSTALL) ./traffic/vhcs2-srv-traff $(SYSTEM_ENGINE_ROOT)/traffic
 	$(CMD_INSTALL) ./traffic/vhcs2-vrl-traff $(SYSTEM_ENGINE_ROOT)/traffic
-	$(CMD_INSTALL) ./messager/vhcs2-arpl-msgr $(SYSTEM_ENGINE_ROOT)/messager
+	$(CMD_INSTALL) ./traffic/vhcs2-vrl-traff-SUSE $(SYSTEM_ENGINE_ROOT)/traffic
+	$(CMD_MAIL_INSTALL) ./messager/vhcs2-arpl-msgr $(SYSTEM_ENGINE_ROOT)/messager
 	
 	$(CMD_INSTALL) ./setup/vhcs2-setup $(SYSTEM_ENGINE_ROOT)/setup
 	$(CMD_INSTALL) ./setup/vhcs2-uninstall $(SYSTEM_ENGINE_ROOT)/setup
