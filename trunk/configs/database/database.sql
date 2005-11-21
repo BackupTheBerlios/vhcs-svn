@@ -34,7 +34,7 @@ CREATE TABLE `admin` (
   `street2` varchar(200) default NULL,
   `uniqkey` varchar(255) default NULL,
   UNIQUE KEY `admin_id` (`admin_id`)
-) TYPE=MyISAM AUTO_INCREMENT=75 ;
+) TYPE=MyISAM AUTO_INCREMENT=1 ;
 
 #
 # Daten für Tabelle `admin`
@@ -679,7 +679,7 @@ CREATE TABLE `quotatallies` (
 CREATE TABLE `auto_num` (
   `id` INT unsigned NOT NULL AUTO_INCREMENT,
   `msg` VARCHAR(255),
-  unique (id)
+  UNIQUE KEY `id` (`id`)
 );
 
 #
