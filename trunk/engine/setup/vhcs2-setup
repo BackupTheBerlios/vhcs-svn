@@ -986,26 +986,18 @@ sub setup_sql {
 	
 	$rs = sys_command($cmd);
 	return $rs if ($rs != 0);    
-	
-	$rs = del_file("/tmp/db.sql");
-	return $rs if ($rs != 0);
 		
-	$rs = del_file("/tmp/db.sql.stdout");
-	return $rs if ($rs != 0);
-		
-	$rs = del_file("/tmp/db.sql.stderr");
-	return $rs if ($rs != 0);
-	
 	# 
 	# languages tables;
 	#
-	
+
 	my $languages_sql = "$main::cfg{'CONF_DIR'}/database/languages.sql";
 	
 	$cmd = "$main::cfg{'CMD_MYSQL'} --user=$main::db_user --pass=$main::db_pwd $main::db_name < $languages_sql 1>/tmp/db.sql.stdout 2>/tmp/db.sql.stderr";
 	
 	$rs = sys_command($cmd);
 	return $rs if ($rs != 0);    
+
 	
 	$rs = del_file("/tmp/db.sql");
 	return $rs if ($rs != 0);
@@ -1022,8 +1014,8 @@ sub setup_sql {
 	
 	my $admin_password = crypt_data($main::ua{'admin_password'});
 	
-	$sql = "INSERT INTO admin VALUES  (1, '$main::ua{'admin'}', '$admin_password', 'admin', 0, '', 0, '', '', '', '', '', '', '$main::ua{'admin_email'}', '', '', '', '')";
-	
+	$sql = "INSERT INTO admin VALUES  (1, '$main::ua{'admin'}','$admin_password', 'admin', 0, '', 0, '', '', '', '', '', '','$main::ua{'admin_email'}', '', '', '', '', '')";	
+
 	($rs, $rdata) = doSQL($sql);
 		
 	return $rs if ($rs != 0);
