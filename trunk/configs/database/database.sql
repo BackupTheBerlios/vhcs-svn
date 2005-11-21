@@ -679,7 +679,7 @@ CREATE TABLE `quotatallies` (
 CREATE TABLE `auto_num` (
   `id` INT unsigned NOT NULL AUTO_INCREMENT,
   `msg` VARCHAR(255),
-  `unique` (id)
+  unique (id)
 );
 
 #
