@@ -45,6 +45,7 @@ install:
 
 	cp ./index.php $(SYSTEM_GUI_ROOT)/index.php
 	cp ./chk_login.php $(SYSTEM_GUI_ROOT)/chk_login.php
+	cp ./lostpw.php $(SYSTEM_GUI_ROOT)/lostpw.php
 #	cp ./pi.php $(SYSTEM_GUI_ROOT)/pi.php
 
 	cp -dR ./admin $(SYSTEM_GUI_ROOT)
