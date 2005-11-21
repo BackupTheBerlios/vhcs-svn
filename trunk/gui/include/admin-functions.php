@@ -724,6 +724,7 @@ function get_admin_manage_users(&$tpl, &$sql)
             'TR_USERS' => tr('Users'),
             'TR_SEARCH' => tr('Search'),
             'TR_CREATED_ON' => tr('Creation date'),
+			'TR_MESSAGE_DELETE' => tr('Are you sure you want to delete'),
             )
     );
 
