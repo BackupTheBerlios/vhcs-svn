@@ -1,5 +1,12 @@
 HOWTO Update VHCS 2.4.6.2 to VHCS 2.4.7 (English)
 
+###############
+#	Missing:
+#		* init.d scrite for network/daemon updaten
+#
+#
+###############
+
 -------------------
 General Information
 -------------------

@@ -1,2 +1,19 @@
 VHCS 2.4.7-alpha Changelog
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+2005-11-22  Erik Lehmann  <reisswolf@macnews.de>
+
+	- GUI
+		* Fixed bug #0000221: {TR_MESSAGE_DELETE} not parsed in admin/manage_users.php if user list is null
+
+2005-11-21  Erik Lehmann  <reisswolf@macnews.de>
+
+	- GUI
+		* Fixed bug #0000218: language strings hardcoded
+	- Installation:
+		* Change: init.d daemon restart function
+		* Change: default iptables path to sarge default in /etc/init.d/vhcs_network
+		* Fixed bug #0000217: in INSERT statement of first admin data insert in /engine/setup/vhcs-setup
+		* Fixed bug #0000216: deleting /tmp/db.sql twice in vhcs2-setup
+		* Fixed bug #0000215: some missing files in the make files
+		* Fixed bug #0000214: typo error in the database.sql
