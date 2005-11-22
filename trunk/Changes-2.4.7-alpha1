@@ -5,7 +5,11 @@ VHCS 2.4.7-alpha Changelog
 
 	- GUI
 		* Fixed bug #0000221: {TR_MESSAGE_DELETE} not parsed in admin/manage_users.php if user list is null
-
+	- Installation:
+		* Fixed bug #: typo error in engine/setup/vhcs-setup
+		* Fixed bug #: unset permissions for some files in /usr/sbin during make install
+		* Fixed bug : typo error in INSTALL
+		
 2005-11-21  Erik Lehmann  <reisswolf@macnews.de>
 
 	- GUI
