@@ -637,7 +637,7 @@ CREATE TABLE `quotalimits` (
   `limit_type` ENUM("soft", "hard") NOT NULL,
   `bytes_in_avail` FLOAT NOT NULL,
   `bytes_out_avail` FLOAT NOT NULL,
-  `vbytes_xfer_avail` FLOAT NOT NULL,
+  `bytes_xfer_avail` FLOAT NOT NULL,
   `files_in_avail` INT UNSIGNED NOT NULL,
   `files_out_avail` INT UNSIGNED NOT NULL,
   `files_xfer_avail` INT UNSIGNED NOT NULL
