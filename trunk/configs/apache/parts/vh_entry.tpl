@@ -1,5 +1,5 @@
 
-NameVirtualHost {IP}
+NameVirtualHost {IP}:80
 
 # httpd [{DMN_GRP}] dmn group entry BEGIN.
 # httpd [{DMN_GRP}] dmn group entry END.

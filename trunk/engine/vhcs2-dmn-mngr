@@ -507,8 +507,8 @@ sub dmn_add_named_db_data {
     
     my $dmn_name = @$dmn_data[1];
     
-    my $dmn_ip = @$dmn_data[21];
-    
+    my $dmn_ip = @$dmn_data[21];    
+
     
     my $conf_dir = $main::cfg{'CONF_DIR'};
     
@@ -801,6 +801,8 @@ sub gen_httpd_dmn_group_entry {
     my $dmn_id = @$dmn_data[0];
     
     my $dmn_name = @$dmn_data[1];
+
+    my $dmn_ip = @$dmn_data[21];
     
     my ($dmn_php, $dmn_cgi) = (@$dmn_data[19], @$dmn_data[20]);
     
@@ -877,6 +879,7 @@ sub gen_httpd_dmn_group_entry {
         (
          '{DMN_GRP}' => $dmn_name,
          '{DMN_NAME}' => $dmn_name,
+         '{DMN_IP}' => $dmn_ip,
          '{WWW_DIR}' => $main::cfg{'APACHE_WWW_DIR'},
          '{APACHE_LOG_DIR}' => $main::cfg{'APACHE_LOG_DIR'},
          '{GUI_ROOT_DIR}' => $main::cfg{'GUI_ROOT_DIR'},
@@ -1027,6 +1030,27 @@ sub dmn_add_httpd_cfg_data {
     my $sys_cfg = $main::cfg{'APACHE_CONF_FILE'};
     
     my $working_cfg = "$working_dir/vhcs2.conf";
+
+
+	if (!(-e $working_cfg)) {
+		
+		my $vhcs2_base_tpl;
+
+		($rs, $vhcs2_base_tpl) = get_file($tpl_dir."/vhcs2_base.tpl");
+                       
+        return $rs if ($rs != 0);
+
+		($rs, $rdata) = store_file(
+									$working_cfg,
+									$vhcs2_base_tpl,
+									"root",
+									"root",
+									0600
+								  );
+
+		return $rs if ($rs != 0);
+        
+    }
     
     
     my $timestamp = time;

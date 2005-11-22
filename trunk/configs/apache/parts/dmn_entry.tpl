@@ -1,4 +1,4 @@
-<VirtualHost {DMN_NAME}>
+<VirtualHost {DMN_IP}:80>
     
     #
     #User {SUEXEC_USER}
@@ -13,7 +13,7 @@
     DocumentRoot    {WWW_DIR}/{DMN_NAME}/htdocs
     
     ServerName      {DMN_NAME}
-    ServerAlias     www.{DMN_NAME} {DMN_NAME}
+    ServerAlias     www.{DMN_NAME} {DMN_NAME} *.{DMN_NAME}
     
     ErrorLog        {APACHE_USERS_LOG_DIR}/{DMN_NAME}-error.log
     TransferLog     {APACHE_USERS_LOG_DIR}/{DMN_NAME}-access.log

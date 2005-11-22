@@ -603,6 +603,8 @@ sub gen_httpd_sub_group_entry {
     my $dmn_name = @$sub_data[6];
     
     my $sub_name = "$sub_pref.$dmn_name";
+
+    my $sub_ip = @$sub_data[26];
     
     my ($sub_php, $sub_cgi) = (@$sub_data[24], @$sub_data[25]);
     
@@ -678,6 +680,7 @@ sub gen_httpd_sub_group_entry {
          '{WWW_DIR}' => $main::cfg{'APACHE_WWW_DIR'},
          '{APACHE_LOG_DIR}' => $main::cfg{'APACHE_LOG_DIR'},
          '{SUB_NAME}' => $sub_name,
+	 	 '{SUB_IP}' => $sub_ip,
          '{SUB_NAME_PHP2}' => "$dmn_name$sub_mount",
          '{MOUNT_POINT}' => $sub_mount,
          '{GUI_ROOT_DIR}' => $main::cfg{'GUI_ROOT_DIR'},
