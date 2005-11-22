@@ -43,7 +43,7 @@ install:
 	
 	# one more copy for auto replay system;
 	$(CMD_RM) $(SYSTEM_ENGINE_ROOT)/messager/vhcs2-db-keys.pl
-	$(CMD_MAIL_INSTALL) ./vhcs2-db-keys.pl $(SYSTEM_ENGINE_ROOT)/messager
+	$(CMD_INSTALL) ./vhcs2-db-keys.pl $(SYSTEM_ENGINE_ROOT)/messager
 
 	$(CMD_INSTALL) ./vhcs2-rqst-mngr $(SYSTEM_ENGINE_ROOT)
 	$(CMD_INSTALL) ./vhcs2-dmn-mngr $(SYSTEM_ENGINE_ROOT)
@@ -60,7 +60,7 @@ install:
 	$(CMD_INSTALL) ./traffic/vhcs2-srv-traff $(SYSTEM_ENGINE_ROOT)/traffic
 	$(CMD_INSTALL) ./traffic/vhcs2-vrl-traff $(SYSTEM_ENGINE_ROOT)/traffic
 	$(CMD_INSTALL) ./traffic/vhcs2-vrl-traff-SUSE $(SYSTEM_ENGINE_ROOT)/traffic
-	$(CMD_MAIL_INSTALL) ./messager/vhcs2-arpl-msgr $(SYSTEM_ENGINE_ROOT)/messager
+	$(CMD_INSTALL) ./messager/vhcs2-arpl-msgr $(SYSTEM_ENGINE_ROOT)/messager
 	
 	$(CMD_INSTALL) ./setup/vhcs2-setup $(SYSTEM_ENGINE_ROOT)/setup
 	$(CMD_INSTALL) ./setup/vhcs2-uninstall $(SYSTEM_ENGINE_ROOT)/setup

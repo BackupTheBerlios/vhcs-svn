@@ -619,6 +619,18 @@ sub setup_start_up {
 sub setup_shut_down {
     
     my ($rs, $rdata) = (undef, undef);
+
+    $cmd = "sh ./set-gui-permissions.sh";
+
+    $rs = sys_command($cmd);
+
+    return $rs if ($rs != 0);
+
+    $cmd = "sh ./set-engine-permissions.sh";
+    
+    $rs = sys_command($cmd);
+
+    return $rs if ($rs != 0);
     
     push_el(\@main::el, 'setup_shut_down()', 'Starting...');
     
