@@ -782,7 +782,7 @@ sub setup_system_users {
     
     if (scalar(@udata) == 0) { # we have not this one user data;
         
-        my $cmd = "$main::cfg{'CMD_USERADD'} -c vmail-user -g $gid -s /bin/false $fuid";
+        my $cmd = "$main::cfg{'CMD_USERADD'} -c vmail -user -g $gid -s /bin/false $fuid";
         
         $rs = sys_command($cmd);
         
