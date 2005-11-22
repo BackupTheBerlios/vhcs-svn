@@ -1,8 +1,11 @@
+
+CMD_INSTALL=/usr/bin/install -m 0700 -o root -g root
+
 export
 
 install:
 
-	cp ./vhcs2-mkdirs.pl /usr/sbin
+	$(CMD_INSTALL) ./vhcs2-mkdirs.pl /usr/sbin
 
 uninstall:
 
