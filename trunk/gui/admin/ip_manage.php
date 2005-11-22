@@ -122,7 +122,7 @@ SQL_QUERY;
             $rs = exec_query($sql, $query, array($ip_number, htmlspecialchars($domain, ENT_QUOTES, "UTF-8"),
 			 												 htmlspecialchars($alias, ENT_QUOTES, "UTF-8")));
 
-            set_page_message('New IP was added!');
+            set_page_message(tr('New IP was added!'));
 
             $user_logged= $_SESSION['user_logged'];
 
