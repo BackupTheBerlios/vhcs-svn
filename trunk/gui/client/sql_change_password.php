@@ -80,7 +80,7 @@ SQL_QUERY;
   //
   $query = <<<SQL_QUERY
 
-        SET PASSWORD FOR '$db_user_name'@'localhost' = PASSWORD('$user_pass')
+        SET PASSWORD FOR '$db_user_name'@'%' = PASSWORD('$user_pass')
         
 SQL_QUERY;
 

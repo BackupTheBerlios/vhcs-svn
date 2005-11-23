@@ -679,7 +679,7 @@ SQL_QUERY;
     	//
 
     	$query = <<<SQL_QUERY
-        	revoke all on *.* from ?@localhost
+        	revoke all on *.* from ?@'%'
 SQL_QUERY;
     	$rs = exec_query($sql, $query, array($db_user_name));
 
@@ -693,7 +693,7 @@ SQL_QUERY;
 		*/
 		$new_db_name = ereg_replace("_", "\\_", $db_name);
     	$query = <<<SQL_QUERY
-       	 	revoke all on $new_db_name.* from ?@localhost
+       	 	revoke all on $new_db_name.* from ?@'%'
 SQL_QUERY;
     	$rs = exec_query($sql, $query, array($db_user_name));
 
@@ -704,7 +704,7 @@ SQL_QUERY;
        	 delete from
         	    mysql.user
        	 where
-         	   Host = 'localhost'
+         	   Host = '%'
          and
           	  User = ?
 SQL_QUERY;
