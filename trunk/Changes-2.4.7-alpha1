@@ -1,6 +1,14 @@
 VHCS 2.4.7-alpha Changelog
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+2005-11-23  Erik Lehmann
+
+	- Engine:
+	- GUI:
+	- Installation:
+		* Fixed bug #0000230: error in hosting_plans table update in HOWTO Update
+		* Fixed bug #0000229: set-engine-permissions.sh and set-gui-permissions.sh would not copied during make
+
 2005-11-22  Frédéric Frères
 
 	- Database:
