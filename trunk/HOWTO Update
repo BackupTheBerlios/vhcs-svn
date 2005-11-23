@@ -170,11 +170,7 @@ tangra: # /var/www/vhcs2/engine/setup/set-engine-permissions.sh
 GUI Update
 -------------------
 
-1) Set correct gui permissions:
-
-tangra: # /var/www/vhcs2/engine/setup/set-gui-permissions.sh
-
-2) Password reminder:
+1) Password reminder:
 
 install GD library:
 tangra: # apt-get install php4-gd
@@ -182,7 +178,7 @@ tangra: # apt-get install php4-gd
 Apache neustarten:
 tangra: # apache2ctl graceful
 
-3) Hostingplan changes: 
+2) Hostingplan changes: 
 
 in the /vaw/www/vhcs2/gui/include/vhcs-lib.php
 
@@ -193,6 +189,11 @@ Search for $cfg['HOSTING_PLANS_LEVEL'] you have this options:
 
 !!!Attention: If you have already hostingplans in reseller area you should turn this option to
 	'reseller' !!!		
+
+3) Set correct gui permissions:
+
+tangra: # /var/www/vhcs2/engine/setup/set-gui-permissions.sh
+
 
 -------------------
 Database Update

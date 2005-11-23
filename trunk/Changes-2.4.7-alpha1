@@ -1,7 +1,12 @@
 VHCS 2.4.7-alpha Changelog
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-2005-11-22  Erik Lehmann  <reisswolf@macnews.de>
+2005-11-22  Frédéric Frères
+
+	- Database:
+		* Fixed bug #0000227: typo error in quotalimits table "vbytes_xfer_avail" changed to "bytes_xfer_avail"
+
+2005-11-22  Erik Lehmann
 
 	- Engine:
 		* Fixed bug #0000200: No apache working config causes error output into database field (vhcs2-dmn-mngr)
@@ -20,7 +25,7 @@ VHCS 2.4.7-alpha Changelog
 		* Fixed bug #0000223: unset permissions for some files in /usr/sbin during make install
 		* Fixed bug #0000222: typo error in engine/setup/vhcs-setup
 		
-2005-11-21  Erik Lehmann  <reisswolf@macnews.de>
+2005-11-21  Erik Lehmann
 
 	- Daemon:
 		* Change: init.d daemon restart function
