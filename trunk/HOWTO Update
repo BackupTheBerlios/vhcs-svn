@@ -57,6 +57,17 @@ PREV_TRAFF_LOG_MAX_SIZE = 10485760
 QUOTA_ROOT_DIR = /var/www/vhcs2/engine/quota
 
 
+Search for DATABASE_USER and add the line. The result should looks like this:
+
+DATABASE_USER = root
+
+DATABASE_DIR = /var/lib/mysql
+
+#
+# Main situation variables;
+#
+
+
 2) Set your default settings for traffic counting:
 
 If you are using AMAVIS and SPAMASSASSIN change

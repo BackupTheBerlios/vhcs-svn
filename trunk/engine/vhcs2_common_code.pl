@@ -251,6 +251,10 @@ sub doSQL {
         
         $qr = $main::db -> selectall_arrayref($sql);
         
+    } elsif ($sql =~ /show/i) {
+        
+        $qr = $main::db -> selectall_arrayref($sql);
+        
     } else {
         
         $qr = $main::db -> do($sql);
