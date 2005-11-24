@@ -620,13 +620,13 @@ sub setup_shut_down {
     
     my ($rs, $rdata) = (undef, undef);
 
-    $cmd = "sh ./set-gui-permissions.sh";
+    my $cmd = "/bin/sh ./set-gui-permissions.sh";
 
     $rs = sys_command($cmd);
 
     return $rs if ($rs != 0);
 
-    $cmd = "sh ./set-engine-permissions.sh";
+    $cmd = "/bin/sh ./set-engine-permissions.sh";
     
     $rs = sys_command($cmd);
 

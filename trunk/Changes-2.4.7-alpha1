@@ -1,12 +1,18 @@
 VHCS 2.4.7-alpha Changelog
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+2005-11-24  Erik Lehmann
+
+	- GUI:
+	- Installation:
+		* Fixed bug #0000231: Error in keys/Makefile
+
 2005-11-23  Erik Lehmann
 
-	- Engine:
 	- GUI:
 		* Added: allow mysql remote connect per default in database. Determining factor is now only the option in the my.cf to activate oder deactivate (thanks to Carsten Schšne) (only for new dbs or after password change)
 	- Installation:
+		* Fixed bug #0000232: Global symbol "$cmd" requires explicit package name at ./vhcs2-setup
 		* Fixed bug #0000230: error in hosting_plans table update in HOWTO Update
 		* Fixed bug #0000229: set-engine-permissions.sh and set-gui-permissions.sh would not copied during make
 

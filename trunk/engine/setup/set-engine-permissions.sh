@@ -44,7 +44,7 @@ i='/var/www/vhcs2/engine/messager/'
 
 echo "0700 vmail:mail [$i]";
 
-		chmod 0700 -R $i;
+		chmod -R 0700 $i;
 		chown -R vmail:mail $i;
 
 

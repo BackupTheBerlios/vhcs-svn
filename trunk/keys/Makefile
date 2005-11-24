@@ -15,6 +15,8 @@ gen-keys: gen-keys.c
 	$(BUILD) gen-keys gen-keys.o
 	strip -v gen-keys
 #	./gen-keys 32 16 > keys.txt
+	chown root:root ./rpl.pl ./gen-keys
+	chmod 0700 ./rpl.pl ./gen-keys
 	./rpl.pl $(SYSTEM_ROOT)/gui/include/vhcs2-db-keys.php $(SYSTEM_ROOT)/engine/vhcs2-db-keys.pl
         
 install: gen-keys 
