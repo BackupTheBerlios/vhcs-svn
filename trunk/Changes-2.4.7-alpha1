@@ -3,12 +3,12 @@ VHCS 2.4.7-alpha Changelog
 
 2005-11-24  Erik Lehmann
 
-	- GUI:
 	- Engine:
 		* Added: mysql database sizes will be counted to diskspace quota
 		* Added: function mysqldb_quota_by_dir_engine() in vhcs2-dsk-quota default used, less exact results
 		* Added: function mysqldb_quota_by_mysql_engine() in vhcs2-dsk-quota, needs much cpu power for mysql querys and calculating
 	- Installation:
+		* Fixed bug #0000233: Lost password failure, missing /vhcs2/lostpw.php after installation
 		* Fixed bug #0000231: Error in keys/Makefile
 
 2005-11-23  Erik Lehmann
@@ -34,7 +34,7 @@ VHCS 2.4.7-alpha Changelog
 	- GUI:
 		* Fixed bug #0000225: Language string hardcoded in ip management in admin area
 		* Update: ADOdb to version 4.67 -> brings much more performance to vhcs 2.4.7
-		* Fixed bug #0000221: {TR_MESSAGE_DELETE} not parsed in admin/manage_users.php if user list is null
+		* Fixed bug #0000221: {TR_MESSAGE_DELETE} not parsed in admin/manage_users.php if user list is nil
 		* Fixed bug #0000219: Template broken in gui/client/add_subdomain.php
 	- Installation:
 		* Fixed bug #0000225: make install breaks because of missing system user vmail
