@@ -44,7 +44,7 @@ sub welcome_note {
     
     my $welcome_message = <<MSG;
     
-    Wlecome to VHCS2 '$main::cfg{'VersionH'}' Setup Dialog.
+    Welcome to VHCS2 '$main::cfg{'VersionH'}' Setup Dialog.
     
     This program will set up VHCS2 system on your server.
     
@@ -144,8 +144,28 @@ sub ask_eth {
     my ($rs, $rdata) = (undef, undef);
     
     push_el(\@main::el, 'ask_eth()', 'Starting...');
+
+    my $cmd = "/sbin/ifconfig eth0|awk \'BEGIN{FS=\":\";}{print \$2}\'|awk \'{if(NR==2)print \$1}\' 1>/tmp/vhcs2-setup.ip";
+
+    $rs = sys_command($cmd);
     
-    my $eth = '192.168.0.128';
+    return ($rs, '') if ($rs != 0);
+    
+    ($rs, $rdata) = get_file("/tmp/vhcs2-setup.ip");
+    
+    return ($rs, '') if ($rs != 0);
+    
+    chop($rdata);
+    
+    $rs = del_file("/tmp/vhcs2-setup.ip");
+    
+    $rs = sys_command($cmd);
+
+    return $rs if ($rs != 0);
+
+    my $eth = $rdata;
+
+#    my $eth = '192.168.0.128';
     
     my $qmsg = "\n    Please enter system network address (Enter for defaults) [$eth]: ";
     
@@ -794,7 +814,7 @@ sub setup_system_users {
     
     if (scalar(@udata) == 0) { # we have not this one user data;
         
-        my $cmd = "$main::cfg{'CMD_USERADD'} -c vmail -user -g $gid -s /bin/false $fuid";
+        my $cmd = "$main::cfg{'CMD_USERADD'} -c vmail-user -g $gid -s /bin/false $fuid";
         
         $rs = sys_command($cmd);
         

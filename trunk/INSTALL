@@ -7,10 +7,10 @@ Download the vhcs software.
 
 Extract the installation files to a secure directory.
 tangra: # cd /root
-tangra: # tar -xjf vhcs-2.4.tar.bz2
+tangra: # tar -xjf vhcs-2.4.7.tar.bz2
 
 Change to the newly created directory.
-tangra: # cd vhcs-2.4/configs/
+tangra: # cd vhcs-2.4.7/configs/
 
 Open vhcs2.conf and make some changes. You
 have to setting up some configuration variables
@@ -22,25 +22,30 @@ for all linux distribution such as SuSE, RH, Gentoo,
 Fedora, etc.
 
 Change to the newly created directory.
-tangra: # cd ../vhcs2.4
+tangra: # cd ../vhcs-2.4.7
 
 Now You have to make buld for your system
 tangra: # make install
 
-Your build is now stored in 
-/tmp/vhcs2
+Your build is now stored in /tmp/vhcs-2.4.7
 
 Copy all directory forum the buil into your system (do not forget to make
 backups)
-tangra: # cp -R /tmp/vhcs2/* /
+tangra: # cp -R /tmp/vhcs-2.4.7/* /
 
 Change to the newly created directory.
 tangra: # cd /var/www/vhcs2/engine/setup/
+
+Set mysql password if no is set :
+mysqladmin -u root password YOUR_PASSWORD
 
 Now start the vhcs setup program
 tangra: # ./vhcs2-setup
 
 Install step-by-step vhcs
+
+Clean the tmp folder
+tangra: # rm -R /tmp/vhcs-2.4.7
 
 moleSoftware offers a variety of support services to meet 
 your unique needs. Installation and software customizing 
