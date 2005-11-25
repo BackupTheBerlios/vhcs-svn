@@ -1646,7 +1646,7 @@ sub arpl_msgr_engine {
     
 	my @from_ma = Mail::Address->parse($head -> get('From'));
         
-	my @to_addrs = Mail::Address->parse($head -> get('To'));
+	my @to_addrs = Mail::Address->parse($head -> get('Delivered-To'));
 
 	my $buffer = "0";
 
