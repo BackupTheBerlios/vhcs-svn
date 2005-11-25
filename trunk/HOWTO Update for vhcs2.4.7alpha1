@@ -15,15 +15,6 @@ DATABASE_DIR = /var/lib/mysql
 # Main situation variables;
 #
 
-Search for APACHE_CONF_FILE and add the line. The result should looks like this:
-
-APACHE_CONF_FILE = /etc/apache2/sites-available/vhcs2.conf
-
-APACHE_CONF_FILE_ENABLED = /etc/apache2/sites-enabled/vhcs2.conf
-
-GUI_ROOT_DIR = /var/www/vhcs2/gui
-
-
 -------------------
 Finish update
 -------------------
