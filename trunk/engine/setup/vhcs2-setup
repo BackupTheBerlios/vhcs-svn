@@ -1350,11 +1350,7 @@ sub setup_httpd {
         
     return $rs if ($rs != 0);
 
-    $cmd = "$main::cfg{'CMD_LN'} -s $main::cfg{'APACHE_CONF_FILE'} $main::cfg{'APACHE_CONF_FILE_ENABLED'}";
-    
-    $rs = sys_command($cmd);
-    
-    return $rs if ($rs != 0);
+    sys_command_rs("/usr/sbin/a2ensite vhcs2.conf &> /tmp/vhcs2-setup-services.log");
 
     
     #
@@ -1780,6 +1776,8 @@ sub setup_vhcs2d {
     my ($rs, $rdata) = (undef, undef);
 
     push_el(\@main::el, 'setup_vhcs2d()', 'Starting...');
+
+    sys_command_rs("update-rc.d vhcs2_daemon defaults 99 &> /tmp/vhcs2-setup-services.log");
     
     sys_command_rs("$main::cfg{'CMD_VHCS2D'} stop &> /tmp/vhcs2-setup-services.log");
     
