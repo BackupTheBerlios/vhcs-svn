@@ -3,6 +3,9 @@ VHCS 2.4.7-alpha Changelog
 
 2005-11-25  Erik Lehmann
 
+	- GUI:
+		* Change: set $cfg['HOSTING_PLANS_LEVEL'] = 'reseller' in vhcs-lib.php as default 
+		* Change: status of autoresponder is no longer shown twice on page email_accounts.php
 	- Engine:
 	- Installation:
 		Added: vhcs2-setup propose now your network address (ip) during setup
