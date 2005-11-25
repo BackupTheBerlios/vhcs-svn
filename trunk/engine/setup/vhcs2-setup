@@ -1349,6 +1349,13 @@ sub setup_httpd {
     $rs = store_file($main::cfg{'APACHE_CONF_FILE'}, $cfg_tpl, 'root', 'root', 0644);
         
     return $rs if ($rs != 0);
+
+    $cmd = "$main::cfg{'CMD_LN'} -s $main::cfg{'APACHE_CONF_FILE'} $main::cfg{'APACHE_CONF_FILE_ENABLED'}";
+    
+    $rs = sys_command($cmd);
+    
+    return $rs if ($rs != 0);
+
     
     #
     # Here we'll manage some permission;
