@@ -20,7 +20,7 @@ VHCS 2.4.7-alpha Changelog
 	- Engine:
 		* Added: mysql database sizes will be counted to diskspace quota
 		* Added: function mysqldb_quota_by_dir_engine() in vhcs2-dsk-quota default used, less exact results
-		* Added: function mysqldb_quota_by_mysql_engine() in vhcs2-dsk-quota, needs much cpu power for mysql querys and calculating
+		* Added: function mysqldb_quota_by_mysql_engine() in vhcs2-dsk-quota, needs more cpu power for mysql querys and calculating
 	- Installation:
 		* Fixed bug #0000233: Lost password failure, missing /vhcs2/lostpw.php after installation
 		* Fixed bug #0000231: Error in keys/Makefile
@@ -34,7 +34,7 @@ VHCS 2.4.7-alpha Changelog
 		* Fixed bug #0000230: error in hosting_plans table update in HOWTO Update
 		* Fixed bug #0000229: set-engine-permissions.sh and set-gui-permissions.sh would not copied during make
 
-2005-11-22  Frédéric Frères
+2005-11-22  Frederic Freres
 
 	- Database:
 		* Fixed bug #0000227: typo error in quotalimits table "vbytes_xfer_avail" changed to "bytes_xfer_avail"
