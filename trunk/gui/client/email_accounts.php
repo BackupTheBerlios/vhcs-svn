@@ -95,7 +95,7 @@ function gen_user_mail_auto_respond(&$tpl, $mail_id, $mail_type, $mail_status, $
         } else {
             $tpl -> assign(
 							array(
-									'AUTO_RESPOND_DISABLE' => tr(''),
+									'AUTO_RESPOND_DISABLE' => tr('Please wait for update'),
 									'AUTO_RESPOND_DISABLE_SCRIPT' => '',
 									'AUTO_RESPOND_EDIT' => '', 
 									'AUTO_RESPOND_EDIT_SCRIPT' => ''
@@ -104,10 +104,11 @@ function gen_user_mail_auto_respond(&$tpl, $mail_id, $mail_type, $mail_status, $
     } else {
         $tpl -> assign(
 						array(
-								'AUTO_RESPOND_DISABLE' => tr(''),
+								'AUTO_RESPOND_DISABLE' => '',
 								'AUTO_RESPOND_DISABLE_SCRIPT' => '',
 								'AUTO_RESPOND_EDIT' => '', 
-								'AUTO_RESPOND_EDIT_SCRIPT' => ''
+								'AUTO_RESPOND_EDIT_SCRIPT' => '',
+								'AUTO_RESPOND' => ''
 							 ));
     }
 
