@@ -1,6 +1,10 @@
 VHCS 2.4.7-alpha Changelog
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+2005-11-26 Frederic Freres
+	- GUI:
+		* Fixed: Auto respond: [ ] isn't show anymore for email forward 
+
 2005-11-25  Erik Lehmann
 
 	- GUI:
