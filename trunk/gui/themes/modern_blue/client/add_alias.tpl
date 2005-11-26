@@ -40,14 +40,14 @@ var mpointError = 'Please write mount point !';
     }
 
     function makeUser(){
-	    var dname  = document.forms[0].elements['sub_pre'].value;
+	    var dname  = document.forms[0].elements['ndomain_name'].value;
 		dname = dname.toLowerCase();
 	    dname = dname.replace(/ä/gi, "ae");
 	    dname = dname.replace(/ü/gi, "ue");
 	    dname = dname.replace(/ö/gi, "oe");
 	    dname = dname.replace(/ß/gi, "ss");
-		document.forms[0].elements['ndomain_mpoint'].value = "/" + dname.replace('.','_') + "_" + document.forms[0].elements['sub_suf'].value.replace('.','_');
-    }
+    	document.forms[0].elements['ndomain_mpoint'].value = "/" + dname.replace(/\./g,'_');
+	}
 
 function MM_preloadImages() { //v3.0
   var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
