@@ -5,7 +5,9 @@ VHCS 2.4.7-alpha Changelog
 	- GUI:
 		* Fixed: Auto respond: [ ] isn't show anymore for email forward 
 		* Fixed: Javascript error in add_alias.tpl
-		* Optimized: Every . is now replaced by _ in alias domain name (Javascript)
+		* Optimized: Every . is now replaced by _ in add_alias.tpl to create the mount point (Javascript)
+		* Optimized: Every . is now replaced by _ in add_subdomain.tpl to create the mount point (Javascript)
+		* Fixed: Error in add_subdomain.tpl, there was a <table> to mutch
 
 2005-11-25  Erik Lehmann
 

@@ -15,7 +15,7 @@ function makeUser(){
     subname = subname.replace(/ö/gi, "oe"); 
     subname = subname.replace(/ß/gi, "ss"); 
 
-	document.forms[0].elements['subdomain_mnt_pt'].value = "/" + subname.replace('.','_');     
+	document.forms[0].elements['subdomain_mnt_pt'].value = "/" + subname.replace(/\./g ,'_');     
 }
 
 function MM_preloadImages() { //v3.0
@@ -45,9 +45,6 @@ function MM_swapImage() { //v3.0
 </head>
 
 <body onLoad="MM_preloadImages('{THEME_COLOR_PATH}/images/icons/database_a.gif','{THEME_COLOR_PATH}/images/icons/domains_a.gif','{THEME_COLOR_PATH}/images/icons/ftp_a.gif','{THEME_COLOR_PATH}/images/icons/general_a.gif','{THEME_COLOR_PATH}/images/icons/logout_a.gif','{THEME_COLOR_PATH}/images/icons/email_a.gif','{THEME_COLOR_PATH}/images/icons/webtools_a.gif','{THEME_COLOR_PATH}/images/icons/statistics_a.gif','{THEME_COLOR_PATH}/images/icons/support_a.gif','{THEME_COLOR_PATH}/images/icons/custom_link_a.gif')">
-<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td height="80" align="left" valign="top">
 	<!-- BDP: logged_from -->
 	<table width="100%"  border="00" cellspacing="0" cellpadding="0">
       <tr>
