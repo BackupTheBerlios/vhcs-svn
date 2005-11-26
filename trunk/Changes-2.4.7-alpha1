@@ -8,6 +8,8 @@ VHCS 2.4.7-alpha Changelog
 		* Optimized: Every . is now replaced by _ in add_alias.tpl to create the mount point (Javascript)
 		* Optimized: Every . is now replaced by _ in add_subdomain.tpl to create the mount point (Javascript)
 		* Fixed: Error in add_subdomain.tpl, there was a <table> to mutch
+		* Fixed: Error in manage_domains.tpl --> page_message area declared twice
+		* Fixed: Field "Forward to URL" in enable alias forwarding is now set to '' instead of 'no'
 
 2005-11-25  Erik Lehmann
 

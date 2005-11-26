@@ -157,7 +157,7 @@ function gen_editalias_page(&$tpl, $edit_id)
                 array(
                        	'ALIAS_NAME' => $data['alias_name'],
 						'DOMAIN_IP' => $ip_data,
-						'FORWARD' => $url_forward,
+						'FORWARD' => $url_forward == 'no' ? '' : $url_forward,
 						'ID' => $edit_id
 					)
 			);

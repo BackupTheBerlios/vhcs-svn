@@ -228,11 +228,6 @@ function MM_swapImage() { //v3.0
               <tr>
                 <td width="20">&nbsp;</td>
                 <td valign="top"><table width="100%" cellpadding="5" cellspacing="5">
-                  <!-- BDP: page_message -->
-                  <tr>
-                    <td nowrap colspan="5" class="title"><font color="#FF0000">{MESSAGE}</font></td>
-                  </tr>
-                  <!-- EDP: page_message -->
                   <!-- BDP: als_message -->
                   <tr>
                     <td class="title" nowrap colspan="5"><font color="#FF0000">{ALS_MSG}</font></td>
