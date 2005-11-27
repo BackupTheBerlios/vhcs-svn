@@ -4,6 +4,7 @@ VHCS 2.4.7-alpha Changelog
 2005-11-27  Erik Lehmann
 
 	- Engine:
+		* Added: restart amavis service if new mail user is added / if you are using amavis, thanks to Marcus Petzsch
 		* Added: catchall adresses are moved from /etc/postfix/vhcs2/mailboxes to /etc/postfix/vhcs2/aliases
 	- Installation:
 		* Fixed: set missing permissions for /etc/init.d/vhcs2_daemon and /etc/init.d/vhcs2_network during setup

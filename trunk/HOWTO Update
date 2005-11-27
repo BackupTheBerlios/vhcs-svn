@@ -67,6 +67,7 @@ DATABASE_DIR = /var/lib/mysql
 # Main situation variables;
 #
 
+
 Search for CMD_VHCS2D and add the line. The result should looks like this:
 
 CMD_VHCS2D = /etc/init.d/vhcs2_daemon
@@ -76,6 +77,16 @@ CMD_VHCS2N = /etc/init.d/vhcs2_network
 #
 # Server traffic manager.
 #
+
+
+Search for CMD_POP and add the line. The result should looks like this:
+
+CMD_POP = /etc/init.d/courier-pop
+
+CMD_AMAVIS = no
+
+CMD_FTPD = /etc/init.d/proftpd
+
 
 
 2) Set your default settings for traffic counting:
@@ -89,7 +100,18 @@ to
 MAIL_LOG_INC_AMAVIS = 1
 
 
-3) Set permissions for vhcs2.conf (needed for autoresponder) :
+3) Set your default settings for spam and virus detection:
+
+If you are using AMAVIS change
+
+CMD_AMAVIS = no
+
+to 
+
+CMD_AMAVIS = /etc/init.d/amavis
+
+
+4) Set permissions for vhcs2.conf (needed for autoresponder) :
 
 tangra: # chmod 0644 /etc/vhcs2/vhcs2.conf
 

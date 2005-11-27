@@ -15,6 +15,7 @@ DATABASE_DIR = /var/lib/mysql
 # Main situation variables;
 #
 
+
 Search for CMD_VHCS2D and add the line. The result should looks like this:
 
 CMD_VHCS2D = /etc/init.d/vhcs2_daemon
@@ -24,6 +25,27 @@ CMD_VHCS2N = /etc/init.d/vhcs2_network
 #
 # Server traffic manager.
 #
+
+
+Search for CMD_POP and add the line. The result should looks like this:
+
+CMD_POP = /etc/init.d/courier-pop
+
+CMD_AMAVIS = no
+
+CMD_FTPD = /etc/init.d/proftpd
+
+
+2) Set your default settings for spam and virus detection:
+
+If you are using AMAVIS change
+
+CMD_AMAVIS = no
+
+to 
+
+CMD_AMAVIS = /etc/init.d/amavis
+
 
 -------------------
 Engine Update
