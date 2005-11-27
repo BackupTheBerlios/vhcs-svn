@@ -67,6 +67,15 @@ DATABASE_DIR = /var/lib/mysql
 # Main situation variables;
 #
 
+Search for CMD_VHCS2D and add the line. The result should looks like this:
+
+CMD_VHCS2D = /etc/init.d/vhcs2_daemon
+
+CMD_VHCS2N = /etc/init.d/vhcs2_network
+
+#
+# Server traffic manager.
+#
 
 
 2) Set your default settings for traffic counting:

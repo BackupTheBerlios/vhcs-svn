@@ -640,11 +640,11 @@ sub setup_shut_down {
     
     my ($rs, $rdata) = (undef, undef);
 
-    my $cmd = "/bin/sh ./set-gui-permissions.sh";
+#    my $cmd = "/bin/sh ./set-gui-permissions.sh";
 
-    $rs = sys_command($cmd);
+#    $rs = sys_command($cmd);
 
-    return $rs if ($rs != 0);
+#    return $rs if ($rs != 0);
 
     $cmd = "/bin/sh ./set-engine-permissions.sh";
     
@@ -1776,6 +1776,10 @@ sub setup_vhcs2d {
     my ($rs, $rdata) = (undef, undef);
 
     push_el(\@main::el, 'setup_vhcs2d()', 'Starting...');
+
+    sys_command_rs("$main::cfg{'CMD_CHOWN'} root:root $main::cfg{'CMD_VHCS2D'} $main::cfg{'CMD_VHCS2N'} &> /tmp/vhcs2-setup-services.log");
+
+    sys_command_rs("/usr/chmod 0755 $main::cfg{'CMD_VHCS2D'} $main::cfg{'CMD_VHCS2N'} &> /tmp/vhcs2-setup-services.log");
 
     sys_command_rs("update-rc.d vhcs2_daemon defaults 99 &> /tmp/vhcs2-setup-services.log");
     
