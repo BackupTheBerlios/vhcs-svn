@@ -39,8 +39,8 @@ var mpointError = 'Please write mount point !';
             }
     }
 
-    function makeUser(){
-	    var dname  = document.forms[0].elements['ndomain_name'].value;
+	function makeUser(){
+		var dname  = document.forms[0].elements['ndomain_name'].value;
 		dname = dname.toLowerCase();
 	    dname = dname.replace(/ä/gi, "ae");
 	    dname = dname.replace(/ü/gi, "ue");
