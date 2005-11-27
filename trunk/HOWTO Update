@@ -126,6 +126,15 @@ If you DID have other apps running that are using /etc/sasldb2 you don't have to
 any command
 
 
+Mailbox Engine Update
+-------------------
+
+1) catchall adresses are moved from /etc/postfix/vhcs2/mailboxes to /etc/postfix/vhcs2/aliases
+
+tangra: # mv /etc/vhcs2/postfix/working/mailboxes /etc/vhcs2/postfix/working/mailboxes-SAVE
+tangra: # cp /mydir/configs/postfix/working/mailboxes /etc/vhcs2/postfix/working/mailboxes
+
+
 Backup Engine Update
 -------------------
 

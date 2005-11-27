@@ -1558,7 +1558,7 @@ sub mbox_add_mta_cfg_data {
         # Let's first remove old catchall accounts (if any);
        
         
-        $rs = del_mta_hash_value($mailboxes_working_cfg, $hash_key);
+        $rs = del_mta_hash_value($aliases_working_cfg, $hash_key);
         
         return $rs if ($rs != 0);
         
@@ -1580,7 +1580,7 @@ sub mbox_add_mta_cfg_data {
                 
                 $hash_key = "\@$sub_name";
                 
-                $rs = del_mta_hash_value($mailboxes_working_cfg, $hash_key);
+                $rs = del_mta_hash_value($aliases_working_cfg, $hash_key);
         
                 return $rs if ($rs != 0);
                 
@@ -1596,9 +1596,9 @@ sub mbox_add_mta_cfg_data {
         
         $hash_key = "\@$dmn_name";
         
-        $hash_value = "$catch_all_dmn/$catch_all_usr/";
+        $hash_value = "$mail_acc";
         
-        $rs = set_mta_hash_value($mailboxes_working_cfg, $hash_key, $hash_value);
+        $rs = set_mta_hash_value($aliases_working_cfg, $hash_key, $hash_value);
         
         return $rs if ($rs != 0);
         
@@ -1618,9 +1618,9 @@ sub mbox_add_mta_cfg_data {
                
                 $hash_key = "\@$sub_name";
                
-                $hash_value = "$catch_all_dmn/$catch_all_usr/";
+                $hash_value = "$mail_acc";
                
-                $rs = set_mta_hash_value($mailboxes_working_cfg, $hash_key, $hash_value);
+                $rs = set_mta_hash_value($aliases_working_cfg, $hash_key, $hash_value);
         
                 return $rs if ($rs != 0);
                
@@ -1628,11 +1628,11 @@ sub mbox_add_mta_cfg_data {
            
         }        
        
-        ($rs, $working) = get_file($mailboxes_working_cfg);
+        ($rs, $working) = get_file($aliases_working_cfg);
         
         return $rs if ($rs != 0);
         
-        $rs = store_file($mailboxes_cfg, $working, 'root', 'root', 0644);
+        $rs = store_file($aliases_cfg, $working, 'root', 'root', 0644);
         
         return $rs if ($rs != 0);
         
@@ -1650,7 +1650,7 @@ sub mbox_add_mta_cfg_data {
         # Let's first remove old catchall accounts (if any);
        
         
-        $rs = del_mta_hash_value($mailboxes_working_cfg, $hash_key);
+        $rs = del_mta_hash_value($aliases_working_cfg, $hash_key);
         
         return $rs if ($rs != 0);
         
@@ -1662,17 +1662,17 @@ sub mbox_add_mta_cfg_data {
         
         $hash_key = "\@$dmn_name";
         
-        $hash_value = "$catch_all_dmn/$catch_all_usr/";
+        $hash_value = "$mail_acc";
         
-        $rs = set_mta_hash_value($mailboxes_working_cfg, $hash_key, $hash_value);
+        $rs = set_mta_hash_value($aliases_working_cfg, $hash_key, $hash_value);
         
         return $rs if ($rs != 0);
        
-        ($rs, $working) = get_file($mailboxes_working_cfg);
+        ($rs, $working) = get_file($aliases_working_cfg);
         
         return $rs if ($rs != 0);
         
-        $rs = store_file($mailboxes_cfg, $working, 'root', 'root', 0644);
+        $rs = store_file($aliases_cfg, $working, 'root', 'root', 0644);
         
         return $rs if ($rs != 0);
         
@@ -2011,7 +2011,7 @@ sub mbox_del_mta_cfg_data {
         # Let's first remove old catchall accounts (if any);
        
         
-        $rs = del_mta_hash_value($mailboxes_working_cfg, $hash_key);
+        $rs = del_mta_hash_value($aliases_working_cfg, $hash_key);
         
         return $rs if ($rs != 0);
         
@@ -2033,7 +2033,7 @@ sub mbox_del_mta_cfg_data {
                 
                 $hash_key = "\@$sub_name";
                 
-                $rs = del_mta_hash_value($mailboxes_working_cfg, $hash_key);
+                $rs = del_mta_hash_value($aliases_working_cfg, $hash_key);
         
                 return $rs if ($rs != 0);
                 
@@ -2041,11 +2041,11 @@ sub mbox_del_mta_cfg_data {
             
         }
        
-        ($rs, $working) = get_file($mailboxes_working_cfg);
+        ($rs, $working) = get_file($aliases_working_cfg);
         
         return $rs if ($rs != 0);
         
-        $rs = store_file($mailboxes_cfg, $working, 'root', 'root', 0644);
+        $rs = store_file($aliases_cfg, $working, 'root', 'root', 0644);
         
         return $rs if ($rs != 0);
         
@@ -2061,15 +2061,15 @@ sub mbox_del_mta_cfg_data {
        
         # Let's first remove old catchall accounts (if any);
         
-        $rs = del_mta_hash_value($mailboxes_working_cfg, $hash_key);
+        $rs = del_mta_hash_value($aliases_working_cfg, $hash_key);
         
         return $rs if ($rs != 0);
        
-        ($rs, $working) = get_file($mailboxes_working_cfg);
+        ($rs, $working) = get_file($aliases_working_cfg);
         
         return $rs if ($rs != 0);
         
-        $rs = store_file($mailboxes_cfg, $working, 'root', 'root', 0644);
+        $rs = store_file($aliases_cfg, $working, 'root', 'root', 0644);
         
         return $rs if ($rs != 0);
         
