@@ -1795,9 +1795,13 @@ sub add_dmn_suexec_user {
         return $rs if ($rs != 0);
     
         # user data.
-        
-        $cmd = "$main::cfg{'CMD_USERADD'} -c virtual-user -g $sys_group -s /bin/false -u $sys_uid $sys_user";
-        
+
+		# SSH/SCP Useraccount preperation
+		my $homedir = "$main::cfg{'APACHE_WWW_DIR'}/@$dmn_data[1]";
+
+#        $cmd = "$main::cfg{'CMD_USERADD'} -c virtual-user -g $sys_group -s /bin/false -u $sys_uid $sys_user";
+		$cmd = "$main::cfg{'CMD_USERADD'} -c virtual-user -d $homedir -g $sys_group -s /bin/false -u $sys_uid $sys_user";
+
         $rs = sys_command($cmd);
         
         return $rs if ($rs != 0);
