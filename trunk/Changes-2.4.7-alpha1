@@ -1,6 +1,11 @@
 VHCS 2.4.7-alpha Changelog
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+2005-11-28  Erik Lehmann
+
+	- Installation:
+		* Fixed bug #0000241: change chown sytax for gui in vhcs2-setup
+
 2005-11-27  Erik Lehmann
 
 	- Engine:
