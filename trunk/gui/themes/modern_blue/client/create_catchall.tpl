@@ -6,12 +6,47 @@
 <script type="text/javascript" src="{THEME_COLOR_PATH}/css/vhcs.js"></script>
 <script language="JavaScript" type="text/JavaScript">
 <!--
-function action_delete(url) {
-	if (!confirm("{TR_MESSAGE_DELETE}"))
-		return false;
+	function sbmt(form, uaction) {
 
-	location = url;
-}
+    	form.uaction.value = uaction;
+	    form.submit();
+    
+    	return false;
+
+	}
+	
+	function checkForm(){
+            var forw   = document.forms[0].elements['forward_list'].value;
+
+            if (mailtype == "normal") {
+                 document.forms[0].submit();
+            }
+            else {
+                if (forw == "") {
+                    alert(emptyData)
+                }
+                else {
+                    document.forms[0].submit();
+                }
+            }
+    }
+	
+    function begin_js(){
+            document.forms[0].forward_list.disabled = true;
+	        document.forms[0].mail_id.disabled = false;
+			document.forms[0].mail_id.focus();
+    }
+	
+    function changeType(wath){
+        if (wath == "normal") {
+	        document.forms[0].mail_id.disabled = false;
+            document.forms[0].forward_list.disabled = true;
+        }
+        else {
+	        document.forms[0].mail_id.disabled = true;
+            document.forms[0].forward_list.disabled = false;
+        }
+    }
 //-->
 </script>
 <style type="text/css">
@@ -188,48 +223,52 @@ function action_delete(url) {
             <td height="62" align="left" background="{THEME_COLOR_PATH}/images/content/table_background.jpg" class="title"><img src="{THEME_COLOR_PATH}/images/content/table_icon_doc.jpg" width="85" height="62" align="absmiddle">{TR_CREATE_CATCHALL_MAIL_ACCOUNT}</td>
             <td width="27" align="right" background="{THEME_COLOR_PATH}/images/content/table_background.jpg"><img src="{THEME_COLOR_PATH}/images/content/table_icon_close.jpg" width="27" height="62"></td>
           </tr>
-          <tr>
-            <td><table width="100%"  border="00" cellspacing="0" cellpadding="0">
-                <tr>
-                  <td width="20">&nbsp;</td>
-                  <td valign="top"><form name="create_catchall_frm" method="post" action="create_catchall.php">
-              <br>
-              <br>
-              <table width="450" cellspacing="7">
-              <!-- BDP: page_message -->
-              <tr> 
-                <td colspan="2" class="title"><font color="#FF0000">{MESSAGE}</font></td>
-              </tr>
-              <!-- EDP: page_message -->
-              <tr> 
-                <td nowrap class="content2" width="162"> 
-                  {TR_MAIL_LIST}
-                </td>
-                <td nowrap width="261"> 
-                  <select name="mail_id">
-                    <!-- BDP: mail_list -->
-                    <option value="{MAIL_ID};{MAIL_ACCOUNT_PUNNY};">{MAIL_ACCOUNT}</option>
-                    <!-- EDP: mail_list -->
-                  </select>
-                </td>
-              </tr>
+		<tr>
+			<td>
+			<table width="100%"  border="00" cellspacing="0" cellpadding="0">
+			<tr>
+				<td width="20">&nbsp;</td>
+				<td valign="top">
+				<form name="create_catchall_frm" method="post" action="create_catchall.php">
+					<table width="100%" cellpadding="5" cellspacing="5">
+					<!-- BDP: page_message -->
+					<tr> 
+						<td colspan="2" class="title"><font color="#FF0000">{MESSAGE}</font></td>
+					</tr>
+					<!-- EDP: page_message -->
+					<tr> 
+						<td nowrap class="content2" width="200"> 
+							<input type="radio" name="mail_type" value="normal" checked onClick="changeType('normal');">{TR_MAIL_LIST}
+            	    	</td>
+						<td nowrap class="content"> 
+						<select name="mail_id">
+    	                	<!-- BDP: mail_list -->
+	                    	<option value="{MAIL_ID};{MAIL_ACCOUNT_PUNNY};">{MAIL_ACCOUNT}</option>
+	                    	<!-- EDP: mail_list -->
+            	      	</select>
+        	        	</td>
+    	          	</tr>
+					<tr> 
+					<td nowrap class="content2" colspan="2"> 
+						<input type="radio" name="mail_type" value="forward" onClick="changeType('forward');">{TR_FORWARD_MAIL}
+					</td>
+					</tr>
+					<tr> 
+						<td nowrap class="content2" width="200">{TR_FORWARD_TO}</td>
+						<td nowrap  class="content"> 
+							<textarea name="forward_list" cols="35" rows="5" wrap="virtual"></textarea>
+						</td>
+					</tr>
+					</table>
+                	<input name="Submit" type="submit" class="button" value="{TR_CREATE_CATCHALL}">
+                	<input type="hidden" name="uaction" value="create_catchall">
+                	<input type="hidden" name="id" value="{ID}">
+            	</form>  
+	            </td>
+			</tr>
             </table>
-              <p>
-                <input name="Submit" type="submit" class="button" value="{TR_CREATE_CATCHALL}">
-</p>
-              <p>
-                <input type="hidden" name="uaction" value="create_catchall">
-                <input type="hidden" name="id" value="{ID}">
-                  </p>
-            </form>  </td>
-                </tr>
-            </table></td>
-            <td>&nbsp;</td>
-          </tr>
-          <tr>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-          </tr>
+            </td>
+		</tr>
         </table>
         </td>
       </tr>

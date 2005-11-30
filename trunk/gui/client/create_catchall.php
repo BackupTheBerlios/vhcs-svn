@@ -35,9 +35,11 @@ if (isset($_GET['id'])) {
   user_goto('catchall.php');
 }
 
+
 //
 // page functions.
 //
+
 function gen_dynamic_page_data(&$tpl, &$sql, $id)
 {
   global $_SESSION, $cfg;
@@ -68,11 +70,12 @@ function gen_dynamic_page_data(&$tpl, &$sql, $id)
        $sub_mail_acc_cnt,
        $als_mail_acc_cnt) = get_domain_running_mail_acc_cnt($sql, $dmn_id);
 
-  if ($dmn_mailacc_limit != 0 &&  $mail_acc_cnt >= $dmn_mailacc_limit) {
-    set_page_message(tr('Mail accounts limit expired!'));
-    header("Location: catchall.php");
-    die();
-  }
+	if ($dmn_mailacc_limit != 0 &&  $mail_acc_cnt >= $dmn_mailacc_limit) {
+		set_page_message(tr('Mail accounts limit expired!'));
+		header("Location: catchall.php");
+		die();
+	}
+
 
   $ok_status = $cfg['ITEM_OK_STATUS'];
   if (preg_match("/(\d+);(dmn|als)/", $id, $match) == 1) {
@@ -94,8 +97,6 @@ function gen_dynamic_page_data(&$tpl, &$sql, $id)
                     t1.sub_id = '0'
                   and
                     t1.status = ?
-                  and
-                    t1.mail_type = 'normal_mail'
                 order by
                     t1.mail_type desc, t1.mail_id
 SQL_QUERY;
@@ -134,8 +135,6 @@ SQL_QUERY;
                     t1.status = ?
                   and
                     t2.alias_id = ?
-                  and
-                    t1.mail_type = 'alias_mail'
                 order by
                   t1.mail_type desc, t1.mail_id
 SQL_QUERY;
@@ -173,7 +172,7 @@ function create_catchall_mail_account($sql, $id)
 {
   global $cfg;
 
-  if (isset($_POST['uaction']) && $_POST['uaction'] === 'create_catchall') {
+  if (isset($_POST['uaction']) && $_POST['uaction'] === 'create_catchall' && $_POST['mail_type'] === 'normal') {
     if (preg_match("/(\d+);(dmn|als)/", $id, $match) == 1) {
       $item_id = $match[1];
       $item_type = $match[2];
@@ -226,11 +225,66 @@ SQL_QUERY;
       } else {
         user_goto('catchall.php');
       }
-    } else {
-      user_goto('catchall.php');
+	} 
+	} else if (isset($_POST['uaction']) && $_POST['uaction'] === 'create_catchall' && $_POST['mail_type'] === 'forward' && isset($_POST['forward_list'])) {
+     
+     if (preg_match("/(\d+);(dmn|als)/", $id, $match) == 1) {
+        $item_id = $match[1];
+	    $item_type = $match[2];
+
+        if ($item_type === 'dmn') {
+          $mail_type = 'normal_catchall';
+        } else {
+          $mail_type = 'alias_catchall';
+        }
+
+    	  $mail_forward = $_POST['forward_list'];
+	      $faray = preg_split ("/[\n]+/",$mail_forward);
+
+    	  foreach ($faray as $value) {
+	        $value = trim($value);
+        	if (chk_email($value) > 0 && $value !== '') {
+    	      /* ERR .. strange :) not email in this line - warrning */
+	          set_page_message(tr("Mail forward list error!"));
+        	  return;
+    	    } else if ($value === '') {
+	          set_page_message(tr("Mail forward list error!"));
+        	  return;
+    	    }
+	      }
+        
+		$mail_acc = $_POST['forward_list'];
+        $domain_id = $item_id;
+        $sub_id = '0';
+        $status = $cfg['ITEM_ADD_STATUS'];
+        check_for_lock_file();
+
+        $query = <<<SQL_QUERY
+                    insert into mail_users
+                        (mail_acc,
+                         mail_pass,
+                         mail_forward,
+                         domain_id,
+                         mail_type,
+                         sub_id,
+                         status,
+                         mail_auto_respond)
+                    values
+                        (?, ?, ?, ?, ?, ?, ?, ?)
+SQL_QUERY;
+
+        $rs = exec_query($sql, $query, array($mail_acc, '_no_', '_no_', $domain_id, $mail_type, $sub_id, $status, '_no_'));
+
+        send_request();
+        write_log($_SESSION['user_logged']." : add new email catch all ");
+        set_page_message(tr('Catch all account sheculed for creation!'));
+        user_goto('catchall.php');
+      } else {
+        user_goto('catchall.php');
+      }
     }
-  }
 }
+
 
 
 //
@@ -262,7 +316,9 @@ check_permissions($tpl);
 
 $tpl -> assign(array('TR_CREATE_CATCHALL_MAIL_ACCOUNT' => tr('Create catch all mail account'),
                      'TR_MAIL_LIST' => tr('Mail accounts list'),
-                     'TR_CREATE_CATCHALL' => tr('Create catch all')));
+                     'TR_CREATE_CATCHALL' => tr('Create catch all'),
+                     'TR_FORWARD_MAIL' => tr('Forward mail'),
+                     'TR_FORWARD_TO' => tr('Forward to')));
 
 gen_page_message($tpl);
 $tpl -> parse('PAGE', 'page');

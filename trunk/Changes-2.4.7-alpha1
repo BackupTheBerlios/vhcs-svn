@@ -1,6 +1,11 @@
 VHCS 2.4.7-alpha Changelog
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+2005-11-25  Erik Lehmann
+
+	- GUI:
+		* Added: Catchall now works for forward acc, and for external mail accounts
+
 2005-11-28  Erik Lehmann
 
 	- Installation:
@@ -16,6 +21,7 @@ VHCS 2.4.7-alpha Changelog
 		* Fixed: set missing permissions for /etc/init.d/vhcs2_daemon and /etc/init.d/vhcs2_network during setup
 
 2005-11-26 Frederic Freres
+
 	- GUI:
 		* Fixed: Auto respond: [ ] isn't show anymore for email forward 
 		* Fixed: Javascript error in add_alias.tpl
