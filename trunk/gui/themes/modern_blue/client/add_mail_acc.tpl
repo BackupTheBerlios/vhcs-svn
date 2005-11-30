@@ -324,7 +324,7 @@ function sbmt(form, uaction) {
             <td width="27" align="right" background="{THEME_COLOR_PATH}/images/content/table_background.jpg"><img src="{THEME_COLOR_PATH}/images/content/table_icon_close.jpg" width="27" height="62"></td>
           </tr>
           <tr>
-            <td><table width="100%"  border="00" cellspacing="0" cellpadding="0">
+            <td><table width="100%"  border="0" cellspacing="0" cellpadding="0">
                 <tr>
                   <td width="20">&nbsp;</td>
                   <td valign="top"><form name="add_mail_acc_frm" method="post" action="add_mail_acc.php">
@@ -395,6 +395,8 @@ function sbmt(form, uaction) {
                 <td nowrap class="content2" width="200">{TR_FORWARD_TO}</td>
                 <td nowrap  class="content"> 
                   <textarea name="forward_list" cols="35" rows="5" wrap="virtual">{FORWARD_LIST}</textarea>
+	    	        </td>
+	              </tr>
                 </td>
               </tr>
             </table>
