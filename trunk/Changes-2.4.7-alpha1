@@ -1,6 +1,11 @@
 VHCS 2.4.7-alpha Changelog
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+2005-12-01 Freres Frederic
+
+        - GUI
+                * Fixed: CatchAll Hijacking
+
 2005-12-01  Erik Lehmann
 
 	- Engine:

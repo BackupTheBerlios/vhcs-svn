@@ -43,6 +43,7 @@ if (isset($_GET['id'])) {
 function gen_dynamic_page_data(&$tpl, &$sql, $id)
 {
   global $_SESSION, $cfg;
+  global $domain_id;
 
   list($dmn_id,
        $dmn_name,
@@ -64,6 +65,8 @@ function gen_dynamic_page_data(&$tpl, &$sql, $id)
        $dmn_disk_usage,
        $dmn_php,
        $dmn_cgi) = get_domain_default_props($sql, $_SESSION['user_id']);
+	   
+	 $domain_id = $dmn_id;
 
   list($mail_acc_cnt,
        $dmn_mail_acc_cnt,
@@ -168,8 +171,28 @@ SQL_QUERY;
 
 }
 
-function create_catchall_mail_account($sql, $id)
+function create_catchall_mail_account(&$sql, $id)
 {
+	// Check if user is owner of the domain
+	$query = <<<SQL_QUERY
+		SELECT
+			COUNT(mail_id) as cnt
+		FROM
+			mail_users
+		WHERE
+			domain_id = ?
+		AND
+			mail_id = ?
+SQL_QUERY;
+	global $domain_id;
+	$eid = explode(';', $id);
+	$mail_id = $eid[0];
+	$rs = exec_query($sql, $query, array($domain_id, $mail_id));
+	
+	if ($rs -> fields['cnt'] == 0) {
+		header("Location: catchall.php");
+	}
+
   global $cfg;
 
   if (isset($_POST['uaction']) && $_POST['uaction'] === 'create_catchall' && $_POST['mail_type'] === 'normal') {
