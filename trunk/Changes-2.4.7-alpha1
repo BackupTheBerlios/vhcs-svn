@@ -1,7 +1,12 @@
 VHCS 2.4.7-alpha Changelog
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-2005-11-25  Erik Lehmann
+2005-12-01  Erik Lehmann
+
+	- Engine:
+		Fixed bug #0000243: Name "main::cfg" used only once: possible typo at /var/www/vhcs2/engine/vhcs2-db-passwd line 145.
+
+2005-11-30  Erik Lehmann
 
 	- GUI:
 		* Added: Catchall now works for forward acc, and for external mail accounts

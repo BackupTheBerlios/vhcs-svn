@@ -142,7 +142,14 @@ if ($rs != 0) {
     
 }
 
-my $current_db_pass = $main::cfg{'DATABASE_PASSWORD'};
+	my $current_db_pass = undef ;
+	
+if(exists  $main::cfg{'DATABASE_PASSWORD'} && $main::cfg{'DATABASE_PASSWORD'}) {
+	$current_db_pass = $main::cfg{'DATABASE_PASSWORD'};
+}
+else {
+	$current_db_pass = '';
+}
 
 
 if ($current_db_pass eq '') { # We have not DATABASE password;
