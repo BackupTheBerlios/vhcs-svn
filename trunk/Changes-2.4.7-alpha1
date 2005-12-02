@@ -1,15 +1,20 @@
 VHCS 2.4.7-alpha Changelog
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+2005-12-02 Erik Lehmann
+
+	- GUI
+		* Fixed bug #0000244: Useless code in /client/email-account.tpl
+
 2005-12-01 Freres Frederic
 
-        - GUI
-                * Fixed: CatchAll Hijacking
+	- GUI
+		* Fixed: CatchAll Hijacking
 
 2005-12-01  Erik Lehmann
 
 	- Engine:
-		Fixed bug #0000243: Name "main::cfg" used only once: possible typo at /var/www/vhcs2/engine/vhcs2-db-passwd line 145.
+		* Fixed bug #0000243: Name "main::cfg" used only once: possible typo at /var/www/vhcs2/engine/vhcs2-db-passwd line 145.
 
 2005-11-30  Erik Lehmann
 
