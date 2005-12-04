@@ -2,7 +2,7 @@ HOWTO Update VHCS 2.4.6.2 to VHCS 2.4.7 (English)
 
 ###############
 #	Missing:
-#		* init.d scrite for network/daemon updaten
+#		* init.d scripte for network/daemon updaten
 #
 #
 ###############
@@ -197,17 +197,21 @@ tangra: # rm /tmp/vhcs2-backup-all.lock
 Engine Templates Update
 -------------------
 
-Update postfix template make the config working also with postfix 2.2:
+1) Update postfix template make the config working also with postfix 2.2:
 
 tangra: # mv /etc/postfix/master.cf /etc/postfix/master.cf-SAVE
 tangra: # cp /mydir/configs/postfix/master.cf /etc/postfix/master.cf
 
-Update proftpd config file (added "DelayEngine off"):
+Now compare both files and put your special config entries and domain names / IP etc.
+
+2) Update proftpd config file (added "DelayEngine off"):
 
 tangra: # mv /etc/proftpd.conf /etc/proftpd.conf-SAVE
 tangra: # cp /mydir/configs/proftpd/proftpd.conf /etc/proftpd.conf
 
-Update apache templates part for domains (vhosts skeleton and errorpages):
+Now compare both files and put your special config entries and domain names / IP etc.
+
+3) Update apache templates part for domains (vhosts skeleton and errorpages):
 
 tangra: # cp /mydir/configs/apache/parts/als_entry.tpl /etc/vhcs2/apache/parts/
 tangra: # cp /mydir/configs/apache/parts/dmn_entry.tpl /etc/vhcs2/apache/parts/
@@ -256,6 +260,9 @@ Search for $cfg['HOSTING_PLANS_LEVEL'] you have this options:
 
 tangra: # /var/www/vhcs2/engine/setup/set-gui-permissions.sh
 
+4) copy gui/errordocs/index.php in all client errordoc directories!
+
+A fixed XSS (Cross-Site-Scripting) bug in that file !!
 
 -------------------
 Database Update
