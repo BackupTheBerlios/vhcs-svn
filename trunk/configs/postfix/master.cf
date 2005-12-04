@@ -78,4 +78,4 @@ mailman   unix  -       -       n       -       -       pipe
 # vhcs delivery agent.
 #
 
-vhcs2-arpl unix  -      n       n       -       -       pipe flags= user=vmail argv=/var/www/vhcs2/engine/messager/vhcs2-arpl-msgr
+vhcs2-arpl unix  -      n       n       -       -       pipe flags=D user=vmail argv=/var/www/vhcs2/engine/messager/vhcs2-arpl-msgr
