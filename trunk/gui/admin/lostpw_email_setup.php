@@ -33,12 +33,12 @@ function insert_lostpw_email_1_tpl(&$sql, $admin_id)
 
     global $cfg;
 
-    $msg_subject = 'Auto message allert for lostpw ! {USERNAME}';
+    $msg_subject = 'Auto message alert for lostpw ! {USERNAME}';
 
     $msg = <<<MSG
 
 Dear {NAME},
-Use this link to aktivate your new VHCS password:
+Use this link to activate your new VHCS password:
 
 {LINK}
 
@@ -66,7 +66,7 @@ function insert_lostpw_email_2_tpl(&$sql, $admin_id)
 
     global $cfg;
 
-    $msg_subject = 'Auto message allert for lostpw ! {USERNAME}';
+    $msg_subject = 'Auto message alert for lostpw ! {USERNAME}';
 
     $msg = <<<MSG
 
