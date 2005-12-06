@@ -38,7 +38,7 @@ $theme_color = $cfg['USER_INITIAL_THEME'];
 
 $tpl -> assign(
                 array(
-                        'TR_ADMIN_CHANGE_SERVER_TRAFFIC_SETTINGS_TITLE' => tr('VHCS - Admin/Server Traffic Settings'),
+                        'TR_ADMIN_SERVER_STATUS_PAGE_TITLE' => tr('VHCS Admin / System Tools / Server Status'),
                         'THEME_COLOR_PATH' => "../themes/$theme_color",
                         'THEME_CHARSET' => tr('encoding'),
 						'ISP_LOGO' => get_logo($_SESSION['user_id']),
@@ -204,7 +204,6 @@ gen_admin_menu($tpl);
 
 $tpl -> assign(
                 array(
-                       'TR_ADMIN_TR_SERVER_STATUS_TITLE' => tr('VHCS Admin / System Tools / Server Status'),
 					   'TR_HOST' => tr('Host'),
 					   'TR_SERVICE' => tr('Service'),
 					   'TR_STATUS' => tr('Status'),

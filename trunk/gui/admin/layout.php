@@ -227,7 +227,7 @@ gen_def_layout($tpl, $sql, $user_def_layout);
 
 $tpl -> assign(
                 array(
-                        'TR_CLIENT_CHANGE_PERSONAL_DATA_PAGE_TITLE' => tr('VHCS - Client/Change Personal Data'),
+                        'TR_ADMIN_CHANGE_LAYOUT_PAGE_TITLE' => tr('VHCS - Virtual Hosting Control System'),
                         'THEME_COLOR_PATH' => "../themes/$theme_color",
                         'ISP_LOGO' => get_logo($_SESSION['user_id']),
                         'THEME_CHARSET' => tr('encoding'),

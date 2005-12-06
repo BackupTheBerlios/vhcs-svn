@@ -485,7 +485,7 @@ $theme_color = $cfg['USER_INITIAL_THEME'];
 
 $tpl -> assign(
                 array(
-                        'TR_ADMIN_CHANGE_PASSWORD_PAGE_TITLE' => tr('VHCS - Circular'),
+                        'TR_ADMIN_VHCS_DEBUGGER_PAGE_TITLE' => tr('VHCS - Virtual Hosting Control System'),
                         'THEME_COLOR_PATH' => "../themes/$theme_color",
                         'THEME_CHARSET' => tr('encoding'),
                         'ISP_LOGO' => get_logo($_SESSION['user_id']),

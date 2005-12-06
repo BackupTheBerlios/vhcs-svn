@@ -1,7 +1,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset={THEME_CHARSET}">
-<title>VHCS - Virtual Hosting Control System</title>
+<title>{TR_ADMIN_SYSTEM_INFO_PAGE_TITLE}</title>
 <link href="{THEME_COLOR_PATH}/css/vhcs.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="{THEME_COLOR_PATH}/css/vhcs.js"></script>
 </head>
