@@ -640,13 +640,13 @@ sub setup_shut_down {
     
     my ($rs, $rdata) = (undef, undef);
 
-#    my $cmd = "/bin/sh ./set-gui-permissions.sh";
+#    my $cmd = "/bin/sh /var/www/vhcs2/engine/set-gui-permissions.sh";
 
 #    $rs = sys_command($cmd);
 
 #    return $rs if ($rs != 0);
 
-	my $cmd = "/bin/sh ./set-engine-permissions.sh";
+	my $cmd = "/bin/sh /var/www/vhcs2/engine/set-engine-permissions.sh";
     
     $rs = sys_command($cmd);
 
