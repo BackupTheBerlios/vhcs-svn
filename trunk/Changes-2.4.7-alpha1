@@ -1,12 +1,27 @@
-VHCS 2.4.7-alpha Changelog
+VHCS 2.4.7 Changelog
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+2005-12-07 Erik Lehmann
+
+	- GUI
+		* Fixed bug #0000255: hardcoded page titles in some admin gui templates and one client template
+
+2005-12-06 Erik Lehmann
+
+	- INSTALLATION:
+		* Fixed bug #0000248: "set permission script not found" in vhcs2-setup during execute from /tmp
+	- GUI
+		* Fixed bug #0000253: Wrong set page titels in some admin templates
+		* Fixed bug #0000252: Message typo errors in reseller and admin lostpw_email_setup.php
+	- MISC
+		* Fixed bug #0000251: Typo errors in filename
+
 2005-12-04 Erik Lehmann
 
-	- RELEASE: 
+	- RELEASE
 		* vhcs2.4.7-beta1
 
-2005-12-04 Erik Lehmann
+2005-12-03 Erik Lehmann
 
 	- GUI
 		* Fixed bug #0000247: Cross-Site-Scripting bug in gui/errordocs/index.php
@@ -23,7 +38,7 @@ VHCS 2.4.7-alpha Changelog
 
 2005-12-01  Erik Lehmann
 
-	- Engine:
+	- ENGINE:
 		* Fixed bug #0000243: Name "main::cfg" used only once: possible typo at /var/www/vhcs2/engine/vhcs2-db-passwd line 145.
 
 2005-11-30  Erik Lehmann
@@ -33,16 +48,16 @@ VHCS 2.4.7-alpha Changelog
 
 2005-11-28  Erik Lehmann
 
-	- Installation:
+	- INSTALLATION:
 		* Fixed bug #0000241: change chown sytax for gui in vhcs2-setup
 
 2005-11-27  Erik Lehmann
 
-	- Engine:
-		* Added: corrected wrong Homedir setting per Systemuser (only for new added user), thanks to Markus Petzsch
+	- ENGINE:
+		* Added: corrected wrong homedir setting per systemuser (only for new added user), thanks to Markus Petzsch
 		* Added: restart amavis service if new mail user is added / if you are using amavis, thanks to Markus Petzsch
 		* Added: catchall adresses are moved from /etc/postfix/vhcs2/mailboxes to /etc/postfix/vhcs2/aliases
-	- Installation:
+	- INSTALLATION:
 		* Fixed: set missing permissions for /etc/init.d/vhcs2_daemon and /etc/init.d/vhcs2_network during setup
 
 2005-11-26 Frederic Freres
@@ -61,21 +76,21 @@ VHCS 2.4.7-alpha Changelog
 	- GUI:
 		* Change: set $cfg['HOSTING_PLANS_LEVEL'] = 'reseller' in vhcs-lib.php as default 
 		* Change: status of autoresponder is no longer shown twice on page email_accounts.php
-	- Engine:
+	- ENGINE:
 		* Change: little fix for the updated autoresponder vhcs2-arpl-msgr
-	- Installation:
-		Added: set vhcs2_daemon runlevel for starting at system startup
-		Added: enable apache vhcs2.conf in sites-enabled during setup
-		Added: vhcs2-setup propose now your network address (ip) during setup
-		Fixed: typo error in vhcs2-setup
+	- INSTALLATION:
+		* Added: set vhcs2_daemon runlevel for starting at system startup
+		* Added: enable apache vhcs2.conf in sites-enabled during setup
+		* Added: vhcs2-setup propose now your network address (ip) during setup
+		* Fixed: typo error in vhcs2-setup
 
 2005-11-24  Erik Lehmann
 
-	- Engine:
+	- ENGINE:
 		* Added: mysql database sizes will be counted to diskspace quota
 		* Added: function mysqldb_quota_by_dir_engine() in vhcs2-dsk-quota default used, less exact results
 		* Added: function mysqldb_quota_by_mysql_engine() in vhcs2-dsk-quota, needs more cpu power for mysql querys and calculating
-	- Installation:
+	- INSTALLATION:
 		* Fixed bug #0000233: Lost password failure, missing /vhcs2/lostpw.php after installation
 		* Fixed bug #0000231: Error in keys/Makefile
 
@@ -83,19 +98,19 @@ VHCS 2.4.7-alpha Changelog
 
 	- GUI:
 		* Added: allow mysql remote connect per default in database. Determining factor is now only the option in the my.cf to activate oder deactivate (thanks to Carsten Schšne) (only for new dbs or after password change)
-	- Installation:
+	- INSTALLATION:
 		* Fixed bug #0000232: Global symbol "$cmd" requires explicit package name at ./vhcs2-setup
 		* Fixed bug #0000230: error in hosting_plans table update in HOWTO Update
 		* Fixed bug #0000229: set-engine-permissions.sh and set-gui-permissions.sh would not copied during make
 
 2005-11-22  Frederic Freres
 
-	- Database:
+	- DATABASE:
 		* Fixed bug #0000227: typo error in quotalimits table "vbytes_xfer_avail" changed to "bytes_xfer_avail"
 
 2005-11-22  Erik Lehmann
 
-	- Engine:
+	- ENGINE:
 		* Fixed bug #0000200: No apache working config causes error output into database field (vhcs2-dmn-mngr)
 		* Added: speedup apache, by change vhosts to IP based with port 80, that fix also apache warnings
 		* Added: Catch all domains in the apache templates
@@ -104,7 +119,7 @@ VHCS 2.4.7-alpha Changelog
 		* Update: ADOdb to version 4.67 -> brings much more performance to vhcs 2.4.7
 		* Fixed bug #0000221: {TR_MESSAGE_DELETE} not parsed in admin/manage_users.php if user list is nil
 		* Fixed bug #0000219: Template broken in gui/client/add_subdomain.php
-	- Installation:
+	- INSTALLATION:
 		* Fixed bug #0000225: make install breaks because of missing system user vmail
 		* Added: run set-gui-permissions.sh and set-engine-permissions.sh at the end of install
 		* Fixed bug: typo error in HOWTO Update
@@ -114,12 +129,12 @@ VHCS 2.4.7-alpha Changelog
 		
 2005-11-21  Erik Lehmann
 
-	- Daemon:
+	- DAEMON:
 		* Change: init.d daemon restart function
 		* Change: default iptables path to sarge default in /etc/init.d/vhcs_network	
 	- GUI:
 		* Fixed bug #0000218: language strings hardcoded
-	- Installation:
+	- INSTALLATION:
 		* Fixed bug #0000217: in INSERT statement of first admin data insert in /engine/setup/vhcs-setup
 		* Fixed bug #0000216: deleting /tmp/db.sql twice in vhcs2-setup
 		* Fixed bug #0000215: some missing files in the make files
