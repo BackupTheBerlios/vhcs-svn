@@ -3,6 +3,11 @@ VHCS 2.4.7-alpha Changelog
 
 2005-12-04 Erik Lehmann
 
+	- RELEASE: 
+		* vhcs2.4.7-beta1
+
+2005-12-04 Erik Lehmann
+
 	- GUI
 		* Fixed bug #0000247: Cross-Site-Scripting bug in gui/errordocs/index.php
 

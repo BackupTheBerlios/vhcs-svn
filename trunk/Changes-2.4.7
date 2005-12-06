@@ -4,74 +4,47 @@ VHCS 2.4.7 Changelog
 Perl engine fixes
 ------------------------
 
-	(o) Postfix master.cf config file was synced with postfix 2.2.x
-mainstream;
+	(o) Postfix master.cf config file was synced with postfix 2.2.x mainstream;
 
-	(o) vhcs2_network script does not run -F INPUT/OUTPUT/FORWARD now.
-This makes a lots of troubles on servers with firewalls;
+	(o) vhcs2_network script does not run -F INPUT/OUTPUT/FORWARD now. This makes a lots of troubles on servers with firewalls;
 
-	(o) DNS timestamp fix by 'Puuhis' (finally .db timestamps will look
-according to the specs);
+	(o) DNS timestamp fix by 'Puuhis' (finally .db timestamps will look according to the specs);
 
-	(o) Since we made all of the perl engine scripts
-read/write/execute only by 'root' vhcs2-arpl-msgr stopped to
-work becouse it uses vmail:mail user:group pair. Not it has its own db
-decoding subs and works fine with other root permissions;
+	(o) Since we made all of the perl engine scripts read/write/execute only by 'root' vhcs2-arpl-msgr stopped to work becouse it uses vmail:mail user:group pair. Not it has its own db decoding subs and works fine with other root permissions;
 
-	(o) htacces management fix - .htaccess files are now remove
-successfully upon delete;
+	(o) htacces management fix - .htaccess files are now remove successfully upon delete;
 
-	(o) backup during suspend fix - domains in suspend mode are now
-excluded from automatic backup;
+	(o) backup during suspend fix - domains in suspend mode are now excluded from automatic backup;
 
-	(o) vhcs2-vrl-traff fix - .perv files are removed if they are
-greater then PREV_TRAFF_LOG_MAX_SIZE bytes; Thus we reduce the chance
-for them to become big;
+	(o) vhcs2-vrl-traff fix - .perv files are removed if they are greater then PREV_TRAFF_LOG_MAX_SIZE bytes; Thus we reduce the chance for them to become big;
 
-	(o) vhcs2-vrl-traff fix by 'Reisswolf' - pop(-ssl)/imap(-ssl)/smtp/ftp 
-traffic for alias domains will be counted;
+	(o) vhcs2-vrl-traff fix by 'Reisswolf' - pop(-ssl)/imap(-ssl)/smtp/ftp traffic for alias domains will be counted;
 
-	(o) vhcs2-vrl-traff fix by 'Reisswolf' - pop(-ssl)/imap(-ssl)/smtp/ftp 
-traffic for sub domains will be counted;
+	(o) vhcs2-vrl-traff fix by 'Reisswolf' - pop(-ssl)/imap(-ssl)/smtp/ftp traffic for sub domains will be counted;
 
-	(o) vhcs2-vrl-traff fix by 'Reisswolf' - not counting pop(-ssl)/imap(-ssl) 
-traffic from localhost produced by webmail;
+	(o) vhcs2-vrl-traff fix by 'Reisswolf' - not counting pop(-ssl)/imap(-ssl) traffic from localhost produced by webmail;
 
-	(o) vhcs2-vrl-traff fix by 'Reisswolf' - different traffic analyse method 
-if amavis is used or not. With the MAIL_LOG_INC_AMAVIS switches the method; 
+	(o) vhcs2-vrl-traff fix by 'Reisswolf' - different traffic analyse method if amavis is used or not. With the MAIL_LOG_INC_AMAVIS switches the method; 
 
-	(o) vhcs2-vrl-traff fix by 'Reisswolf' - added spezial version for SUSE
-engine/traffic/vhcs2-vrl-traff-SUSE must renamed into vhcs2-vrl-traff;
+	(o) vhcs2-vrl-traff fix by 'Reisswolf' - added spezial version for SUSE engine/traffic/vhcs2-vrl-traff-SUSE must renamed into vhcs2-vrl-traff;
 
 	(o) vhcs2_common_code.pl fix by 'Reisswolf' - fix bug #0000191 in get_human_date();
 
-	(o) vhcs2-arpl-msgr fix by 'Reisswolf' - function arpl_msgr_engine;
-autoresponder work with domain/subdomain/alias domain, don't send "_no_" any longer, 
-improved mail header parser;
+	(o) vhcs2-arpl-msgr fix by 'Reisswolf' - function arpl_msgr_engine; autoresponder work with domain/subdomain/alias domain, don't send "_no_" any longer, improved mail header parser;
 
-	(o) vhcs2-arpl-msgr fix by 'Reisswolf' - fixed mail loop problem with responding
-on autoresponder messages;
+	(o) vhcs2-arpl-msgr fix by 'Reisswolf' - fixed mail loop problem with responding on autoresponder messages;
 
-	(o) vhcs2-mbox-mngr fix by 'Reisswolf' - fix bug #0000161 in mbox_check_sasl_user()
-added CMD_SASLDB_LISTUSERS2 to vhcs2.conf;
+	(o) vhcs2-mbox-mngr fix by 'Reisswolf' - fix bug #0000161 in mbox_check_sasl_user() added CMD_SASLDB_LISTUSERS2 to vhcs2.conf;
 
-	(o) vhcs2-mbox-mngr fix by 'Reisswolf' - fix bug #0000101 (fix postfix waring
-"/var/spool/postfix/etc/sasldb2 and /etc/sasldb2 differ" changed: MTA_SASLDB_FILE 
-and added: ETC_SASLDB_FILE in vhcs2.conf;
+	(o) vhcs2-mbox-mngr fix by 'Reisswolf' - fix bug #0000101 (fix postfix waring "/var/spool/postfix/etc/sasldb2 and /etc/sasldb2 differ" changed: MTA_SASLDB_FILE and added: ETC_SASLDB_FILE in vhcs2.conf;
 
-	(o) vhcs2-mbox-mngr fix by 'Reisswolf' - now mail passwords would be encoded
-in md5 used by courier, so passwords with more then 8 characters could be used;
+	(o) vhcs2-mbox-mngr fix by 'Reisswolf' - now mail passwords would be encoded in md5 used by courier, so passwords with more then 8 characters could be used;
 
-	(o) vhcs2-backup-all fix by 'Reisswolf' - fixed locking if user backup folder did
-not exist; fixed error message in the backup manager logfile in /var/log/vhcs ;
+	(o) vhcs2-backup-all fix by 'Reisswolf' - fixed locking if user backup folder did not exist; fixed error message in the backup manager logfile in /var/log/vhcs ;
 
-	(o) vhcs2-dmn-mngr fix by 'Reisswolf' - fixed non copying the errorpages and
-default index page (was a fix for 2.4.7-dev);
+	(o) vhcs2-dmn-mngr fix by 'Reisswolf' - fixed non copying the errorpages and default index page (was a fix for 2.4.7-dev);
 
-	If you want to do the same with apache2 log files for every
-domain in your server then you must add corresponding entry in your
-local logrotate configuration. For example in Debian this entry looks
-like the following:
+	If you want to do the same with apache2 log files for every domain in your server then you must add corresponding entry in your local logrotate configuration. For example in Debian this entry looks like the following:
 
 filename: 
 	
@@ -136,11 +109,9 @@ and should be defined in the variable $cfg['HOSTING_PLANS_LEVEL']
 	* verification with activationlink and captcha-grafic
 	* created passwords are build out of numbers and letters
 
-11. better character converting for suggested mountpoints, not showing "add subdomain" in the menu if now 
-subdomains are available.
+11. better character converting for suggested mountpoints, not showing "add subdomain" in the menu if now subdomains are available.
 
-12. Not showing aliasdomain and subdomain parts in manage_domains content area if this functions are not
-available for the client
+12. Not showing aliasdomain and subdomain parts in manage_domains content area if this functions are not available for the client
 
 13. better Cross Site Scripting prevention (GUI)
 
