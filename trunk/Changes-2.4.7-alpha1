@@ -1,6 +1,13 @@
 VHCS 2.4.7 Changelog
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+2005-12-08 Erik Lehmann
+
+	- GUI:
+		* Deleted: some unneeded files from webmail and filemanager
+	- ENGINE:
+		* Fixed bug #0000256: typo error at DATABASE_NAME in vhcs2.conf 
+
 2005-12-07 Erik Lehmann
 
 	- GUI
