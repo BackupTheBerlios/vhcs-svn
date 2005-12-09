@@ -13,6 +13,8 @@ install:
 		cd ./postfix && $(MAKE) install ; cd .. ; \
 		cd ./courier && $(MAKE) install ; cd .. ; \
 		cd ./proftpd && $(MAKE) install ; cd .. ; \
+	elif [[ $(HOST_OS) == suse ]] ; then \
+		cd ./dists/suse && $(MAKE) install ; \
 	fi
    
 #	elif [[ $(HOST_OS) == redhat ]] ; then \
@@ -31,8 +33,10 @@ uninstall:
 		cd ./postfix && $(MAKE) uninstall ; cd .. ; \
 		cd ./courier && $(MAKE) uninstall ; cd .. ; \
 		cd ./proftpd && $(MAKE) uninstall ; cd .. ; \
-	fi
-   
+	elif [[ $(HOST_OS) == suse ]] ; then \
+		cd ./dists/suse && $(MAKE) uninstall ; \
+	fi  
+
 #	elif [[ $(HOST_OS) == redhat ]] ; then \
 #		cd ./dists/redhat && $(MAKE) uninstall ; \
 #	fi 
