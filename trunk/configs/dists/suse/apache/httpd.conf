@@ -10,21 +10,21 @@ LogFormat "%B" traff
 # GUI Location.
 #
 
-Alias /vhcs2 /srv/www/htdocs/vhcs2/gui
-<Directory /srv/www/htdocs/vhcs2/gui>
+Alias /vhcs2 /srv/www/vhcs2/gui
+<Directory /srv/www/vhcs2/gui>
     AllowOverride none
     Options MultiViews IncludesNoExec FollowSymLinks
     ErrorDocument 404 /vhcs2/errordocs/index.php
     DirectoryIndex index.html index.php
 </Directory>
 
-<Directory /srv/www/htdocs/vhcs2/gui/tools/filemanager>
+<Directory /srv/www/vhcs2/gui/tools/filemanager>
     php_flag register_globals On
-    php_admin_value open_basedir "/srv/www/htdocs/vhcs2/gui/tools/filemanager/:/tmp/:/usr/share/php/"
+    php_admin_value open_basedir "/srv/www/vhcs2/gui/tools/filemanager/:/tmp/:/usr/share/php/"
 </Directory>
 
-Alias /vhcs_images /srv/www/htdocs/vhcs2/gui/images
-<Directory /srv/www/htdocs/vhcs2/gui/images>
+Alias /vhcs_images /srv/www/vhcs2/gui/images
+<Directory /srv/www/vhcs2/gui/images>
     AllowOverride none 
     Options MultiViews IncludesNoExec FollowSymLinks
 </Directory>
@@ -35,9 +35,9 @@ Alias /vhcs_images /srv/www/htdocs/vhcs2/gui/images
 
 <VirtualHost _default_:*> 
 
-    DocumentRoot /srv/www/htdocs/vhcs2/gui
+    DocumentRoot /srv/www/vhcs2/gui
 
-    <Directory /srv/www/htdocs/vhcs2/gui>
+    <Directory /srv/www/vhcs2/gui>
         Options Indexes Includes FollowSymLinks MultiViews
         AllowOverride None
         Order allow,deny
