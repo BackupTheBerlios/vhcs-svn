@@ -1,5 +1,6 @@
 VHCS 2.4.7 Changelog
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 2005-12-09 Carsten Schoene
 
 	- INSTALLATION: 
@@ -305,6 +306,7 @@ Extra Changes
 	* Italian translation by Ugo Viti, thanks!
 	* Dutch translation by Casper Bakker, thanks!
 	* Russian translation by Lord Daedra, thanks!
+	* Brazilian Portuguese translation by Decio A.Alves, thanks!
 
 
 2. Seperate language tables out of database.sql
