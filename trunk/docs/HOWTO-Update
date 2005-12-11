@@ -4,7 +4,6 @@ HOWTO Update VHCS 2.4.6.2 to VHCS 2.4.7 (English)
 #	Missing:
 #		* init.d scripte for network/daemon updaten
 #
-#
 ###############
 
 -------------------
@@ -236,7 +235,11 @@ tangra: # /var/www/vhcs2/engine/setup/set-engine-permissions.sh
 GUI Update
 -------------------
 
-1) Password reminder:
+1) Copy the new GUI files
+
+tangra: # cp -a /mydir/gui/ /var/www/vhcs2/
+
+2) Password reminder:
 
 install GD library:
 tangra: # apt-get install php4-gd
@@ -244,9 +247,9 @@ tangra: # apt-get install php4-gd
 Apache neustarten:
 tangra: # apache2ctl graceful
 
-2) Hostingplan changes: 
+3) Hostingplan changes: 
 
-in the /vaw/www/vhcs2/gui/include/vhcs-lib.php
+in the /var/www/vhcs2/gui/include/vhcs-lib.php
 
 Search for $cfg['HOSTING_PLANS_LEVEL'] you have this options:
 
@@ -256,11 +259,11 @@ Search for $cfg['HOSTING_PLANS_LEVEL'] you have this options:
 !!!Attention: If you have already hostingplans in reseller area you should turn this option to
 	'reseller' !!!		
 
-3) Set correct gui permissions:
+4) Set correct gui permissions:
 
 tangra: # /var/www/vhcs2/engine/setup/set-gui-permissions.sh
 
-4) copy gui/errordocs/index.php in all client errordoc directories!
+5) copy gui/errordocs/index.php in all client errordoc directories!
 
 A fixed XSS (Cross-Site-Scripting) bug in that file !!
 
