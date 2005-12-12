@@ -29,8 +29,6 @@ DESC=vhcs2_daemon
 
 test -x $DAEMON || exit 5
 
-set -e
-
 . /etc/rc.status
 
 # Shell functions sourced from /etc/rc.status:
