@@ -28,8 +28,11 @@
 #    http://www.vhcs.net
 
 
+use Cwd;
 
-require '../vhcs2_common_code.pl';
+use lib cwd;
+
+require 'vhcs2_common_code.pl';
 
 use strict;
 
@@ -647,7 +650,7 @@ sub setup_shut_down {
 
     return $rs if ($rs != 0);
 
-	my $cmd = "/bin/sh $main::cfg{'ROOT_DIR'}/engine/setup/set-engine-permissions.sh";
+	$cmd = "/bin/sh $main::cfg{'ROOT_DIR'}/engine/setup/set-engine-permissions.sh";
     
     $rs = sys_command($cmd);
 

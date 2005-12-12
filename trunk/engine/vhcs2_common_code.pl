@@ -42,7 +42,8 @@ BEGIN {
                   Crypt::Blowfish,
                   Crypt::PasswdMD5, 
                   MIME::Base64,
-                  Term::ReadPassword);
+                  Term::ReadPassword,
+                  File::Basename);
     
     my ($mod, $mod_err, $mod_missing) = ('', '_off_', '');
     
@@ -1386,7 +1387,9 @@ $main::cfg_file = '/etc/vhcs2/vhcs2.conf';
 
 $main::cfg_re = '^([\_A-Za-z0-9]+) *= *([^\n\r]*)[\n\r]';
 
-require 'vhcs2-db-keys.pl';
+my $scriptdir = dirname(__FILE__);
+
+require $scriptdir.'/vhcs2-db-keys.pl';
 
 sub encrypt_db_password {
     
@@ -1858,7 +1861,7 @@ sub del_dmn_suexec_user {
     
     my ($dmn_uid, $dmn_gid) = (@$dmn_data[3], @$dmn_data[2]);
     
-    my ($rs, $rdata, $sql) = (undef, undef, undef);
+    my ($rs, $rdata, $sql, $cmd) = (undef, undef, undef, undef);
     
     if ($dmn_uid != 0 && $dmn_gid != 0) {
         
@@ -1871,7 +1874,7 @@ sub del_dmn_suexec_user {
         
         if (scalar(@udata) != 0) { # we must remove it from the system
             
-            my $cmd = "$main::cfg{'CMD_USERDEL'} $sys_user";
+            $cmd = "$main::cfg{'CMD_USERDEL'} $sys_user";
             
             $rs = sys_command($cmd);
             
@@ -1883,7 +1886,7 @@ sub del_dmn_suexec_user {
         
         if (scalar(@gdata) != 0) { # we have not this one group data;
             
-            my $cmd = "$main::cfg{'CMD_GROUPDEL'} $sys_group";
+            $cmd = "$main::cfg{'CMD_GROUPDEL'} $sys_group";
             
             $rs = sys_command($cmd);
             
