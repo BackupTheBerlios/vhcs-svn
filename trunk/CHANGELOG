@@ -5,6 +5,7 @@ VHCS 2.4.7 Changelog
 
 	- GUI:
 		* Changed: changed hardcoded '/var/www/vhcs2/' to vhcs2.conf based solution
+		* Deleted: deleted some empty files in gui/admin (only part of vhcs2.4.7-alpha and vhcs2.4.7-beta)
 	- ENGINE:
 		* Changed: changed hardcoded '/var/www/vhcs2/' to vhcs2.conf based solution
 		* Changed: set-engine-permissions.sh now use to variables from vhcs2.conf (no longer hardcoded path/owners)
@@ -303,15 +304,13 @@ and should be defined in the variable $cfg['HOSTING_PLANS_LEVEL']
 
 17. Some template errors (layout + Javascript) are fixed
 
-18. Autoresponder reviewed (engine)
+18. autoresponder text can now be edited (GUI)
 
-19. autoresponder text can now be edited (GUI)
+19. fixed 2 security leaks in the autoresponder (GUI + SQL Injection)
 
-20. fixed 2 security leaks in the autoresponder (GUI + SQL Injection)
+20. Domains and reseller are now sorted alphabetically (GUI)
 
-21. Domains and reseller are now sorted alphabetically (GUI)
-
-22. Email notification on support request (GUI)
+21. Email notification on support request (GUI)
 
 
 
