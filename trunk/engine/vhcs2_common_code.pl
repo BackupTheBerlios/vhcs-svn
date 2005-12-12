@@ -1908,8 +1908,6 @@ sub del_dmn_suexec_user {
     
 }
 
-get_conf();
-
 my $rs = get_conf();
     
 return $rs if ($rs != 0);

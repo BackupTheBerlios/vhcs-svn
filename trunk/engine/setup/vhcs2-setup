@@ -27,11 +27,8 @@
 #
 #    http://www.vhcs.net
 
-
-use Cwd;
-
-use lib cwd;
-
+use FindBin;
+use lib "$FindBin::Bin/..";
 require 'vhcs2_common_code.pl';
 
 use strict;

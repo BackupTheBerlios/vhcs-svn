@@ -86,15 +86,6 @@ BEGIN {
     }
 }
 
-# debug dump files;
-$main::log_dir = '/var/log/vhcs2';
-
-$main::vhcs2_arpl_msgr_el = "$main::log_dir/vhcs2-arpl-msgr.el";
-#$main::vhcs2_arpl_msgr_stdout = "$main::log_dir/vhcs2-arpl-msgr.stdout";
-#$main::vhcs2_arpl_msgr_stderr = "$main::log_dir/vhcs2-arpl-msgr.stderr";
-
-# $main::engine_debug = '_on_';
-
 $main::cc_stdout = '/tmp/vhcs2-cc.stdout';
 
 $main::cc_stderr = '/tmp/vhcs2-cc.stderr';
@@ -1565,6 +1556,19 @@ sub store_conf {
 
 }
 
+my $rs = get_conf();
+    
+return $rs if ($rs != 0);
+
+# debug dump files;
+$main::log_dir = $main::cfg{'LOG_DIR'};
+
+$main::vhcs2_arpl_msgr_el = "$main::log_dir/vhcs2-arpl-msgr.el";
+#$main::vhcs2_arpl_msgr_stdout = "$main::log_dir/vhcs2-arpl-msgr.stdout";
+#$main::vhcs2_arpl_msgr_stderr = "$main::log_dir/vhcs2-arpl-msgr.stderr";
+
+# $main::engine_debug = '_on_';
+
 #
 # common code: END
 #
@@ -1823,7 +1827,7 @@ sub arpl_msgr_engine {
     
 }
 
-my $rs = undef;
+$rs = undef;
 
 $rs = arpl_msgr_start_up();
 

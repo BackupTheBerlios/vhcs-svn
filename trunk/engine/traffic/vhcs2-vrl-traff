@@ -48,9 +48,9 @@
 #
 ####
 
-
-require '../vhcs2_common_code.pl';
-
+use FindBin;
+use lib "$FindBin::Bin/..";
+require 'vhcs2_common_code.pl';
 
 %main::ftp_traffic = ();
 
