@@ -48,13 +48,13 @@ rc_reset
 case "$1" in
   start)
 	echo -n "Starting $DESC: "
-	startproc -f -p $PID $DAEMON
+	startproc -f $DAEMON
         /etc/init.d/vhcs2_network
 	rc_status -v
 	;;
   stop)
 	echo -n "Stopping $DESC: "
-	killproc -f -p $PID $DAEMON
+	killproc $DAEMON
 	rc_status -v
 	;;
   restart|force-reload)
@@ -66,7 +66,7 @@ case "$1" in
 	;;
   status)
 	echo "Checking for service $DESC: "
-	checkproc -p $PID $DAEMON
+	checkproc $DAEMON
 	rc_status -v
 	;;
   *)
