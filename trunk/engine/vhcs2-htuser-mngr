@@ -30,7 +30,8 @@
 #    http://www.vhcs.net
 #
 
-require '/var/www/vhcs2/engine/vhcs2_common_code.pl';
+
+require 'vhcs2_common_code.pl';
 
 use strict;
 

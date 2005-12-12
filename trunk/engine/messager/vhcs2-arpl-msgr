@@ -89,8 +89,6 @@ BEGIN {
 # debug dump files;
 $main::log_dir = '/var/log/vhcs2';
 
-#$main::root_dir = '/var/www/vhcs2';
-
 $main::vhcs2_arpl_msgr_el = "$main::log_dir/vhcs2-arpl-msgr.el";
 #$main::vhcs2_arpl_msgr_stdout = "$main::log_dir/vhcs2-arpl-msgr.stdout";
 #$main::vhcs2_arpl_msgr_stderr = "$main::log_dir/vhcs2-arpl-msgr.stderr";
@@ -1365,7 +1363,7 @@ $main::cfg_file = '/etc/vhcs2/vhcs2.conf';
 
 $main::cfg_re = '^([\_A-Za-z0-9]+) *= *([^\n\r]*)[\n\r]';
 
-require '/var/www/vhcs2/engine/messager/vhcs2-db-keys.pl';
+require 'vhcs2-db-keys.pl';
 
 sub encrypt_db_password {
     

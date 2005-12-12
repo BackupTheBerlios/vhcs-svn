@@ -22,15 +22,16 @@ session_start();
 error_reporting(0); 
 //error_reporting(E_ALL); // setting for development edition - see all error messages
 
-$include_path = '/var/www/vhcs2/gui/include/';
+$include_path = realpath(dirname(__FILE__));
 
-include ($include_path.'spGzip.php'); 
+include_once (realpath($include_path.'/spGzip.php'));
 
-include ($include_path.'class.pTemplate.php');
+include_once (realpath($include_path.'/class.pTemplate.php'));
 
-include ($include_path.'vhcs2-db-keys.php');
+include_once (realpath($include_path.'/vhcs2-db-keys.php'));
 
-include ($include_path.'vhcs-config.php');
+include_once (realpath($include_path.'/vhcs-config.php'));
+
 
 $cfg_obj = new Config("/etc/vhcs2/vhcs2.conf");
 
@@ -110,31 +111,33 @@ $cfg['VHCS_LICENSE'] = 'VHCS<sup>&reg;</sup> Pro v2.4.7<br>build: 2005-09-28<br>
 // variable for developmetn edition => shows all php variables under the pages
 //$cfg['DUMP_GUI_DEBUG'] = '_on_'; 
 
-include ($include_path.'debug.php');
 
-include ($include_path.'i18n.php');
+include_once (realpath($include_path.'/debug.php'));
 
-include ($include_path.'system-message.php');
+include_once (realpath($include_path.'/i18n.php'));
 
-include ($include_path.'sql.php');
+include_once (realpath($include_path.'/system-message.php'));
 
-include ($include_path.'system-log.php');
+include_once (realpath($include_path.'/sql.php'));
 
-include ($include_path.'calc-functions.php');
+include_once (realpath($include_path.'/system-log.php'));
 
-include ($include_path.'login.php');
+include_once (realpath($include_path.'/calc-functions.php'));
 
-include ($include_path.'date-functions.php');
+include_once (realpath($include_path.'/login.php'));
 
-include ($include_path.'layout-functions.php');
+include_once (realpath($include_path.'/date-functions.php'));
 
-include ($include_path.'client-functions.php');
+include_once (realpath($include_path.'/layout-functions.php'));
 
-include ($include_path.'admin-functions.php');
+include_once (realpath($include_path.'/client-functions.php'));
 
-include ($include_path.'reseller-functions.php');
+include_once (realpath($include_path.'/admin-functions.php'));
 
-include ($include_path.'vhcs-2-0.php');
+include_once (realpath($include_path.'/reseller-functions.php'));
 
-include ($include_path.'idna.php');
+include_once (realpath($include_path.'/vhcs-2-0.php'));
+
+include_once (realpath($include_path.'/idna.php'));
+
 ?>

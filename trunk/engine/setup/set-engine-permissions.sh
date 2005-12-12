@@ -1,16 +1,22 @@
 #!/bin/bash
 
 #
-# VHCS engine permissions setter v0.01;
+# VHCS engine permissions setter v1.0;
+# improved by Erik Lehmann 12.2005
 #
 
+# read needed entries from vhcs2.conf
+for a in `cat /etc/vhcs2/vhcs2.conf | grep -E '(ROOT_DIR|MTA_MAILBOX_)' | sed -e 's/ //g'`
+do
+export $a
+done
 
 #
 # fixing engine permissions;
 #
 
 
-for i in `find /var/www/vhcs2/engine/`; do
+for i in `find $ROOT_DIR/engine/`; do
 
 	if [[ -f $i ]]; then
 	
@@ -33,26 +39,26 @@ done
 # fixing engine folder permissions;
 #
 
-		chmod 0755 /var/www/vhcs2/engine;
-		chown root:root /var/www/vhcs2/engine;
+		chmod 0755 $ROOT_DIR/engine;
+		chown root:root $ROOT_DIR/engine;
 
 #
 # fixing messager permissions;
 #
 
-i='/var/www/vhcs2/engine/messager/'
+i="$ROOT_DIR/engine/messager"
 
-echo "0700 vmail:mail [$i]";
+echo "0700 $MTA_MAILBOX_UID_NAME:$MTA_MAILBOX_GID_NAME [$i]";
 
 		chmod -R 0700 $i;
-		chown -R vmail:mail $i;
+		chown -R $MTA_MAILBOX_UID_NAME:$MTA_MAILBOX_GID_NAME $i;
 
 
 #
 # fixing messager folder permissions;
 #
 
-i='/var/www/vhcs2/engine/messager'
+i="$ROOT_DIR/engine/messager"
 
 echo "0755 root:root [$i]";
 

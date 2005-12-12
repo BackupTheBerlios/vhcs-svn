@@ -17,10 +17,13 @@
 
 
 global $include_path;
-$include_path = '/var/www/vhcs2/gui/include/';
-include ($include_path.'adodb/adodb.inc.php');
-//include 'adodb/tohtml.inc.php';
-include ($include_path.'adodb/adodb-pager.inc.php');
+
+$include_path = realpath(dirname(__FILE__));
+
+include_once (realpath($include_path.'/adodb/adodb.inc.php'));
+//include_once (realpath($include_path.'/adodb/tohtml.inc.php'));
+include_once (realpath($include_path.'/adodb/adodb-pager.inc.php'));
+
 
 if ($cfg['DB_TYPE'] === 'pgsql') {
   $sql = &ADONewConnection('postgres7');

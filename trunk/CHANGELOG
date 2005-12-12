@@ -1,6 +1,15 @@
 VHCS 2.4.7 Changelog
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+2005-12-12 Erik Lehmann
+
+	- GUI:
+		* Changed: changed hardcoded '/var/www/vhcs2/' to vhcs2.conf based solution
+	- ENGINE:
+		* Changed: changed hardcoded '/var/www/vhcs2/' to vhcs2.conf based solution
+		* Changed: set-engine-permissions.sh now use to variables from vhcs2.conf (no longer hardcoded path/owners)
+		* Changed: set-gui-permissions.sh now use to variables from vhcs2.conf (no longer hardcoded path/owners)
+
 2005-12-11 Erik Lehmann
 
 	- GUI:

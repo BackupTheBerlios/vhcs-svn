@@ -1,24 +1,35 @@
 #!/bin/bash
 
 #
-# VHCS gui permissions setter v0.01;
+# VHCS gui permissions setter  v1.0;
+# improved by Erik Lehmann 12.2005
 #
 
-for i in `find /var/www/vhcs2/gui/`; do 
+# read needed entries from vhcs2.conf
+for a in `cat /etc/vhcs2/vhcs2.conf | grep -E '(APACHE_|ROOT_DIR)' | sed -e 's/ //g'`
+do
+export $a
+done
+
+#
+# fixing gui permissions;
+#
+
+for i in `find $ROOT_DIR/gui/`; do 
 
 	if [[ -f $i ]]; then
 	
-		echo -e "\t0400 www-data:www-data $i";
+		echo -e "\t0400 $APACHE_USER:$APACHE_GROUP $i";
 		
 		chmod 0400 $i;
-		chown www-data:www-data $i;	
+		chown $APACHE_USER:$APACHE_GROUP $i;	
 		
 	elif [[ -d $i ]]; then
 	
-		echo "0555 www-data:www-data [$i]";
+		echo "0555 $APACHE_USER:$APACHE_GROUP [$i]";
 		
 		chmod 0555 $i;
-		chown www-data:www-data $i;
+		chown $APACHE_USER:$APACHE_GROUP $i;
 	fi
 
 done
@@ -27,29 +38,28 @@ done
 # fixing webmail's database permissions;
 #
 
-i='/var/www/vhcs2/gui/tools/webmail/database'
+i="$ROOT_DIR/gui/tools/webmail/database"
 
-echo "0555 www-data:www-data [$i]";
+echo "0555 $APACHE_USER:$APACHE_GROUP [$i]";
 
-chmod 0755 -R $i;
-#chmod 0755 "$i/*";
-chown www-data:www-data -R $i;
+chmod -R 0755 $i;
+chown -R $APACHE_USER:$APACHE_GROUP $i;
 
 #
 # fixing user_logo folder permissions;
 #
 
-i='/var/www/vhcs2/gui/themes/user_logos'
+i="$ROOT_DIR/gui/themes/user_logos"
 
-echo "0755 www-data:www-data [$i]";
+echo "0755 $APACHE_USER:$APACHE_GROUP [$i]";
 
+chmod -R 0644 $i;
 chmod 0755 $i;
-chmod 0644 "$i/*";
-chown www-data:www-data -R $i;
+chown -R $APACHE_USER:$APACHE_GROUP $i;
 
 
 #
 # fixing db keys permissions;
 #
 
-chmod 0400 /var/www/vhcs2/gui/include/vhcs2-db-keys.php                                               
+chmod 0400 $ROOT_DIR/gui/include/vhcs2-db-keys.php

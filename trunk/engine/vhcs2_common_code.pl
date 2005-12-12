@@ -1386,7 +1386,7 @@ $main::cfg_file = '/etc/vhcs2/vhcs2.conf';
 
 $main::cfg_re = '^([\_A-Za-z0-9]+) *= *([^\n\r]*)[\n\r]';
 
-require '/var/www/vhcs2/engine/vhcs2-db-keys.pl';
+require 'vhcs2-db-keys.pl';
 
 sub encrypt_db_password {
     
@@ -1905,9 +1905,15 @@ sub del_dmn_suexec_user {
     
 }
 
-$main::log_dir = '/var/log/vhcs2';
+get_conf();
 
-$main::root_dir = '/var/www/vhcs2';
+my $rs = get_conf();
+    
+return $rs if ($rs != 0);
+
+$main::log_dir = $main::cfg{'LOG_DIR'};
+
+$main::root_dir = $main::cfg{'ROOT_DIR'};
 
 $main::vhcs2 = "$main::log_dir/vhcs2-rqst-mngr.el";
 

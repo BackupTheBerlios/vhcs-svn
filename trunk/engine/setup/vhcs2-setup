@@ -28,7 +28,8 @@
 #    http://www.vhcs.net
 
 
-require '/var/www/vhcs2/engine/vhcs2_common_code.pl';
+
+require '../vhcs2_common_code.pl';
 
 use strict;
 
@@ -640,13 +641,13 @@ sub setup_shut_down {
     
     my ($rs, $rdata) = (undef, undef);
 
-#    my $cmd = "/bin/sh /var/www/vhcs2/engine/setup/set-gui-permissions.sh";
+    my $cmd = "/bin/sh $main::cfg{'ROOT_DIR'}/engine/setup/set-gui-permissions.sh";
 
-#    $rs = sys_command($cmd);
+    $rs = sys_command($cmd);
 
-#    return $rs if ($rs != 0);
+    return $rs if ($rs != 0);
 
-	my $cmd = "/bin/sh /var/www/vhcs2/engine/setup/set-engine-permissions.sh";
+	my $cmd = "/bin/sh $main::cfg{'ROOT_DIR'}/engine/setup/set-engine-permissions.sh";
     
     $rs = sys_command($cmd);
 
@@ -1467,7 +1468,7 @@ sub setup_mta {
     return $rs if ($rs != 0);
     
     
-    $rs = setfmode("/var/www/vhcs2/engine/messager/vhcs2-arpl-msgr", $main::cfg{'MTA_MAILBOX_UID_NAME'}, $main::cfg{'MTA_MAILBOX_GID_NAME'}, 0755);
+    $rs = setfmode("$main::cfg{'ROOT_DIR'}/engine/messager/vhcs2-arpl-msgr", $main::cfg{'MTA_MAILBOX_UID_NAME'}, $main::cfg{'MTA_MAILBOX_GID_NAME'}, 0755);
     
     return $rs if ($rs != 0);
     
