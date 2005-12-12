@@ -141,3 +141,9 @@ TCPDOPTS="-nodnslookup -noidentlookup"
 
 POP3DSTART=YES
 
+##NAME: LOGGEROPTS:0
+#
+# courierlogger(1) options.
+#
+
+LOGGEROPTS="-name=courierpop3login"
