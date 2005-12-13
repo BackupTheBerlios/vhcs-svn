@@ -2365,7 +2365,7 @@ sub mbox_add_po_data {
     
     my ($sys, $working) = (undef, undef);
     
-    if ($authlib_dir == "") {
+    if ($authlib_dir eq '') {
 
     my $userdb_cfg = "$courier_dir/userdb";
 
@@ -2526,7 +2526,7 @@ sub mbox_del_po_data {
     
     my ($sys, $working) = (undef, undef);
    
-    if ($authlib_dir == "") {
+    if ($authlib_dir eq '') {
  
     my $userdb_cfg = "$courier_dir/userdb";
 

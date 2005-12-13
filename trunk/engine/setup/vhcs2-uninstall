@@ -543,7 +543,7 @@ sub uninstall_po {
         
         return $rs if ($rs != 0);
        
-	if ($main::cfg{'AUTHLIB_CONF_DIR'} == "") {
+	if ($main::cfg{'AUTHLIB_CONF_DIR'} eq '') {
  
         $cmd = "$main::cfg{'CMD_CP'} -p $bk_dir/authdaemonrc.system $main::cfg{'COURIER_CONF_DIR'}/authdaemonrc";
         

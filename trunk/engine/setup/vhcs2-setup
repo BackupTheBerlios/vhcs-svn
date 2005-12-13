@@ -1577,7 +1577,7 @@ sub setup_po {
         
         return $rs if ($rs != 0);
     
-	if ($main::cfg{'AUTHLIB_CONF_DIR'} == "") {
+	if ($main::cfg{'AUTHLIB_CONF_DIR'} eq '') {
     
         	$cmd = "$main::cfg{'CMD_CP'} -p $main::cfg{'COURIER_CONF_DIR'}/authdaemonrc $bk_dir/authdaemonrc.system";
         
@@ -1607,7 +1607,7 @@ sub setup_po {
 
 	}
 	
-	if ($main::cfg{'AUTHLIB_CONF_DIR'} == "") {
+	if ($main::cfg{'AUTHLIB_CONF_DIR'} eq '') {
 
 	        if (-e "$main::cfg{'COURIER_CONF_DIR'}/userdb") {
         	    
@@ -1671,7 +1671,7 @@ sub setup_po {
         
     return $rs if ($rs != 0);
 
-    if ($main::cfg{'AUTHLIB_CONF_DIR'} == "") {
+    if ($main::cfg{'AUTHLIB_CONF_DIR'} eq '') {
     
 	    $rs = setfmode("$main::cfg{'COURIER_CONF_DIR'}/userdb", 'root', 'root', 0600);
 	
@@ -1695,7 +1695,7 @@ sub setup_po {
         
     return $rs if ($rs != 0);
     
-    if ($main::cfg{'AUTHLIB_CONF_DIR'} == "") {
+    if ($main::cfg{'AUTHLIB_CONF_DIR'} eq '') {
 
 	    $cmd = "$main::cfg{'CMD_CP'} -p $bk_dir/authdaemonrc.vhcs2 $main::cfg{'COURIER_CONF_DIR'}/authdaemonrc";
         
