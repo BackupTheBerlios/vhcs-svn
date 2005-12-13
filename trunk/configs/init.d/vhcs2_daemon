@@ -16,6 +16,12 @@ DAEMON=/var/www/vhcs2/daemon/vhcs2_daemon
 NAME=vhcs2_daemon
 DESC=vhcs2_daemon
 
+PIDFILE=`grep -i 'pidfile' /etc/vhcs2/vhcs2.conf | sed -e 's/pidfile[\t ]\+//i'`
+if [ "x$PIDFILE" = "x" ];
+then
+        PIDFILE=/var/run/vhcs2daemon.pid
+fi
+
 test -f $DAEMON || exit 0
 
 set -e
@@ -23,19 +29,21 @@ set -e
 case "$1" in
   start)
 	echo -n "Starting $DESC: "
-	start-stop-daemon --start --verbose --exec $DAEMON
-        /etc/init.d/vhcs2_network
+	start-stop-daemon --start --verbose  --exec $DAEMON -- -p $PIDFILE
+	 /etc/init.d/vhcs2_network
 	echo "$NAME."
 	;;
   stop)
 	echo -n "Stopping $DESC: "
-	start-stop-daemon --stop --verbose --exec $DAEMON
+	start-stop-daemon --stop --verbose --pidfile $PIDFILE --exec $DAEMON
+        rm $PIDFILE
 	echo "$NAME."
 	;;
   restart|force-reload)
 	echo "Restarting $DESC: "                                      
-	start-stop-daemon --stop --verbose --exec $DAEMON
-	start-stop-daemon --start --verbose --exec $DAEMON
+	start-stop-daemon --stop --verbose --pidfile $PIDFILE --exec $DAEMON
+	rm $PIDFILE
+	start-stop-daemon --start --verbose --exec $DAEMON -- -p $PIDFILE
 	/etc/init.d/vhcs2_network
 	echo "$NAME."
 	;;
