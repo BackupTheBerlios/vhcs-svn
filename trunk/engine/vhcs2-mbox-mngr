@@ -2349,7 +2349,11 @@ sub mbox_add_po_data {
     
     
     my $conf_dir = $main::cfg{'CONF_DIR'};
-    
+
+    my $authlib_dir = $main::cfg{'AUTHLIB_CONF_DIR'};    
+
+    my $courier_dir = $main::cfg{'COURIER_CONF_DIR'};
+
     my $cmd_makeuserdb = $main::cfg{'CMD_MAKEUSERDB'};
     
     
@@ -2361,7 +2365,15 @@ sub mbox_add_po_data {
     
     my ($sys, $working) = (undef, undef);
     
-    my $userdb_cfg = "/etc/courier/userdb";
+    if ($authlib_dir == "") {
+
+    my $userdb_cfg = "$courier_dir/userdb";
+
+    } else {
+
+    my $userdb_cfg = "$authlib_dir/userdb";
+
+    }
 
     my $userdb_working_cfg = "$working_dir/userdb";
 
@@ -2498,6 +2510,10 @@ sub mbox_del_po_data {
     
     
     my $conf_dir = $main::cfg{'CONF_DIR'};
+
+    my $authlib_dir = $main::cfg{'AUTHLIB_CONF_DIR'};
+
+    my $courier_dir = $main::cfg{'COURIER_CONF_DIR'};
     
     my $cmd_makeuserdb = $main::cfg{'CMD_MAKEUSERDB'};
     
@@ -2509,8 +2525,16 @@ sub mbox_del_po_data {
     my $timestamp = time;
     
     my ($sys, $working) = (undef, undef);
-    
-    my $userdb_cfg = "/etc/courier/userdb";
+   
+    if ($authlib_dir == "") {
+ 
+    my $userdb_cfg = "$courier_dir/userdb";
+
+    } else {
+
+    my $userdb_cfg = "$authlib_dir/userdb";
+
+    }
 
     my $userdb_working_cfg = "$working_dir/userdb";
 
