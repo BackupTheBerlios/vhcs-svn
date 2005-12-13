@@ -543,15 +543,15 @@ sub uninstall_po {
         
         return $rs if ($rs != 0);
        
-	if ($main::cfg{'AUTHLIB_CONF_DIR'} eq '') {
+	if (exists $main::cfg{'AUTHLIB_CONF_DIR'} && $main::cfg{'AUTHLIB_CONF_DIR'}) {
  
-        $cmd = "$main::cfg{'CMD_CP'} -p $bk_dir/authdaemonrc.system $main::cfg{'COURIER_CONF_DIR'}/authdaemonrc";
+        $cmd = "$main::cfg{'CMD_CP'} -p $bk_dir/authdaemonrc.system $main::cfg{'AUTHLIB_CONF_DIR'}/authdaemonrc";
         
         $rs = sys_command($cmd);
         
         return $rs if ($rs != 0);
         
-        $cmd = "$main::cfg{'CMD_CP'} -p $bk_dir/authmodulelist.system $main::cfg{'COURIER_CONF_DIR'}/authmodulelist";
+        $cmd = "$main::cfg{'CMD_CP'} -p $bk_dir/authmodulelist.system $main::cfg{'AUTHLIB_CONF_DIR'}/authmodulelist";
         
         $rs = sys_command($cmd);
         
@@ -559,7 +559,7 @@ sub uninstall_po {
         
 	if (-e "$bk_dir/userdb.system") {
 	
-    	    $cmd = "$main::cfg{'CMD_CP'} -p $bk_dir/userdb.system $main::cfg{'COURIER_CONF_DIR'}/userdb";
+    	    $cmd = "$main::cfg{'CMD_CP'} -p $bk_dir/userdb.system $main::cfg{'AUTHLIB_CONF_DIR'}/userdb";
         
     	    $rs = sys_command($cmd);
 	    
@@ -567,13 +567,13 @@ sub uninstall_po {
         
 	} else {
 
-	$cmd = "$main::cfg{'CMD_CP'} -p $bk_dir/authdaemonrc.system $main::cfg{'AUTHLIB_CONF_DIR'}/authdaemonrc";
+	$cmd = "$main::cfg{'CMD_CP'} -p $bk_dir/authdaemonrc.system $main::cfg{'COURIER_CONF_DIR'}/authdaemonrc";
 
         $rs = sys_command($cmd);
 
         return $rs if ($rs != 0);
 
-        $cmd = "$main::cfg{'CMD_CP'} -p $bk_dir/authmodulelist.system $main::cfg{'AUTHLIB_CONF_DIR'}/authmodulelist";
+        $cmd = "$main::cfg{'CMD_CP'} -p $bk_dir/authmodulelist.system $main::cfg{'COURIER_CONF_DIR'}/authmodulelist";
 
         $rs = sys_command($cmd);
 
@@ -581,7 +581,7 @@ sub uninstall_po {
 
         if (-e "$bk_dir/userdb.system") {
 
-            $cmd = "$main::cfg{'CMD_CP'} -p $bk_dir/userdb.system $main::cfg{'AUTHLIB_CONF_DIR'}/userdb";
+            $cmd = "$main::cfg{'CMD_CP'} -p $bk_dir/userdb.system $main::cfg{'COURIER_CONF_DIR'}/userdb";
 
             $rs = sys_command($cmd);
 

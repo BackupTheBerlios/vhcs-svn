@@ -2350,7 +2350,10 @@ sub mbox_add_po_data {
     
     my $conf_dir = $main::cfg{'CONF_DIR'};
 
-    my $authlib_dir = $main::cfg{'AUTHLIB_CONF_DIR'};    
+    if (exists $main::cfg{'AUTHLIB_CONF_DIR'} && $main::cfg{'AUTHLIB_CONF_DIR'}) {
+
+	    my $authlib_dir = $main::cfg{'AUTHLIB_CONF_DIR'};    
+    }
 
     my $courier_dir = $main::cfg{'COURIER_CONF_DIR'};
 
@@ -2365,13 +2368,13 @@ sub mbox_add_po_data {
     
     my ($sys, $working) = (undef, undef);
     
-    if ($authlib_dir eq '') {
+    if (exists $authlib_dir) {
 
-    my $userdb_cfg = "$courier_dir/userdb";
+    my $userdb_cfg = "$authlib_dir/userdb";
 
     } else {
 
-    my $userdb_cfg = "$authlib_dir/userdb";
+    my $userdb_cfg = "$courier_dir/userdb";
 
     }
 
@@ -2511,7 +2514,11 @@ sub mbox_del_po_data {
     
     my $conf_dir = $main::cfg{'CONF_DIR'};
 
-    my $authlib_dir = $main::cfg{'AUTHLIB_CONF_DIR'};
+    if (exists $main::cfg{'AUTHLIB_CONF_DIR'} && $main::cfg{'AUTHLIB_CONF_DIR'}) {
+
+    	my $authlib_dir = $main::cfg{'AUTHLIB_CONF_DIR'};
+
+    }
 
     my $courier_dir = $main::cfg{'COURIER_CONF_DIR'};
     
@@ -2526,13 +2533,13 @@ sub mbox_del_po_data {
     
     my ($sys, $working) = (undef, undef);
    
-    if ($authlib_dir eq '') {
+    if (exists $authlib_dir) {
  
-    my $userdb_cfg = "$courier_dir/userdb";
+    my $userdb_cfg = "$authlib_dir/userdb";
 
     } else {
 
-    my $userdb_cfg = "$authlib_dir/userdb";
+    my $userdb_cfg = "$courier_dir/userdb";
 
     }
 

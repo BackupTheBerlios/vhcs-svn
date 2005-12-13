@@ -1577,27 +1577,13 @@ sub setup_po {
         
         return $rs if ($rs != 0);
     
-	if ($main::cfg{'AUTHLIB_CONF_DIR'} eq '') {
+	if (exists $main::cfg{'AUTHLIB_CONF_DIR'} && $main::cfg{'AUTHLIB_CONF_DIR'}) {
     
-        	$cmd = "$main::cfg{'CMD_CP'} -p $main::cfg{'COURIER_CONF_DIR'}/authdaemonrc $bk_dir/authdaemonrc.system";
+        	$cmd = "$main::cfg{'CMD_CP'} -p $main::cfg{'AUTHLIB_CONF_DIR'}/authdaemonrc $bk_dir/authdaemonrc.system";
         
         	$rs = sys_command($cmd);
         
         	return $rs if ($rs != 0);
-
-		$cmd = "$main::cfg{'CMD_CP'} -p $main::cfg{'COURIER_CONF_DIR'}/authmodulelist $bk_dir/authmodulelist.system";
-
-	        $rs = sys_command($cmd);
-
-        	return $rs if ($rs != 0);
-
-	} else {
-
-		$cmd = "$main::cfg{'CMD_CP'} -p $main::cfg{'AUTHLIB_CONF_DIR'}/authdaemonrc $bk_dir/authdaemonrc.system";
-
-		$rs = sys_command($cmd);
-	
-		return $rs if ($rs != 0);
 
 		$cmd = "$main::cfg{'CMD_CP'} -p $main::cfg{'AUTHLIB_CONF_DIR'}/authmodulelist $bk_dir/authmodulelist.system";
 
@@ -1605,13 +1591,27 @@ sub setup_po {
 
         	return $rs if ($rs != 0);
 
+	} else {
+
+		$cmd = "$main::cfg{'CMD_CP'} -p $main::cfg{'COURIER_CONF_DIR'}/authdaemonrc $bk_dir/authdaemonrc.system";
+
+		$rs = sys_command($cmd);
+	
+		return $rs if ($rs != 0);
+
+		$cmd = "$main::cfg{'CMD_CP'} -p $main::cfg{'COURIER_CONF_DIR'}/authmodulelist $bk_dir/authmodulelist.system";
+
+	        $rs = sys_command($cmd);
+
+        	return $rs if ($rs != 0);
+
 	}
 	
-	if ($main::cfg{'AUTHLIB_CONF_DIR'} eq '') {
+	if (exists $main::cfg{'AUTHLIB_CONF_DIR'} && $main::cfg{'AUTHLIB_CONF_DIR'}) {
 
-	        if (-e "$main::cfg{'COURIER_CONF_DIR'}/userdb") {
+	        if (-e "$main::cfg{'AUTHLIB_CONF_DIR'}/userdb") {
         	    
-	            $cmd = "$main::cfg{'CMD_CP'} -p $main::cfg{'COURIER_CONF_DIR'}/userdb $bk_dir/userdb.system";
+	            $cmd = "$main::cfg{'CMD_CP'} -p $main::cfg{'AUTHLIB_CONF_DIR'}/userdb $bk_dir/userdb.system";
         
         	    $rs = sys_command($cmd);
         
@@ -1621,9 +1621,9 @@ sub setup_po {
 
         } else {
 
-		if (-e "$main::cfg{'AUTHLIB_CONF_DIR'}/userdb") {
+		if (-e "$main::cfg{'COURIER_CONF_DIR'}/userdb") {
 
-			$cmd = "$main::cfg{'CMD_CP'} -p $main::cfg{'AUTHLIB_CONF_DIR'}/userdb $bk_dir/userdb.system";
+			$cmd = "$main::cfg{'CMD_CP'} -p $main::cfg{'COURIER_CONF_DIR'}/userdb $bk_dir/userdb.system";
 			
 			$rs = sys_command($cmd);
 	
@@ -1671,13 +1671,13 @@ sub setup_po {
         
     return $rs if ($rs != 0);
 
-    if ($main::cfg{'AUTHLIB_CONF_DIR'} eq '') {
+    if (exists $main::cfg{'AUTHLIB_CONF_DIR'} && $main::cfg{'AUTHLIB_CONF_DIR'}) {
     
-	    $rs = setfmode("$main::cfg{'COURIER_CONF_DIR'}/userdb", 'root', 'root', 0600);
+	    $rs = setfmode("$main::cfg{'AUTHLIB_CONF_DIR'}/userdb", 'root', 'root', 0600);
 	
     } else {
 	
-	    $rs = setfmode("$main::cfg{'AUTHLIB_CONF_DIR'}/userdb", 'root', 'root', 0600);
+	    $rs = setfmode("$main::cfg{'COURIER_CONF_DIR'}/userdb", 'root', 'root', 0600);
 
     }
         
@@ -1695,15 +1695,15 @@ sub setup_po {
         
     return $rs if ($rs != 0);
     
-    if ($main::cfg{'AUTHLIB_CONF_DIR'} eq '') {
+    if (exists $main::cfg{'AUTHLIB_CONF_DIR'} && $main::cfg{'AUTHLIB_CONF_DIR'}) {
 
-	    $cmd = "$main::cfg{'CMD_CP'} -p $bk_dir/authdaemonrc.vhcs2 $main::cfg{'COURIER_CONF_DIR'}/authdaemonrc";
+	    $cmd = "$main::cfg{'CMD_CP'} -p $bk_dir/authdaemonrc.vhcs2 $main::cfg{'AUTHLIB_CONF_DIR'}/authdaemonrc";
         
 	    $rs = sys_command($cmd);
         
 	    return $rs if ($rs != 0);
     
-	    $cmd = "$main::cfg{'CMD_CP'} -p $bk_dir/authmodulelist.vhcs2 $main::cfg{'COURIER_CONF_DIR'}/authmodulelist";
+	    $cmd = "$main::cfg{'CMD_CP'} -p $bk_dir/authmodulelist.vhcs2 $main::cfg{'AUTHLIB_CONF_DIR'}/authmodulelist";
         
 	    $rs = sys_command($cmd);
         
@@ -1711,13 +1711,13 @@ sub setup_po {
 	
    } else {
 
-	    $cmd = "$main::cfg{'CMD_CP'} -p $bk_dir/authdaemonrc.vhcs2 $main::cfg{'AUTHLIB_CONF_DIR'}/authdaemonrc";
+	    $cmd = "$main::cfg{'CMD_CP'} -p $bk_dir/authdaemonrc.vhcs2 $main::cfg{'COURIER_CONF_DIR'}/authdaemonrc";
 
             $rs = sys_command($cmd);
 
             return $rs if ($rs != 0);
 
-            $cmd = "$main::cfg{'CMD_CP'} -p $bk_dir/authmodulelist.vhcs2 $main::cfg{'AUTHLIB_CONF_DIR'}/authmodulelist";
+            $cmd = "$main::cfg{'CMD_CP'} -p $bk_dir/authmodulelist.vhcs2 $main::cfg{'COURIER_CONF_DIR'}/authmodulelist";
 
             $rs = sys_command($cmd);
 
