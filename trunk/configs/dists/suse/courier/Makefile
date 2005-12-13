@@ -1,6 +1,6 @@
 
 ROOT_COURIER_CONF=$(ROOT_CONF)/courier
-ROOT_AUTHLIB_CONf=$(ROOT_CONF)/authlib
+ROOT_AUTHLIB_CONF=$(ROOT_CONF)/authlib
 export
 
 install:
