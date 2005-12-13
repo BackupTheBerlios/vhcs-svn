@@ -146,7 +146,7 @@ sub ask_eth {
     
     push_el(\@main::el, 'ask_eth()', 'Starting...');
 
-    my $cmd = "/sbin/ifconfig eth0|awk \'BEGIN{FS=\":\";}{print \$2}\'|awk \'{if(NR==2)print \$1}\' 1>/tmp/vhcs2-setup.ip";
+    my $cmd = "/sbin/ifconfig |awk \'BEGIN{FS=\":\";}{print \$2}\'|awk \'{if(NR==2)print \$1}\' 1>/tmp/vhcs2-setup.ip";
 
     $rs = sys_command($cmd);
     
