@@ -5,6 +5,7 @@ VHCS 2.4.7 Changelog
         - INSTALLATION/ENGINE:
                 * Added: AUTHLIB_CONF_DIR to vhcs2.conf (location for userdb,authdaemonrc,authmodulelist on systems != debian)
                 * Added: use AUTHLIB_CONF_DIR in vhcs2-setup, vhcs2-uninstall & vhcs2-mbox-mngr if it's set in vhcs2.conf
+		* Changed: IP detection in vhcs2-setup if interface is not eth0
 
 2005-12-13 Erik Lehmann
 
