@@ -3,7 +3,7 @@ HOWTO Update VHCS 2.4.6.2 to VHCS 2.4.7 (English)
 ###############
 #	Missing:
 #		* init.d scripte for network/daemon updaten
-#
+#		* daemon neu compilieren
 ###############
 
 -------------------
@@ -86,6 +86,14 @@ CMD_AMAVIS = no
 
 CMD_FTPD = /etc/init.d/proftpd
 
+
+Search for COURIER_CONF_DIR and add the line. The result should looks like this:
+
+COURIER_CONF_DIR = /etc/courier
+
+AUTHLIB_CONF_DIR = /etc/courier
+
+CMD_MAKEUSERDB = /usr/sbin/makeuserdb
 
 
 2) Set your default settings for traffic counting:

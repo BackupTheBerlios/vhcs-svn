@@ -6,6 +6,8 @@
 #		Written by Miquel van Smoorenburg <miquels@cistron.nl>.
 #		Modified for Debian GNU/Linux
 #		by Ian Murdock <imurdock@gnu.ai.mit.edu>.
+#		Modified for Debian 
+#		by Erik Lehmann <erik.lehmann@vhcs.net>
 #
 # Version:	@(#)skeleton  1.8  03-Mar-1998  miquels@cistron.nl
 #
@@ -13,14 +15,10 @@
 
 PATH=/sbin:/bin:/usr/sbin:/usr/bin
 DAEMON=/var/www/vhcs2/daemon/vhcs2_daemon
+PID=/var/run/vhcs2-daemon.pid
 NAME=vhcs2_daemon
 DESC=vhcs2_daemon
 
-PIDFILE=`grep -i 'pidfile' /etc/vhcs2/vhcs2.conf | sed -e 's/pidfile[\t ]\+//i'`
-if [ "x$PIDFILE" = "x" ];
-then
-        PIDFILE=/var/run/vhcs2daemon.pid
-fi
 
 test -f $DAEMON || exit 0
 
@@ -29,21 +27,21 @@ set -e
 case "$1" in
   start)
 	echo -n "Starting $DESC: "
-	start-stop-daemon --start --verbose  --exec $DAEMON -- -p $PIDFILE
+	start-stop-daemon --start --verbose --exec $DAEMON -- -p $PID
 	 /etc/init.d/vhcs2_network
 	echo "$NAME."
 	;;
   stop)
 	echo -n "Stopping $DESC: "
-	start-stop-daemon --stop --verbose --pidfile $PIDFILE --exec $DAEMON
+	start-stop-daemon --stop --verbose --pidfile $PID --exec $DAEMON
         rm $PIDFILE
 	echo "$NAME."
 	;;
   restart|force-reload)
 	echo "Restarting $DESC: "                                      
-	start-stop-daemon --stop --verbose --pidfile $PIDFILE --exec $DAEMON
+	start-stop-daemon --stop --verbose --pidfile $PID --exec $DAEMON
 	rm $PIDFILE
-	start-stop-daemon --start --verbose --exec $DAEMON -- -p $PIDFILE
+	start-stop-daemon --start --verbose --exec $DAEMON -- -p $PID
 	/etc/init.d/vhcs2_network
 	echo "$NAME."
 	;;
