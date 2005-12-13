@@ -25,7 +25,7 @@ mydomain = {MTA_LOCAL_DOMAIN}
 myorigin = $mydomain
 
 smtpd_banner = $myhostname VHCS2 {MTA_VERSION} Managed ESMTP {MTA_HOST_TYPE}
-setgid_group = postdrop
+setgid_group = maildrop
 
 #
 # Receiving messages parameters;
