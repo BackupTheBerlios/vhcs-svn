@@ -7,6 +7,7 @@ VHCS 2.4.7 Changelog
 		* Changed: changed hardcoded '/var/www/vhcs2/' to vhcs2.conf based solution
 		* Deleted: deleted some empty files in gui/admin (only part of vhcs2.4.7-alpha and vhcs2.4.7-beta)
 	- ENGINE:
+		* Fixed bug: fix problem in vhcs2-setup during detecting ip
 		* Changed: changed hardcoded '/var/www/vhcs2/' to vhcs2.conf based solution
 		* Changed: set-engine-permissions.sh now use to variables from vhcs2.conf (no longer hardcoded path/owners)
 		* Changed: set-gui-permissions.sh now use to variables from vhcs2.conf (no longer hardcoded path/owners)
