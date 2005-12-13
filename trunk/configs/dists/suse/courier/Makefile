@@ -6,15 +6,16 @@ export
 install:
 
 	$(SYSTEM_MAKE_DIRS) $(SYSTEM_CONF)/courier
+	$(SYSTEM_MAKE_DIRS) $(SYSTEM_CONF)/authlib
 	$(SYSTEM_MAKE_DIRS) $(ROOT_COURIER_CONF)
 #
 #	MTA Configuration Files;
 #
-	cp ./authdaemonrc $(SYSTEM_CONF)/courier
-	cp ./authmodulelist $(SYSTEM_CONF)/courier
+	cp ./authdaemonrc $(SYSTEM_CONF)/authlib
+	cp ./authmodulelist $(SYSTEM_CONF)/authlib
 	cp ./imapd $(SYSTEM_CONF)/courier
 	cp ./pop3d $(SYSTEM_CONF)/courier
-	cp ./userdb $(SYSTEM_CONF)/courier
+	cp ./userdb $(SYSTEM_CONF)/authlib
 	
 #	cp -p -R ./courier-cfg-setup.sh $(SYSTEM_CONF)/courier
 #
