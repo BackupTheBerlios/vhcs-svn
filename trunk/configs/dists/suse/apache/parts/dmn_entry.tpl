@@ -42,7 +42,7 @@
         # httpd dmn entry PHP support BEGIN.
         # httpd dmn entry PHP support END.
         Options Indexes Includes FollowSymLinks MultiViews
-        AllowOverride AuthConfig
+        AllowOverride All
         Order allow,deny
         Allow from all
     </Directory>

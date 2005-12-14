@@ -64,7 +64,7 @@ MAXPERIP=4
 #  File where couriertcpd will save its process ID
 #
 
-PIDFILE=/var/run/courier/imapd.pid
+PIDFILE=/var/run/imapd.pid
 
 ##NAME: TCPDOPTS:0
 #

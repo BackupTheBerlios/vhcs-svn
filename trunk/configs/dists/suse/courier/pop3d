@@ -13,7 +13,7 @@
 ##NAME: PIDFILE:0
 #
 
-PIDFILE=/var/run/courier/pop3d.pid
+PIDFILE=/var/run/pop3d.pid
 
 ##NAME: MAXDAEMONS:0
 #
