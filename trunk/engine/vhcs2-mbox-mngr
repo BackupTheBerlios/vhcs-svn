@@ -2371,19 +2371,11 @@ sub mbox_add_po_data {
     
     if (exists $authlib_dir) {
 
-<<<<<<< .mine
     $userdb_cfg = "$courier_dir/userdb";
-=======
-    my $userdb_cfg = "$authlib_dir/userdb";
->>>>>>> .r233
 
     } else {
 
-<<<<<<< .mine
     $userdb_cfg = "$authlib_dir/userdb";
-=======
-    my $userdb_cfg = "$courier_dir/userdb";
->>>>>>> .r233
 
     }
 
@@ -2544,19 +2536,11 @@ sub mbox_del_po_data {
    
     if (exists $authlib_dir) {
  
-<<<<<<< .mine
     $userdb_cfg = "$courier_dir/userdb";
-=======
-    my $userdb_cfg = "$authlib_dir/userdb";
->>>>>>> .r233
 
     } else {
 
-<<<<<<< .mine
     $userdb_cfg = "$authlib_dir/userdb";
-=======
-    my $userdb_cfg = "$courier_dir/userdb";
->>>>>>> .r233
 
     }
 
