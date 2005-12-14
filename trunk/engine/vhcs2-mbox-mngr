@@ -28,7 +28,8 @@
 #    http://www.vhcs.net
 
 
-
+use FindBin;
+use lib "$FindBin::Bin/";
 require 'vhcs2_common_code.pl';
 
 use strict;
@@ -2366,15 +2367,23 @@ sub mbox_add_po_data {
     
     my $timestamp = time;
     
-    my ($sys, $working) = (undef, undef);
+    my ($sys, $working, $userdb_cfg) = (undef, undef, undef);
     
     if (exists $authlib_dir) {
 
+<<<<<<< .mine
+    $userdb_cfg = "$courier_dir/userdb";
+=======
     my $userdb_cfg = "$authlib_dir/userdb";
+>>>>>>> .r233
 
     } else {
 
+<<<<<<< .mine
+    $userdb_cfg = "$authlib_dir/userdb";
+=======
     my $userdb_cfg = "$courier_dir/userdb";
+>>>>>>> .r233
 
     }
 
@@ -2531,15 +2540,23 @@ sub mbox_del_po_data {
     
     my $timestamp = time;
     
-    my ($sys, $working) = (undef, undef);
+    my ($sys, $working, $userdb_cfg) = (undef, undef, undef);
    
     if (exists $authlib_dir) {
  
+<<<<<<< .mine
+    $userdb_cfg = "$courier_dir/userdb";
+=======
     my $userdb_cfg = "$authlib_dir/userdb";
+>>>>>>> .r233
 
     } else {
 
+<<<<<<< .mine
+    $userdb_cfg = "$authlib_dir/userdb";
+=======
     my $userdb_cfg = "$courier_dir/userdb";
+>>>>>>> .r233
 
     }
 
