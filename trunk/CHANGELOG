@@ -13,6 +13,7 @@ VHCS 2.4.7 Changelog
 	- DAEMON:
 		* Added: parameter -p to create a pidfile at given path
 		* Changed: changed the init.d/vhcs_daemon to work with pidfile
+		* Changed: changed hardcoded path /var/www/vhcs2/engine/vhcs2-rqst-mngr in daemon
 
 2005-12-12 Erik Lehmann
 
