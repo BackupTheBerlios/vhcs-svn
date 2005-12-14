@@ -56,7 +56,7 @@ typedef struct {
 
 } license_data_type;
 
-#define QUERY_CMD "/var/www/vhcs2/engine/vhcs2-rqst-mngr"
+/*#define QUERY_CMD "/var/www/vhcs2/engine/vhcs2-rqst-mngr"*/
 
 #define LOG_DIR "/var/log/vhcs2"
 

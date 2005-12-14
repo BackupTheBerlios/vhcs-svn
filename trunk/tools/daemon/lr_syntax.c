@@ -1,5 +1,9 @@
 
 #include "lr_syntax.h"
+#include <sys/procfs.h>
+#include <sys/param.h>
+
+int readlink(char *pathname, char *buf, int bufsize);
 
 int lr_syntax(int fd, license_data_type *ld, char *buff)
 {
@@ -31,6 +35,10 @@ int lr_syntax(int fd, license_data_type *ld, char *buff)
 
 		if (ptr1 == buff) {
 
+			char fname1[MAXPATHLEN];
+			char fname2[MAXPATHLEN];
+			char daemon_path[MAXPATHLEN];
+
 			/*
 			 execute query:
 			 chek do we have license status
@@ -51,21 +59,28 @@ int lr_syntax(int fd, license_data_type *ld, char *buff)
 				/*
 				 make command with timestamps
 				 */
-				memset((void *) &qcommand, '\0', (size_t) sizeof(MAX_MSG_SIZE));
-				sprintf(qcommand,
-						"%s 1>%s/%s.%ld 2>%s/%s.%ld",
-						QUERY_CMD,
-						LOG_DIR,
-						STDOUT_LOG,
-						(long int) tim,
-						LOG_DIR,
-						STDERR_LOG,
-						(long int) tim);
-				system(qcommand);
-				exit(0);
 
+				sprintf (fname1, "/proc/%ld/exe", (long int) getpid());
+				memset (fname2, 0, sizeof (fname2));
+				if (readlink (fname1, fname2, sizeof (fname2)) > 0) {
+					strncpy(daemon_path, fname2, strlen(fname2)-strlen("daemon/vhcs2_daemon"));
+					strcat(daemon_path, "engine/vhcs2-rqst-mngr");
+					memset((void *) &qcommand, '\0', (size_t) sizeof(MAX_MSG_SIZE));
+					sprintf(qcommand,
+							"%s 1>%s/%s.%ld 2>%s/%s.%ld",
+							daemon_path,
+							LOG_DIR,
+							STDOUT_LOG,
+							(long int) tim,
+							LOG_DIR,
+							STDERR_LOG,
+							(long int) tim);
+					system(qcommand);
+					exit(0);
+				}
+				
 			}
-
+			
 			strcat(lr_ans, message(MSG_CMD_OK));
 			strcat(lr_ans, " query scheduled for execution.\r\n");
 
