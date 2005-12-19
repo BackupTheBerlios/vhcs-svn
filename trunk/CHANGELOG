@@ -1,5 +1,10 @@
 VHCS 2.4.7 Changelog
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
+2005-12-19 Carsten Schoene
+
+	- INSTALLATION:
+		* Fixed: gen-keys now uses urandom instead of random (hopefully fix hang while generating new keys)
+
 2005-12-14 Carsten Schoene
 
 	- INSTALLATIOLN:

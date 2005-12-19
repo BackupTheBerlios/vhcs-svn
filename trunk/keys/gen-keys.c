@@ -84,7 +84,7 @@ int rand_seq(unsigned char *dest, int len) {
 
     FILE *fp;
 
-    fp = fopen("/dev/random", "rb");
+    fp = fopen("/dev/urandom", "rb");
 
     if (fp == NULL)
 
