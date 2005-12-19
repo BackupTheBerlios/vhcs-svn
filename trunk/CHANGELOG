@@ -7,7 +7,7 @@ VHCS 2.4.7 Changelog
 
 2005-12-14 Carsten Schoene
 
-	- INSTALLATIOLN:
+	- INSTALLATION:
 		* Changed: SuSE apache configuration
 		* Changed: domain templates (AllowOverride changed from AuthConfig to All)
 		* Changed: PID path in pop3d & imapd configuration for SuSE systems
