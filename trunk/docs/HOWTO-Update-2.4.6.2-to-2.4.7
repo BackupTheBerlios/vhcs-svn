@@ -122,6 +122,19 @@ CMD_AMAVIS = /etc/init.d/amavis
 
 tangra: # chmod 0644 /etc/vhcs2/vhcs2.conf
 
+-------------------
+Daemon & init.d Update
+-------------------
+
+1) Copy the new init.d file
+
+tangra: # cp -a /mydir/configs/init.d/vhcs2_daemon
+
+2) Make the new daemon:
+
+tangra: # cd /mydir/tools/daemon
+tangra: # make
+tangra: # cp ./vhcs2_daemon /var/www/vhcs2/daemon/vhcs2_daemon
 
 -------------------
 Engine Update
@@ -131,11 +144,9 @@ Engine Update
 
 tangra: # cp -a /mydir/engine/ /var/www/vhcs2/
 
-2) Copy your crypt key from the old /engine_bcp_yyyymmdd/vhcs2-db-keys.pl to /engine/vhcs2-db-keys.pl and
-	from the old /gui_bcp_yyyymmdd/include/vhcs2-db-keys.php to /gui/include/vhcs2-db-keys.php.
+2) Copy your crypt key from the old /engine_bcp_yyyymmdd/vhcs2-db-keys.pl to /engine/vhcs2-db-keys.pl
 
 tangra: # cp /var/www/vhcs2/engine_bcp_yyyymmdd/vhcs2-db-keys.pl /var/www/vhcs2/engine/vhcs2-db-keys.pl
-tangra: # cp /var/www/vhcs2/gui_bcp_yyyymmdd/include/vhcs2-db-keys.php /var/www/vhcs2/gui/include/vhcs2-db-keys.php
 
 3) changes for vhcs2-arpl-msgr
 
@@ -247,7 +258,11 @@ GUI Update
 
 tangra: # cp -a /mydir/gui/ /var/www/vhcs2/
 
-2) Password reminder:
+2) Copy your crypt key from the old /gui_bcp_yyyymmdd/include/vhcs2-db-keys.php to /gui/include/vhcs2-db-keys.php
+
+tangra: # cp /var/www/vhcs2/gui_bcp_yyyymmdd/include/vhcs2-db-keys.php /var/www/vhcs2/gui/include/vhcs2-db-keys.php
+
+3) Password reminder:
 
 install GD library:
 tangra: # apt-get install php4-gd
@@ -255,7 +270,7 @@ tangra: # apt-get install php4-gd
 Apache neustarten:
 tangra: # apache2ctl graceful
 
-3) Hostingplan changes: 
+4) Hostingplan changes: 
 
 in the /var/www/vhcs2/gui/include/vhcs-lib.php
 
@@ -267,11 +282,11 @@ Search for $cfg['HOSTING_PLANS_LEVEL'] you have this options:
 !!!Attention: If you have already hostingplans in reseller area you should turn this option to
 	'reseller' !!!		
 
-4) Set correct gui permissions:
+5) Set correct gui permissions:
 
 tangra: # /var/www/vhcs2/engine/setup/set-gui-permissions.sh
 
-5) copy gui/errordocs/index.php in all client errordoc directories!
+6) copy gui/errordocs/index.php in all client errordoc directories!
 
 A fixed XSS (Cross-Site-Scripting) bug in that file !!
 
