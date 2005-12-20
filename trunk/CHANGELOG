@@ -1,9 +1,14 @@
 VHCS 2.4.7 Changelog
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+2005-12-20 Erik Lehmann
+
+	- ENGINE:
+		* Fixed bug #0000259: SOA record does not confirm RFC's in /etc/vhcs2/bind/parts/db_e.tpl
+
 2005-12-19 Erik Lehmann
 
-	- RELEASE
+	- RELEASE:
 		* vhcs2.4.7-RC1
 
 2005-12-19 Carsten Schoene
@@ -219,7 +224,7 @@ Perl engine fixes
 
 	(o) Postfix master.cf config file was synced with postfix 2.2.x mainstream;
 
-	(o) vhcs2_network script does not run -F INPUT/OUTPUT/FORWARD now. This makes a lots of troubles on servers with firewalls;
+	(o) Fixed bug #0000261: vhcs2_network script does not run -F INPUT/OUTPUT/FORWARD now. This makes a lots of troubles on servers with firewalls;
 
 	(o) DNS timestamp fix by 'Puuhis' (finally .db timestamps will look according to the specs);
 

@@ -1,5 +1,5 @@
 $TTL 86400
-@	IN	SOA	{DMN_NAME}. root.{DMN_NAME}. (
+@	IN	SOA	ns.{DMN_NAME}. root.{DMN_NAME}. (
 ; dmn [{DMN_NAME}] timestamp entry BEGIN.
 			 {TIMESTAMP}	
 ; dmn [{DMN_NAME}] timestamp entry END.
