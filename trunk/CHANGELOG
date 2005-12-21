@@ -1,6 +1,13 @@
 VHCS 2.4.7 Changelog
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+2005-12-21 Erik Lehmann
+
+	- ENGINE:
+		* Changed: disable debug mode
+	- LANGUAGES:
+		* Fixed bug #0000262: Finnish language file isn't newest one in RC1
+
 2005-12-20 Erik Lehmann
 
 	- ENGINE:
@@ -107,22 +114,22 @@ VHCS 2.4.7 Changelog
 	- GUI
 		* Fixed: CatchAll Hijacking
 
-2005-12-01  Erik Lehmann
+2005-12-01 Erik Lehmann
 
 	- ENGINE:
 		* Fixed bug #0000243: Name "main::cfg" used only once: possible typo at /var/www/vhcs2/engine/vhcs2-db-passwd line 145.
 
-2005-11-30  Erik Lehmann
+2005-11-30 Erik Lehmann
 
 	- GUI:
 		* Added: Catchall now works for forward acc, and for external mail accounts
 
-2005-11-28  Erik Lehmann
+2005-11-28 Erik Lehmann
 
 	- INSTALLATION:
 		* Fixed bug #0000241: change chown sytax for gui in vhcs2-setup
 
-2005-11-27  Erik Lehmann
+2005-11-27 Erik Lehmann
 
 	- ENGINE:
 		* Added: corrected wrong homedir setting per systemuser (only for new added user), thanks to Markus Petzsch
@@ -142,20 +149,20 @@ VHCS 2.4.7 Changelog
 		* Fixed: Error in manage_domains.tpl --> page_message area declared twice
 		* Fixed: Field "Forward to URL" in enable alias forwarding is now set to '' instead of 'no'
 
-2005-11-25  Erik Lehmann
+2005-11-25 Erik Lehmann
 
 	- GUI:
-		* Change: set $cfg['HOSTING_PLANS_LEVEL'] = 'reseller' in vhcs-lib.php as default 
-		* Change: status of autoresponder is no longer shown twice on page email_accounts.php
+		* Changed: set $cfg['HOSTING_PLANS_LEVEL'] = 'reseller' in vhcs-lib.php as default 
+		* Changed: status of autoresponder is no longer shown twice on page email_accounts.php
 	- ENGINE:
-		* Change: little fix for the updated autoresponder vhcs2-arpl-msgr
+		* Changed: little fix for the updated autoresponder vhcs2-arpl-msgr
 	- INSTALLATION:
 		* Added: set vhcs2_daemon runlevel for starting at system startup
 		* Added: enable apache vhcs2.conf in sites-enabled during setup
 		* Added: vhcs2-setup propose now your network address (ip) during setup
 		* Fixed: typo error in vhcs2-setup
 
-2005-11-24  Erik Lehmann
+2005-11-24 Erik Lehmann
 
 	- ENGINE:
 		* Added: mysql database sizes will be counted to diskspace quota
@@ -165,7 +172,7 @@ VHCS 2.4.7 Changelog
 		* Fixed bug #0000233: Lost password failure, missing /vhcs2/lostpw.php after installation
 		* Fixed bug #0000231: Error in keys/Makefile
 
-2005-11-23  Erik Lehmann
+2005-11-23 Erik Lehmann
 
 	- GUI:
 		* Added: allow mysql remote connect per default in database. Determining factor is now only the option in the my.cf to activate oder deactivate (thanks to Carsten Schšne) (only for new dbs or after password change)
@@ -174,12 +181,12 @@ VHCS 2.4.7 Changelog
 		* Fixed bug #0000230: error in hosting_plans table update in HOWTO Update
 		* Fixed bug #0000229: set-engine-permissions.sh and set-gui-permissions.sh would not copied during make
 
-2005-11-22  Frederic Freres
+2005-11-22 Frederic Freres
 
 	- DATABASE:
 		* Fixed bug #0000227: typo error in quotalimits table "vbytes_xfer_avail" changed to "bytes_xfer_avail"
 
-2005-11-22  Erik Lehmann
+2005-11-22 Erik Lehmann
 
 	- ENGINE:
 		* Fixed bug #0000200: No apache working config causes error output into database field (vhcs2-dmn-mngr)
@@ -198,11 +205,11 @@ VHCS 2.4.7 Changelog
 		* Fixed bug #0000223: unset permissions for some files in /usr/sbin during make install
 		* Fixed bug #0000222: typo error in engine/setup/vhcs-setup
 		
-2005-11-21  Erik Lehmann
+2005-11-21 Erik Lehmann
 
 	- DAEMON:
-		* Change: init.d daemon restart function
-		* Change: default iptables path to sarge default in /etc/init.d/vhcs_network	
+		* Changed: init.d daemon restart function
+		* Changed: default iptables path to sarge default in /etc/init.d/vhcs_network	
 	- GUI:
 		* Fixed bug #0000218: language strings hardcoded
 	- INSTALLATION:
@@ -211,56 +218,116 @@ VHCS 2.4.7 Changelog
 		* Fixed bug #0000215: some missing files in the make files
 		* Fixed bug #0000214: typo error in the database.sql
 
-2005-11-20  Erik Lehmann
+2005-11-20 Erik Lehmann
 
 	- RELEASE
 		* vhcs2.4.7-alpha1
 
+before vhcs2.4.7-alpha1 Frederic Freres
+
+	- GUI:
+		* Fixed: better character converting for suggested mountpoints, not showing "add subdomain" in the menu if now subdomains are available
+		* Fixed: Not showing aliasdomain and subdomain parts in manage_domains content area if this functions are not available for the client
+		* Fixed: better Cross Site Scripting prevention
+		* Added: a sql user can have more than one database
+		* Changed: Hosting Plan Management reviewed
+		* Fixed: Hosting Plan now has decimal numbers (SQL Structure Update)
+		* Fixed: Some template errors (layout + Javascript) are fixed
+		* Added: autoresponder text can now be edited
+		* Fixed: 2 security leaks in the autoresponder (SQL Injection)
+		* Changed: Domains and reseller are now sorted alphabetically
+		* Added: Email notification on support request
+		* Fixed bug #0000138: Cross-Site-Scripting Issues in VHCS-GUI
+		* Fixed bug #0000162: Add Alias is shown in enable alias forward even if alias are disabled by reseller
+		* Fixed bug #0000164: Cross Site Scripting in GUI
+		* Fixed bug #0000166: HTML Format error + typo error
+		* Fixed bug #0000195: Install doesn't start on debian
+		* Fixed bug #0000197: email password length check
+		* Fixed bug #0000201: Cannot create subdomains as domains
+		* Fixed bug #0000206: PHP Warning when /proc/swaps doesn't exist
+		* Fixed bug #0000207: no "Custom buttons" under /reseller/language.php
+		* Fixed bug #0000208: Order_settings.php -> spaces in texareas
+		* Fixed bug #0000209: Orderpanel site (with more than 1 reseller)
+		* Fixed bug #0000210: Protected pages return error
+
+before vhcs2.4.7-alpha1 Erik Lehmann
+
+	- ENGINE:
+		* Changed: pop(-ssl)/imap(-ssl)/smtp/ftp traffic for alias domains will be counted;
+		* Changed: pop(-ssl)/imap(-ssl)/smtp/ftp traffic for sub domains will be counted;
+		* Changed: not counting pop(-ssl)/imap(-ssl) traffic from localhost produced by webmail;
+		* Changed: different traffic analyse method if amavis is used or not. With the MAIL_LOG_INC_AMAVIS switches the method; 
+		* Added: spezial version for SUSE engine/traffic/vhcs2-vrl-traff-SUSE must renamed into vhcs2-vrl-traff;
+		* Fixed bug #0000191: fix bug in get_human_date() in vhcs2_common_code.pl
+		* Changed: function arpl_msgr_engine; autoresponder work with domain/subdomain/alias domain, don't send "_no_" any longer, improved mail header parser;
+		* Changed: fixed mail loop problem with responding on autoresponder messages;
+		* Fixed bug #0000161 in mbox_check_sasl_user() added CMD_SASLDB_LISTUSERS2 to vhcs2.conf;
+		* Fixed bug #0000101 (fix postfix waring "/var/spool/postfix/etc/sasldb2 and /etc/sasldb2 differ" changed: MTA_SASLDB_FILE and added: ETC_SASLDB_FILE in vhcs2.conf;
+		* Changed: now mail passwords would be encoded in md5 used by courier, so passwords with more then 8 characters could be used;
+		* Fixed: locking if user backup folder did not exist; fixed error message in the backup manager logfile in /var/log/vhcs ;
+		* Fixed: non copying the errorpages and default index page (was a fix for 2.4.7-dev);
+		* Fixed bug #0000086: Wrong permissions for Autoresponder
+		* Fixed bug #0000104: Autoresponder tool is broken
+		* Fixed bug #0000130: User can provoke LOCK on VHCS Backup Manager
+		* Fixed bug #0000203: Autoresponder dies on mailprocessing
+
+	- GUI: 
+		* Fixed: Every date in the GUI use now the DATE_FORMAT 
+		* Fixed: Every FTP Seperator comes now from FTP_USERNAME_SEPARATOR (this means only the new added FTP accounts, all other accounts must be changed manually by a SQL query.)
+		* Fixed: deleted some unused templates
+		* Updated: phpMyAdmin update to phpMyAdmin-2.6.4-pl4
+		* Updated: webmail update to uebimiau version 2.7.9
+		* Updated: filemanager update to weeble version 1.2.2-CVS
+		* Added: HTML-SSL, POP3-SSL, IMAP-SSL to server status overview in admin section
+		* Added: Password reminder, thanks to Mark Henning (tirex)
+			Features:
+			* mail templates for admin and reseller
+			* verification with activationlink and captcha-grafic
+			* created passwords are build out of numbers and letters
+		* Fixed bug #0000034: Error in vhcs2/gui/admin/sysinfo.php
+		* Fixed bug #0000037: webmail logout produces error message
+		* Fixed bug #0000192: Autoreply English spelling
+		* Fixed bug #0000199: Orderpanel - does not use the correct language
+
+	- LANGUAGES:
+		* Added: All language files are included into the build and in the database
+		* Added: Seperate language tables out of database.sql
+		* Completed translations:
+			* Finnish translation by Petri MŠkelŠ, thanks!
+			* Chinese translation by Xu hiei, thanks!
+			* German translation by Mauric Rene Oberlaender, thanks!
+			* Italian translation by Ugo Viti, thanks!
+			* Dutch translation by Casper Bakker, thanks!
+			* Russian translation by Lord Daedra, thanks!
+			* Brazilian Portuguese translation by Decio A.Alves, thanks!
+
+before vhcs2.4.7-alpha1 Ico Dimov
+
+	- ENGINE:
+		* Changed: Postfix master.cf config file was synced with postfix 2.2.x mainstream;
+		* Fixed bug #0000261: vhcs2_network script does not run -F INPUT/OUTPUT/FORWARD now. This makes a lots of troubles on servers with firewalls;
+		* Fixed: DNS timestamp fix by 'Puuhis' (finally .db timestamps will look according to the specs);
+		* Changed: Since we made all of the perl engine scripts read/write/execute only by 'root' vhcs2-arpl-msgr stopped to work becouse it uses vmail:mail user:group pair. Not it has its own db decoding subs and works fine with other root permissions;
+		* Fixed: htacces management fix - .htaccess files are now remove successfully upon delete;
+		* Fixed: backup during suspend fix - domains in suspend mode are now excluded from automatic backup;
+		* Fixed: vhcs2-vrl-traff fix - .perv files are removed if they are greater then PREV_TRAFF_LOG_MAX_SIZE bytes; Thus we reduce the chance for them to become big;
+
+before vhcs2.4.7-alpha1 Alexander Kotov
+
+	- GUI:
+		* Added: Optional Hosting Plan Managemnt in admin or reseller level
+				At a moment this can be definded in /gui/include/vhcs-lib.php
+				and should be defined in the variable $cfg['HOSTING_PLANS_LEVEL']
+		* Changed: several gui bug fixes
+		* Fixed bug #0000043: Wrong heading is shown in vhcs2/client/add_alias.php using template modern_blue
+		* Fixed bug #0000060: error in domain statistics overview
+		* Fixed bug #0000067: Adding Users with .htaccess Management
+		* Fixed bug #0000125: webmail themes/templates loads a lot of not existing files
+		* Fixed bug #0000142: Subdomains don't get error docs defined
+		* Fixed bug #0000189: Update hosting plan
+		* Fixed bug #0000190: new domain user login problems
 
 
-
-Perl engine fixes
-------------------------
-
-	(o) Postfix master.cf config file was synced with postfix 2.2.x mainstream;
-
-	(o) Fixed bug #0000261: vhcs2_network script does not run -F INPUT/OUTPUT/FORWARD now. This makes a lots of troubles on servers with firewalls;
-
-	(o) DNS timestamp fix by 'Puuhis' (finally .db timestamps will look according to the specs);
-
-	(o) Since we made all of the perl engine scripts read/write/execute only by 'root' vhcs2-arpl-msgr stopped to work becouse it uses vmail:mail user:group pair. Not it has its own db decoding subs and works fine with other root permissions;
-
-	(o) htacces management fix - .htaccess files are now remove successfully upon delete;
-
-	(o) backup during suspend fix - domains in suspend mode are now excluded from automatic backup;
-
-	(o) vhcs2-vrl-traff fix - .perv files are removed if they are greater then PREV_TRAFF_LOG_MAX_SIZE bytes; Thus we reduce the chance for them to become big;
-
-	(o) vhcs2-vrl-traff fix by 'Reisswolf' - pop(-ssl)/imap(-ssl)/smtp/ftp traffic for alias domains will be counted;
-
-	(o) vhcs2-vrl-traff fix by 'Reisswolf' - pop(-ssl)/imap(-ssl)/smtp/ftp traffic for sub domains will be counted;
-
-	(o) vhcs2-vrl-traff fix by 'Reisswolf' - not counting pop(-ssl)/imap(-ssl) traffic from localhost produced by webmail;
-
-	(o) vhcs2-vrl-traff fix by 'Reisswolf' - different traffic analyse method if amavis is used or not. With the MAIL_LOG_INC_AMAVIS switches the method; 
-
-	(o) vhcs2-vrl-traff fix by 'Reisswolf' - added spezial version for SUSE engine/traffic/vhcs2-vrl-traff-SUSE must renamed into vhcs2-vrl-traff;
-
-	(o) vhcs2_common_code.pl fix by 'Reisswolf' - fix bug #0000191 in get_human_date();
-
-	(o) vhcs2-arpl-msgr fix by 'Reisswolf' - function arpl_msgr_engine; autoresponder work with domain/subdomain/alias domain, don't send "_no_" any longer, improved mail header parser;
-
-	(o) vhcs2-arpl-msgr fix by 'Reisswolf' - fixed mail loop problem with responding on autoresponder messages;
-
-	(o) vhcs2-mbox-mngr fix by 'Reisswolf' - fix bug #0000161 in mbox_check_sasl_user() added CMD_SASLDB_LISTUSERS2 to vhcs2.conf;
-
-	(o) vhcs2-mbox-mngr fix by 'Reisswolf' - fix bug #0000101 (fix postfix waring "/var/spool/postfix/etc/sasldb2 and /etc/sasldb2 differ" changed: MTA_SASLDB_FILE and added: ETC_SASLDB_FILE in vhcs2.conf;
-
-	(o) vhcs2-mbox-mngr fix by 'Reisswolf' - now mail passwords would be encoded in md5 used by courier, so passwords with more then 8 characters could be used;
-
-	(o) vhcs2-backup-all fix by 'Reisswolf' - fixed locking if user backup folder did not exist; fixed error message in the backup manager logfile in /var/log/vhcs ;
-
-	(o) vhcs2-dmn-mngr fix by 'Reisswolf' - fixed non copying the errorpages and default index page (was a fix for 2.4.7-dev);
 
 	If you want to do the same with apache2 log files for every domain in your server then you must add corresponding entry in your local logrotate configuration. For example in Debian this entry looks like the following:
 
@@ -291,116 +358,3 @@ contents:
 	To eliminate the chance for double traffic counting you must
 configure your logrotate to run right after VHCS's virtual traffic
 counting.
-
-
-
-
-GUI Changes
--------------------------------
-
-1. Optional Hosting Plan Managemnt in admin or reseller level
-
-At a moment this can be definded in /gui/include/vhcs-lib.php
-and should be defined in the variable $cfg['HOSTING_PLANS_LEVEL']
-
-2. several gui bug fixes
-
-3. Every date in the GUI use now the DATE_FORMAT fix by 'Reisswolf'
-
-4. Every FTP Seperator comes now from FTP_USERNAME_SEPARATOR fix by 'Reisswolf' 
-	(this means only the new added FTP accounts, all other accounts must be 
-	changed manually by a SQL query.)
-
-5. phpMyAdmin update to phpMyAdmin-2.6.4-pl4 by 'Reisswolf'
-
-6. deleted some unused templates by 'Reisswolf'
-
-7. webmail update to uebimiau version 2.7.9
-
-8. filemanager update to weeble version 1.2.2-CVS by 'Reisswolf'
-
-9. added HTML-SSL, POP3-SSL, IMAP-SSL to server status overview in admin section by 'Reisswolf'
-
-10. added Password reminder, thanks to Mark Henning (tirex)
-	Features:
-	* mail templates for admin and reseller
-	* verification with activationlink and captcha-grafic
-	* created passwords are build out of numbers and letters
-
-11. better character converting for suggested mountpoints, not showing "add subdomain" in the menu if now subdomains are available.
-
-12. Not showing aliasdomain and subdomain parts in manage_domains content area if this functions are not available for the client
-
-13. better Cross Site Scripting prevention (GUI)
-
-14. new feature: a sql user can have more than one database (GUI)
-
-15. Hosting Plan Management reviewed (GUI)
-
-16. Hosting Plan now has decimal numbers (SQL Structure Update)
-
-17. Some template errors (layout + Javascript) are fixed
-
-18. autoresponder text can now be edited (GUI)
-
-19. fixed 2 security leaks in the autoresponder (GUI + SQL Injection)
-
-20. Domains and reseller are now sorted alphabetically (GUI)
-
-21. Email notification on support request (GUI)
-
-
-
-Extra Changes
--------------------------------
-
-1. All language files are included into the build and in the database
-
-	* Spanish translation by Dani, thanks!
-	* Finnish translation by Petri MŠkelŠ, thanks!
-	* Chinese translation by Xu hiei, thanks!
-	* German translation by Mauric Rene Oberlaender, thanks!
-	* Italian translation by Ugo Viti, thanks!
-	* Dutch translation by Casper Bakker, thanks!
-	* Russian translation by Lord Daedra, thanks!
-	* Brazilian Portuguese translation by Decio A.Alves, thanks!
-
-
-2. Seperate language tables out of database.sql
-
-
-
-All bugfixes from bugtracker:
--------------------------------
-
-Fixed bug #0000037: webmail logout produces error message
-Fixed bug #0000130: User can provoke LOCK on VHCS Backup Manager
-Fixed bug #0000210: Protected pages return error
-Fixed bug #0000142: Subdomains don't get error docs defined
-Fixed bug #0000034: Error in vhcs2/gui/admin/sysinfo.php
-Fixed bug #0000101: postfix/postfix-script: warning: /var/spool/postfix/etc/sasldb2 and /etc/sasldb2 differ
-Fixed bug #0000060: error in domain statistics overview
-Fixed bug #0000067: Adding Users with .htaccess Management
-Fixed bug #0000138: Cross-Site-Scripting Issues in VHCS-GUI
-Fixed bug #0000161: "CMD_SASLDB_LISTUSERS2" fehlt in vhcs2.conf
-Fixed bug #0000191: get_human_date in vhcs2_common_code.pl returns wrong month number
-Fixed bug #0000125: webmail themes/templates loads a lot of not existing files
-Fixed bug #0000043: Wrong heading is shown in vhcs2/client/add_alias.php using template modern_blue
-Fixed bug #0000209: Orderpanel site (with more than 1 reseller)
-Fixed bug #0000197: email password length check
-Fixed bug #0000164: Cross Site Scripting in GUI
-Fixed bug #0000162: Add Alias is shown in enable alias forward even if alias are disabled by reseller
-Fixed bug #0000086: Wrong permissions for Autoresponder
-Fixed bug #0000203: Autoresponder dies on mailprocessing
-Fixed bug #0000189: Update hosting plan
-Fixed bug #0000166: HTML Format error + typo error
-Fixed bug #0000206: PHP Warning when /proc/swaps doesn't exist
-Fixed bug #0000208: Order_settings.php -> spaces in texareas
-Fixed bug #0000207: no "Custom buttons" under /reseller/language.php
-Fixed bug #0000201: Cannot create subdomains as domains
-Fixed bug #0000104: Autoresponder tool is broken
-Fixed bug #0000192: Autoreply English spelling
-Fixed bug #0000199: Orderpanel - does not use the correct language
-Fixed bug #0000195: Install doesn't start on debian
-Fixed bug #0000190: new domain user login problems
-
