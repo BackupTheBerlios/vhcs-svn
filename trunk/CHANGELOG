@@ -1,5 +1,8 @@
 VHCS 2.4.7 Changelog
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
+2005-12-21 Carsten Schoene
+
+	- GUI: * Fixed: MySQL user hostmask ('%') patch reworked, now users will be added with localhost and % as hostmask to mysql permission tables
 
 2005-12-21 Erik Lehmann
 
