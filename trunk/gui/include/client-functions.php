@@ -682,7 +682,10 @@ SQL_QUERY;
         	revoke all on *.* from ?@'%'
 SQL_QUERY;
     	$rs = exec_query($sql, $query, array($db_user_name));
-
+	$query = <<<SQL_QUERY
+		revoke all on *.* from ?@localhost
+SQL_QUERY;
+	$rs = exec_query($sql, $query, array($db_user_name));
     	//
     	// revoke grants on db level, if any;
     	//
@@ -696,7 +699,10 @@ SQL_QUERY;
        	 	revoke all on $new_db_name.* from ?@'%'
 SQL_QUERY;
     	$rs = exec_query($sql, $query, array($db_user_name));
-
+	$query = <<<SQL_QUERY
+		revoke all on $new_db_name.* from ?@localhost
+SQL_QUERY;
+	$rs = exec_query($sql, $query, array($db_user_name));
     	//
     	// delete user record from mysql.user table;
     	//
@@ -709,6 +715,16 @@ SQL_QUERY;
           	  User = ?
 SQL_QUERY;
    	 	$rs = exec_query($sql, $query, array($db_user_name));
+
+	$query = <<<SQL_QUERY
+	delete from
+		mysql.user
+	where
+		Host = 'localhost'
+	and
+		User = ?
+SQL_QUERY;
+		$rs = exec_query($sql, $query, array($db_user_name));
 
     	//
     	// flush privileges.

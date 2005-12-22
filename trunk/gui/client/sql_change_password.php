@@ -81,9 +81,16 @@ SQL_QUERY;
   $query = <<<SQL_QUERY
 
         SET PASSWORD FOR '$db_user_name'@'%' = PASSWORD('$user_pass')
-        
+ 
 SQL_QUERY;
 
+    $rs = execute_query($sql, $query);
+
+  $query = <<<SQL_QUERY
+
+	SET PASSWORD FOR '$db_user_name'@localhost = PASSWORD('$user_pass')
+
+SQL_QUERY;
     $rs = execute_query($sql, $query);
 
     write_log($_SESSION['user_logged']." : update SQL user password".$db_user_name);
