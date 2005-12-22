@@ -15,6 +15,14 @@ tangra: # mv /var/www/vhcs2/gui /var/www/vhcs2/gui_bcp_yyyymmdd
 tangra: # cp -R /var/www/vhcs2/engine /var/www/vhcs2/engine_bcp_yyyymmdd
 
 -------------------
+init.d Update
+-------------------
+
+1) Copy the new init.d file
+
+tangra: # cp -a /mydir/configs/init.d/vhcs2_daemon
+
+-------------------
 Engine Update
 -------------------
 
