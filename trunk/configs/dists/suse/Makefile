@@ -13,6 +13,7 @@ install:
 		cd ./postfix && $(MAKE) install ; cd .. ; \
 		cd ./courier && $(MAKE) install ; cd .. ; \
 		cd ./proftpd && $(MAKE) install ; cd .. ; \
+		cd ./logrotate %% $(MAKE) install ; cd .. ; \
 	fi
    
 uninstall:
@@ -27,6 +28,7 @@ uninstall:
 		cd ./postfix && $(MAKE) uninstall ; cd .. ; \
 		cd ./courier && $(MAKE) uninstall ; cd .. ; \
 		cd ./proftpd && $(MAKE) uninstall ; cd .. ; \
+		cd ./logrotate && $(MAKE) uninstall ; cd .. ; \
 	fi
    
 

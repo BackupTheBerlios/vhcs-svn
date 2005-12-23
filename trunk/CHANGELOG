@@ -1,5 +1,9 @@
 VHCS 2.4.7 Changelog
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
+2005-12-23 Carsten Schoene
+
+	- INSTALLATION:
+		* Added: logrotate script for debian & SuSE 
 
 2005-12-22 Erik Lehmann
 
