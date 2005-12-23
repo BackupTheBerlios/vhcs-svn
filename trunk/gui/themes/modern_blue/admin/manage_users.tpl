@@ -286,8 +286,8 @@ function MM_swapImgRestore() { //v3.0
                   <td class="{RSL_CLASS}"><a href="{URL_EDIT_RSL}" class="link">{RSL_USERNAME} </a> </td>
                   <td class="{RSL_CLASS}" align="center">{RESELLER_CREATED_ON}</td>
                   <td class="{RSL_CLASS}">{RSL_CREATED_BY}</td>
-                  <td width="100" align="center" class="{RSL_CLASS}"><img src="{THEME_COLOR_PATH}/images/icons/delete.gif" width="16" height="16" border="0" align="absmiddle"> <a href="#" onClick="action_delete('{URL_DELETE_RSL}')" class="link">{TR_DELETE}</a></td>
                   <td width="150" align="center" class="{RSL_CLASS}"><img src="{THEME_COLOR_PATH}/images/icons/details.gif" width="18" height="18" border="0" align="absmiddle"> <a href="{URL_CHANGE_INTERFACE}" class="link">{GO_TO_USER_INTERFACE}</a></td>
+                  <td width="100" align="center" class="{RSL_CLASS}"><img src="{THEME_COLOR_PATH}/images/icons/delete.gif" width="16" height="16" border="0" align="absmiddle"> <a href="#" onClick="action_delete('{URL_DELETE_RSL}')" class="link">{TR_DELETE}</a></td>
                 </tr>
                 <!-- EDP: rsl_item -->
                 <!-- EDP: rsl_list -->
@@ -365,6 +365,7 @@ function MM_swapImgRestore() { //v3.0
                 <td class="{USR_CLASS}" align="center">{USR_CREATED_BY}</td>
 		
 		        <td width="80" align="center" nowrap class="{USR_CLASS}"><img src="{THEME_COLOR_PATH}/images/icons/bullet.gif" width="18" height="18" border="0" align="absmiddle"> <a href="domain_details.php?domain_id={DOMAIN_ID}" class="link">{TR_DETAILS}</a></td>
+				<td width="80" align="center" nowrap class="{USR_CLASS}"><img src="{THEME_COLOR_PATH}/images/icons/details.gif" width="18" height="18" border="0" align="absmiddle"> <a href="{URL_CHANGE_INTERFACE}" class="link">{GO_TO_USER_INTERFACE}</a></td>
 		        <td width="80" align="center" nowrap class="{USR_CLASS}">
 		<!-- BDP: usr_delete_show -->
 		{TR_DELETE}
@@ -373,7 +374,6 @@ function MM_swapImgRestore() { //v3.0
 		<img src="{THEME_COLOR_PATH}/images/icons/delete.gif" width="16" height="16" border="0" align="absmiddle"> <a href="#" onClick="action_delete('{URL_DELETE_USR}')" class="link">{TR_DELETE}</a>
 		<!-- EDP: usr_delete_link -->
 		</td>
-		<td width="80" align="center" nowrap class="{USR_CLASS}"><img src="{THEME_COLOR_PATH}/images/icons/details.gif" width="18" height="18" border="0" align="absmiddle"> <a href="{URL_CHANGE_INTERFACE}" class="link">{GO_TO_USER_INTERFACE}</a></td>
 		
               </tr>
 			  <!-- BDP: user_details -->
