@@ -9,12 +9,13 @@ courier-imap
 courier-maildrop
 courier-pop
 diff
-gawk
+dnsutils
+gcc
 gzip
 iptables
 libapache2-mod-php4
 libberkeleydb-perl
-libc-dev
+libc6-dev
 libcrypt-blowfish-perl
 libcrypt-cbc-perl
 libcrypt-passwdmd5-perl
@@ -22,7 +23,6 @@ libdate-calc-perl
 libdate-manip-perl
 libdbd-mysql-perl
 libdbi-perl
-libgd1g
 libio-stringy-perl
 libmail-sendmail-perl
 libmailtools-perl
@@ -45,6 +45,7 @@ make
 mysql-client-4.1
 mysql-common-4.1
 mysql-server-4.1
+original-awk
 patch
 perl
 perl-base
@@ -59,4 +60,6 @@ postfix-tls
 procmail
 proftpd-mysql
 sasl2-bin
+ssh
+tar
 wget
