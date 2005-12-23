@@ -35,7 +35,6 @@ if (isset($_GET['id'])) {
   user_goto('catchall.php');
 }
 
-
 //
 // page functions.
 //
@@ -78,7 +77,6 @@ function gen_dynamic_page_data(&$tpl, &$sql, $id)
 		header("Location: catchall.php");
 		die();
 	}
-
 
   $ok_status = $cfg['ITEM_OK_STATUS'];
   if (preg_match("/(\d+);(dmn|als)/", $id, $match) == 1) {
@@ -174,7 +172,7 @@ SQL_QUERY;
 function create_catchall_mail_account(&$sql, $id)
 {
 	// Check if user is owner of the domain
-	$query = <<<SQL_QUERY
+	/*$query = <<<SQL_QUERY
 		SELECT
 			COUNT(mail_id) as cnt
 		FROM
@@ -190,9 +188,12 @@ SQL_QUERY;
 	$rs = exec_query($sql, $query, array($domain_id, $mail_id));
 	
 	if ($rs -> fields['cnt'] == 0) {
+		set_page_message(tr('0!'.$domain_id.$mail_id));
 		header("Location: catchall.php");
+		die();
+#		header("Location: catchall.php");
 	}
-
+*/
   global $cfg;
 
   if (isset($_POST['uaction']) && $_POST['uaction'] === 'create_catchall' && $_POST['mail_type'] === 'normal') {
@@ -307,7 +308,6 @@ SQL_QUERY;
       }
     }
 }
-
 
 
 //

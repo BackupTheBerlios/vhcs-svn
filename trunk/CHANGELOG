@@ -1,5 +1,11 @@
 VHCS 2.4.7 Changelog
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
+2005-12-23 Erik Lehmann
+
+	- GUI:
+		* Changed: Switched position of go-to and delete in admin manage_user.php template
+		* Fixed bug #0000263: cant add catchall email if email account is a forward
+
 2005-12-23 Carsten Schoene
 
 	- INSTALLATION:
