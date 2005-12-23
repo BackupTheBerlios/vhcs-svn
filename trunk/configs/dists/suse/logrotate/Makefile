@@ -2,9 +2,9 @@ export
 
 install:
 
-	cp ./vhcs2 $(SYSTEM_CONF)/logrotate.d
+	cp ./vhcs2 $(ROOT_CONF)/logrotate.d
 
 uninstall:
 
-	rm -rf $(SYSTEM_CONF)/logrotate.d/vhcs2
+	rm -rf $(ROOT_CONF)/logrotate.d/vhcs2
 
