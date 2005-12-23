@@ -36,7 +36,6 @@ php4-session
 php4-shmop
 php4-snmp
 php4-sockets
-php4-swf
 php4-sysvsem
 php4-sysvshm
 php4-unixODBC

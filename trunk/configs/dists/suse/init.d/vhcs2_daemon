@@ -47,8 +47,8 @@ case "$1" in
   start)
 	echo -n "Starting $DESC: "
 	startproc -f $DAEMON -p $PID
-        /etc/init.d/vhcs2_network
 	rc_status -v
+        /etc/init.d/vhcs2_network
 	;;
   stop)
 	echo -n "Stopping $DESC: "
@@ -58,8 +58,7 @@ case "$1" in
   restart|force-reload)
 	echo "Restarting $DESC: "                                     
 	$0 stop
-	$0 start 
-	/etc/init.d/vhcs2_network
+	$0 start
 	rc_status -v
 	;;
   status)
