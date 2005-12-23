@@ -352,33 +352,3 @@ before vhcs2.4.7-alpha1 Alexander Kotov
 		* Fixed bug #0000190: new domain user login problems
 
 
-
-	If you want to do the same with apache2 log files for every domain in your server then you must add corresponding entry in your local logrotate configuration. For example in Debian this entry looks like the following:
-
-filename: 
-	
-	/etc/logrotate.d/vhcs2
-
-contents:
-
-	=== cut ===
-	/var/log/apache2/users/*.log {
-			weekly
-			missingok
-			rotate 52
-			compress
-			delaycompress
-			notifempty
-			create 640 root adm
-			sharedscripts
-			postrotate
-					if [ -f /var/run/apache2.pid ]; then
-							/etc/init.d/apache2 restart > /dev/null
-					fi
-			endscript
-	}
-	=== cut ===
-
-	To eliminate the chance for double traffic counting you must
-configure your logrotate to run right after VHCS's virtual traffic
-counting.
