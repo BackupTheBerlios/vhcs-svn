@@ -106,7 +106,7 @@ $cfg['HOSTING_PLANS_LEVEL'] = 'reseller';
 'reseller' => hosting plans are available only in reseller level
 */
 
-$cfg['VHCS_LICENSE'] = 'VHCS<sup>&reg;</sup> Pro v2.4.7<br>build: 2005-09-28<br>Spartacus';
+$cfg['VHCS_LICENSE'] = 'VHCS<sup>&reg;</sup> Pro v2.4.7<br>build: 2005-12-24<br>Spartacus';
 
 // variable for developmetn edition => shows all php variables under the pages
 //$cfg['DUMP_GUI_DEBUG'] = '_on_'; 
