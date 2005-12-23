@@ -24,6 +24,15 @@ tangra: # cp -a /mydir/configs/init.d/vhcs2_daemon
 
 
 -------------------
+Configuration file Update
+-------------------
+
+1) Copy vhcs apache user logrotate script
+
+tangra: # cd /mydir/configs/logrotate/vhcs /etc/logrotate.d/vhcs2
+
+
+-------------------
 vhcs2.conf Update
 -------------------
 
