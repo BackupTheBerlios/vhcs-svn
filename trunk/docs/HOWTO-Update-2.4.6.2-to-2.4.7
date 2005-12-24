@@ -283,23 +283,11 @@ tangra: # apt-get install php4-gd
 Apache neustarten:
 tangra: # apache2ctl graceful
 
-4) Hostingplan changes: 
-
-in the /var/www/vhcs2/gui/include/vhcs-lib.php
-
-Search for $cfg['HOSTING_PLANS_LEVEL'] you have this options:
-
-'admin' => hosting plans are available only in admin level, reseller can not make custom changes
-'reseller' => hosting plans are available only in reseller level
-
-!!!Attention: If you have already hostingplans in reseller area you should turn this option to
-	'reseller' !!!		
-
-5) Set correct gui permissions:
+4) Set correct gui permissions:
 
 tangra: # /var/www/vhcs2/engine/setup/set-gui-permissions.sh
 
-6) copy gui/errordocs/index.php in all client errordoc directories!
+5) copy gui/errordocs/index.php in all client errordoc directories!
 
 A fixed XSS (Cross-Site-Scripting) bug in that file !!
 

@@ -1,5 +1,11 @@
 VHCS 2.4.7 Changelog
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+2005-12-24 Erik Lehmann
+
+	- RELEASE:
+		* vhcs2.4.7-stable
+
 2005-12-23 Erik Lehmann
 
 	- GUI:
@@ -30,7 +36,6 @@ VHCS 2.4.7 Changelog
 
 	- INSTALLATION:
 		* Added: SuSE configuration files for courier-imap-ssl & courier-pop-ssl services
-
 	- GUI:
 		* Fixed: build version string to 2005-12-24	
 
@@ -356,5 +361,4 @@ before vhcs2.4.7-alpha1 Alexander Kotov
 		* Fixed bug #0000142: Subdomains don't get error docs defined
 		* Fixed bug #0000189: Update hosting plan
 		* Fixed bug #0000190: new domain user login problems
-
 
