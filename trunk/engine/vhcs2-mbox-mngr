@@ -308,6 +308,10 @@ sub mbox_add_mta_cfg_autorespond_data {
         
         my $hash_value = "$mail_acc\@$dmn_name,$mail_acc\@vhcs2-arpl.$dmn_name";
         
+		$rs = del_mta_hash_value($aliases_working_cfg, $hash_key);
+        
+		return $rs if ($rs != 0);
+            
         $rs = set_mta_hash_value($aliases_working_cfg, $hash_key, $hash_value);
         
         return $rs if ($rs != 0);
@@ -347,6 +351,10 @@ sub mbox_add_mta_cfg_autorespond_data {
         
         my $hash_value = "$mail_acc\@$dmn_name,$mail_acc\@vhcs2-arpl.$dmn_name";
         
+		$rs = del_mta_hash_value($aliases_working_cfg, $hash_key);
+        
+		return $rs if ($rs != 0);
+            
         $rs = set_mta_hash_value($aliases_working_cfg, $hash_key, $hash_value);
         
         return $rs if ($rs != 0);
@@ -390,6 +398,10 @@ sub mbox_add_mta_cfg_autorespond_data {
         
         my $hash_value = "$mail_acc\@$sub_name,$mail_acc\@vhcs2-arpl.$sub_name";
         
+		$rs = del_mta_hash_value($aliases_working_cfg, $hash_key);
+        
+		return $rs if ($rs != 0);
+            
         $rs = set_mta_hash_value($aliases_working_cfg, $hash_key, $hash_value);
         
         return $rs if ($rs != 0);
@@ -1220,7 +1232,7 @@ sub mbox_add_mta_cfg_data {
         return $rs if ($rs != 0);
         
         if ($mail_autorespond ne '_no_') {
-            
+
             $rs = mbox_add_mta_cfg_autorespond_data($mbox_data);
             
             return $rs if ($rs != 0);
@@ -1230,6 +1242,18 @@ sub mbox_add_mta_cfg_data {
             $rs = mbox_del_mta_cfg_autorespond_data($mbox_data);
             
             return $rs if ($rs != 0);
+
+	        $rs = set_mta_hash_value($aliases_working_cfg, $hash_key, $hash_key);
+        
+    	    return $rs if ($rs != 0);
+       
+        	($rs, $working) = get_file($aliases_working_cfg);
+        
+	        return $rs if ($rs != 0);
+        
+    	    $rs = store_file($aliases_cfg, $working, 'root', 'root', 0644);
+        
+        	return $rs if ($rs != 0);
             
         }
         
@@ -1266,6 +1290,18 @@ sub mbox_add_mta_cfg_data {
             $rs = mbox_del_mta_cfg_autorespond_data($mbox_data);
             
             return $rs if ($rs != 0);
+            
+	        $rs = set_mta_hash_value($aliases_working_cfg, $hash_key, $hash_key);
+        
+    	    return $rs if ($rs != 0);
+       
+        	($rs, $working) = get_file($aliases_working_cfg);
+        
+	        return $rs if ($rs != 0);
+        
+    	    $rs = store_file($aliases_cfg, $working, 'root', 'root', 0644);
+        
+        	return $rs if ($rs != 0);
             
         }
         
@@ -1308,6 +1344,18 @@ sub mbox_add_mta_cfg_data {
             $rs = mbox_del_mta_cfg_autorespond_data($mbox_data);
             
             return $rs if ($rs != 0);
+            
+	        $rs = set_mta_hash_value($aliases_working_cfg, $hash_key, $hash_key);
+        
+    	    return $rs if ($rs != 0);
+       
+        	($rs, $working) = get_file($aliases_working_cfg);
+        
+	        return $rs if ($rs != 0);
+        
+    	    $rs = store_file($aliases_cfg, $working, 'root', 'root', 0644);
+        
+        	return $rs if ($rs != 0);
             
         }
         
