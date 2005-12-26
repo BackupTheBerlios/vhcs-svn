@@ -1,6 +1,12 @@
 VHCS 2.4.7 Changelog
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+2005-12-26 Erik Lehmann
+
+	- ENGINE:
+		* Fixed bug #0000269: auto-responder - the sender gets a "Undelivered mail returned to sender" message
+		* Fixed bug: auto responder didn't work with subdomain mail acc
+
 2005-12-24 Erik Lehmann
 
 	- RELEASE:
@@ -20,7 +26,7 @@ VHCS 2.4.7 Changelog
 2005-12-22 Erik Lehmann
 
 	- ENGINE:
-		* Fixed bug 0000265: typo @ ../init.d/vhcs2_daemon (only in rc1)
+		* Fixed bug #0000265: typo @ ../init.d/vhcs2_daemon (only in rc1)
 	- LANGUAGES:
 		* Changed: updated lang_english table contents
 		* Changed: Completed translations for languages:

@@ -1354,6 +1354,8 @@ $main::cfg_file = '/etc/vhcs2/vhcs2.conf';
 
 $main::cfg_re = '^([\_A-Za-z0-9]+) *= *([^\n\r]*)[\n\r]';
 
+use FindBin;
+use lib "$FindBin::Bin/";
 require 'vhcs2-db-keys.pl';
 
 sub encrypt_db_password {
@@ -1567,7 +1569,7 @@ $main::vhcs2_arpl_msgr_el = "$main::log_dir/vhcs2-arpl-msgr.el";
 #$main::vhcs2_arpl_msgr_stdout = "$main::log_dir/vhcs2-arpl-msgr.stdout";
 #$main::vhcs2_arpl_msgr_stderr = "$main::log_dir/vhcs2-arpl-msgr.stderr";
 
-# $main::engine_debug = '_on_';
+ $main::engine_debug = '_on_';
 
 #
 # common code: END
@@ -1637,6 +1639,8 @@ sub arpl_msgr_shut_down {
 sub arpl_msgr_engine {
     
 	push_el(\@main::el, 'arpl_msgr_engine()', 'Starting...');
+
+	my ($sql, $rs) = (undef, undef);
     
 	my $msg_parser = new MIME::Parser;
     
@@ -1648,7 +1652,7 @@ sub arpl_msgr_engine {
     
 	my @from_ma = Mail::Address->parse($head -> get('From'));
         
-	my @to_addrs = Mail::Address->parse($head -> get('Delivered-To'));
+	my @to_addrs = Mail::Address->parse($head -> get('X-Original-To'));
 
 	my $buffer = "0";
 
@@ -1686,7 +1690,7 @@ sub arpl_msgr_engine {
 
 	        	my ($user, $dmn) = ($1, $2);
 
-    	    	my ($sql, $rs, $ref, $dmn_id, $sub_id, $pt) = (undef, undef, undef, undef, undef, undef);
+    	    	my ($ref, $dmn_id, $sub_id, $pt) = (undef, undef, undef, undef, undef, undef);
 
        		 	my ($domainformsubdomain, $subformsubdomain) = (undef, undef);
 
@@ -1736,6 +1740,8 @@ sub arpl_msgr_engine {
 
 						$subformsubdomain = $1;
 
+						push_el(\@main::el, 'arpl_msgr_engine():', "domainfromsubdomain: |".$domainformsubdomain."| subfromsubdomain".$subformsubdomain."|");
+
 						$sql = "select count(domain_id) as cnt from domain where domain_name = '$domainformsubdomain'";
 
 						($rs, $ref) = doSQL($sql);
@@ -1753,7 +1759,7 @@ sub arpl_msgr_engine {
 			            $ref = @$ref[0]; $dmn_id = @$ref[0];
 
 						$sql = "select subdomain_id from subdomain where subdomain_name = '$subformsubdomain';"; 
-            
+		            
 						($rs, $ref) = doSQL($sql);
             
 						return $rs if ($rs != 0);
@@ -1764,6 +1770,8 @@ sub arpl_msgr_engine {
 					$sql = "select mail_auto_respond from mail_users where mail_acc = '$user' and sub_id = '$sub_id' and domain_id = '$dmn_id';";
             
 		        }
+
+    			push_el(\@main::el, 'arpl_msgr_engine():', "sql: |".$sql."|");
             
 	    	    ($rs, $ref) = doSQL($sql);
             
