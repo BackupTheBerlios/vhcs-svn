@@ -235,9 +235,9 @@ function add_sql_user(&$sql, $user_id, $db_id)
     //
     // we'll use domain_id in the name of the database;
     //
-    if (isset($_POST['id_pos']) && $_POST['id_pos'] === 'start') {
+    if (isset($_POST['use_dmn_id']) && $_POST['use_dmn_id'] === 'on' && isset($_POST['id_pos']) && $_POST['id_pos'] === 'start') {
       $db_user = $dmn_id."_".$_POST['user_name'];
-    } else if (isset($_POST['id_pos']) && $_POST['id_pos'] === 'end') {
+    } else if (isset($_POST['use_dmn_id']) && $_POST['use_dmn_id'] === 'on' && isset($_POST['id_pos']) && $_POST['id_pos'] === 'end') {
       $db_user = $_POST['user_name']."_".$dmn_id;
     } else {
       $db_user = $_POST['user_name'];

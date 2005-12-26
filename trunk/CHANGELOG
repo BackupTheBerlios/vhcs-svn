@@ -3,7 +3,10 @@ VHCS 2.4.7 Changelog
 
 2005-12-26 Erik Lehmann
 
+	- GUI:
+		* Fixed bug #0000268: Add SQL user results in always a numeric prefix
 	- ENGINE:
+		* Fixed bug #0000271: All mails are send to the catchall mail account (if there is one)
 		* Fixed bug #0000269: auto-responder - the sender gets a "Undelivered mail returned to sender" message
 		* Fixed bug: auto responder didn't work with subdomain mail acc
 
