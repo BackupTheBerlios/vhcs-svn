@@ -1264,7 +1264,7 @@ SQL_QUERY;
                  where
                     domain_created_id = '$reseller_id'
                  order by
-                    domain_id desc
+                    domain_name asc
                  limit
                     $start_index, $rows_per_page
 SQL_QUERY;
@@ -1299,7 +1299,7 @@ SQL_QUERY;
                  where
                     $add_query
                  order by
-                    domain_id desc
+                    domain_name asc
                  limit
                     $start_index, $rows_per_page
 SQL_QUERY;
@@ -1353,7 +1353,7 @@ SQL_QUERY;
             and
               t1.admin_id = t2.domain_admin_id
           order by
-               t2.domain_id desc
+               t2.domain_name asc
           limit
                $start_index, $rows_per_page
 SQL_QUERY;
