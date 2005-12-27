@@ -264,9 +264,9 @@ if(count($anexos) > 0) {
 			if($anexos[$i]["content-type"] == "message/rfc822") 
 				$anexos[$i]["normlink"]	= "<a href=\"javascript:openmessage('".join(",",$arAttachment)."')\">";
 			else
-				$anexos[$i]["normlink"] = "<a href=\"$link1\" target=\"_new\">";
+				$anexos[$i]["normlink"] = "$link1";
 
-			$anexos[$i]["downlink"] = "<a href=\"$link2\" target=\"_new\">";
+			$anexos[$i]["downlink"] = "$link2";
 			$anexos[$i]["size"] = ceil($anexos[$i]["size"]/1024);
 			$anexos[$i]["type"] = $anexos[$i]["content-type"];
 			$attachAr[] = $anexos[$i];

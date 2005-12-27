@@ -1,6 +1,11 @@
 VHCS 2.4.7 Changelog
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+2005-12-27 Erik Lehmann
+
+	- GUI:
+		* Fixed bug #0000273: webmail - attachments, the filenames are displayed wrong and the links do not work
+
 2005-12-26 Erik Lehmann
 
 	- GUI:
