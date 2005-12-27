@@ -15,7 +15,7 @@ tangra: # /etc/init.d/vhcs2_daemon stop
 3) Make a backup of the current VHCS files of your system:
 
 tangra: # mv /var/www/vhcs2/gui /var/www/vhcs2/gui_bcp_yyyymmdd
-tangra: # cp -R /var/www/vhcs2/engine /var/www/vhcs2/engine_bcp_yyyymmdd
+tangra: # mv /var/www/vhcs2/engine /var/www/vhcs2/engine_bcp_yyyymmdd
 
 4) Unpack the downloaded archive :
 
@@ -128,7 +128,7 @@ Daemon & init.d Update
 
 1) Copy the new init.d file
 
-tangra: # cp -a /mydir/configs/init.d/vhcs2_daemon
+tangra: # cp -a /mydir/configs/init.d/vhcs2_daemon /etc/init.d/
 
 2) Make the new daemon:
 
@@ -142,7 +142,7 @@ Configuration file Update
 
 1) Copy vhcs apache user logrotate script
 
-tangra: # cd /mydir/configs/logrotate/vhcs /etc/logrotate.d/vhcs2
+tangra: # cp /mydir/configs/logrotate/vhcs /etc/logrotate.d/vhcs2
 
 
 -------------------
@@ -295,8 +295,11 @@ A fixed XSS (Cross-Site-Scripting) bug in that file !!
 Database Update
 -------------------
 
-Updated language tables could be updated by importing the languages.sql 
-For example with phpmyadmin or over commandline. File is located in:
+Updated language tables could be updated by importing through the admin interface. The files are located here:
+
+/mydir/language-files/*
+
+or completely update by importing the languages.sql  For example with phpmyadmin or over commandline. File is located in:
 
 configs/database/languages.sql
 

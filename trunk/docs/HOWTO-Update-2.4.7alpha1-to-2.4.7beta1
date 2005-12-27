@@ -9,7 +9,7 @@ tangra: # /etc/init.d/vhcs2_daemon stop
 2) Make a backup of the current VHCS files of your system:
 
 tangra: # mv /var/www/vhcs2/gui /var/www/vhcs2/gui_bcp_yyyymmdd
-tangra: # cp -R /var/www/vhcs2/engine /var/www/vhcs2/engine_bcp_yyyymmdd
+tangra: # mv /var/www/vhcs2/engine /var/www/vhcs2/engine_bcp_yyyymmdd
 
 
 -------------------
@@ -62,6 +62,19 @@ CMD_AMAVIS = /etc/init.d/amavis
 -------------------
 Engine Update
 -------------------
+
+1) Copy the new engine files
+
+tangra: # cp -a /mydir/engine/ /var/www/vhcs2/
+
+2) Copy your crypt key from the old /engine_bcp_yyyymmdd/vhcs2-db-keys.pl to /engine/vhcs2-db-keys.pl
+
+tangra: # cp /var/www/vhcs2/engine_bcp_yyyymmdd/vhcs2-db-keys.pl /var/www/vhcs2/engine/vhcs2-db-keys.pl
+
+3) Copy your crypt key from the old /engine_bcp_yyyymmdd/vhcs2-db-keys.pl to /engine/messager/vhcs2-db-keys.pl
+
+tangra: # cp /var/www/vhcs2/engine_bcp_yyyymmdd/vhcs2-db-keys.pl /var/www/vhcs2/engine/messager/vhcs2-db-keys.pl
+
 
 Mailbox Engine Update
 -------------------

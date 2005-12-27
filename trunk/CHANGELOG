@@ -5,6 +5,10 @@ VHCS 2.4.7 Changelog
 
 	- GUI:
 		* Fixed bug #0000273: webmail - attachments, the filenames are displayed wrong and the links do not work
+		* Fixed bug #0000272: The lists of domains is ordered by the internal id changed to domainname or alias name.
+	- DOCS:
+		* Fixed bug: Updated howtos for 2.4.7 releases
+		* Added: Howto for Update from 2.4.7 to 2.4.7.1
 
 2005-12-26 Erik Lehmann
 
