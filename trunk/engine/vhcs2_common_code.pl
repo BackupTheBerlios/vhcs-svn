@@ -1965,18 +1965,6 @@ $main::vhcs2_htuser_mngr_stdout = "$main::log_dir/vhcs2-htuser-mngr.stdout";
 $main::vhcs2_htuser_mngr_stderr = "$main::log_dir/vhcs2-htuser-mngr.stderr";
 
 
-$main::vhcs2_arpl_msgr = "$main::root_dir/engine/messager/vhcs2-arpl-msgr";
-
-$main::vhcs2_arpl_msgr_el = "$main::log_dir/vhcs2-arpl-msgr.el";
-$main::vhcs2_arpl_msgr_stdout = "$main::log_dir/vhcs2-arpl-msgr.stdout";
-$main::vhcs2_arpl_msgr_stderr = "$main::log_dir/vhcs2-arpl-msgr.stderr";
-
-$main::vhcs2_arpl_msgr = "$main::root_dir/engine/messager/vhcs2-arpl-msgr";
-
-$main::vhcs2_arpl_msgr_el = "$main::log_dir/vhcs2-arpl-msgr.el";
-$main::vhcs2_arpl_msgr_stdout = "$main::log_dir/vhcs2-arpl-msgr.stdout";
-$main::vhcs2_arpl_msgr_stderr = "$main::log_dir/vhcs2-arpl-msgr.stderr";
-
 $main::vhcs2_vrl_traff = "$main::root_dir/engine/messager/vhcs2-vrl-traff";
 
 $main::vhcs2_vrl_traff_el = "$main::log_dir/vhcs2-vrl-traff.el";
