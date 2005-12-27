@@ -43,7 +43,8 @@ function gen_page_data ( &$tpl, &$sql)
                 admin
             where
                 admin_id = ?
-
+            group by 
+                email
 SQL_QUERY;
 
         $rs = exec_query($sql, $query, array($user_id));
@@ -149,6 +150,8 @@ function send_reseller_users_message ( &$sql, $admin_id)
             admin
         where
             admin_type = 'user' and created_by = ?
+        group by 
+            email
 SQL_QUERY;
 
 
