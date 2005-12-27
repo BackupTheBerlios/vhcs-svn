@@ -1569,7 +1569,7 @@ $main::vhcs2_arpl_msgr_el = "$main::log_dir/vhcs2-arpl-msgr.el";
 #$main::vhcs2_arpl_msgr_stdout = "$main::log_dir/vhcs2-arpl-msgr.stdout";
 #$main::vhcs2_arpl_msgr_stderr = "$main::log_dir/vhcs2-arpl-msgr.stderr";
 
- $main::engine_debug = '_on_';
+#$main::engine_debug = '_on_';
 
 #
 # common code: END
